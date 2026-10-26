@@ -1,46 +1,4 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>iPhone</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
-<style>
-  :root {
-    --ios-bg: #000000;
-    --ios-blue: #007AFF;
-    --ios-green: #34C759;
-    --ios-red: #FF3B30;
-    --ios-yellow: #FFCC00;
-    --ios-gray: #8E8E93;
-    --ios-light-bg: #F2F2F7;
-    --kakao-bg: #ABC1D1;
-    --kakao-yellow: #FEE500;
-    --kakao-brown: #3A1D1D;
-  }
-
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    user-select: none;
-    -webkit-user-select: none;
-    -webkit-touch-callout: none;
-    -webkit-tap-highlight-color: transparent;
-    font-family: "Pretendard Variable", -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", sans-serif;
-  }
-
-  html, body {
-    width: 100vw;
-    height: 100dvh;
-    overflow: hidden;
-    background: #000;
-    color: #fff;
-  }
-
-  .no-scrollbar::-webkit-scrollbar { display: none; }
-  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
+<!-- ... existing code ... -->
   /* Fullscreen iOS Container */
   #ios-viewport {
     position: relative;
@@ -50,1629 +8,251 @@
     background: #000;
   }
 
+  /* ================= 0-A. EVERYTIME INTRO OVERLAY ================= */
+  #everytime-intro {
+    position: absolute;
+    inset: 0;
+    z-index: 10000;
+    background: #ffffff;
+    color: #292929;
+    display: flex;
+    flex-direction: column;
+    padding-top: 48px;
+    transition: opacity 0.85s ease, visibility 0.85s ease;
+  }
+  #everytime-intro.fade-out {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  .et-header {
+    height: 48px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #f2f2f2;
+    background: #fff;
+    flex-shrink: 0;
+  }
+  .et-submit-btn {
+    background: #C62917;
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    padding: 6px 13px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.12s ease, background 0.15s ease;
+  }
+  .et-submit-btn.pressed {
+    transform: scale(0.91);
+    background: #9e1f10;
+  }
+  .et-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.05em;
+    background: #C62917;
+    vertical-align: text-bottom;
+    margin-left: 1px;
+    animation: etBlink 0.75s infinite;
+  }
+  @keyframes etBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  .et-post-item {
+    padding: 14px 16px;
+    border-bottom: 1px solid #f2f2f2;
+    background: #fff;
+  }
+  .et-post-item.new-highlight {
+    animation: etNewFlash 1.2s ease;
+  }
+  @keyframes etNewFlash {
+    0% { background: #fff5f5; }
+    100% { background: #ffffff; }
+  }
+
   /* ================= 0. NAME INPUT OVERLAY ================= */
   #name-gate {
-    position: absolute;
-    inset: 0;
-    z-index: 9999;
-    background: rgba(10, 12, 18, 0.92);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-    transition: opacity 0.35s ease, visibility 0.35s ease;
-  }
-  #name-gate.hidden {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-  }
-  .name-dialog {
-    width: 100%;
-    max-width: 310px;
-    background: rgba(38, 38, 42, 0.92);
-    border: 0.5px solid rgba(255, 255, 255, 0.16);
-    border-radius: 18px;
-    overflow: hidden;
-    text-align: center;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65);
-  }
-  .name-dialog-body {
-    padding: 24px 20px 18px;
-  }
-  .name-dialog-title {
-    font-size: 17px;
-    font-weight: 600;
-    color: #fff;
-    letter-spacing: -0.3px;
-    margin-bottom: 6px;
-  }
-  .name-dialog-sub {
-    font-size: 13px;
-    color: rgba(255, 255, 255, 0.65);
-    margin-bottom: 16px;
-    line-height: 1.4;
-  }
-  .name-input-box {
-    width: 100%;
-    background: rgba(0, 0, 0, 0.38);
-    border: 0.5px solid rgba(255, 255, 255, 0.24);
-    border-radius: 9px;
-    padding: 10px 12px;
-    font-size: 16px;
-    color: #fff;
-    text-align: center;
-    outline: none;
-    user-select: text;
-    -webkit-user-select: text;
-  }
-  .name-input-box:focus {
-    border-color: #0A84FF;
-  }
-  .name-dialog-btn {
-    width: 100%;
-    padding: 13px;
-    background: transparent;
-    border: none;
-    border-top: 0.5px solid rgba(255, 255, 255, 0.15);
-    color: #0A84FF;
-    font-size: 17px;
-    font-weight: 600;
-    cursor: pointer;
-  }
-  .name-dialog-btn:active {
-    background: rgba(255, 255, 255, 0.08);
-  }
-
-  /* ================= STATUS BAR & HOME INDICATOR ================= */
-  #status-bar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 48px;
-    padding: 0 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    z-index: 500;
-    font-size: 15px;
-    font-weight: 600;
-    letter-spacing: -0.3px;
-    pointer-events: none;
-    transition: color 0.2s ease;
-  }
-  #status-bar.dark-text {
-    color: #000;
-  }
-  #status-bar.light-text {
-    color: #fff;
-  }
-  .status-icons {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  #home-bar-zone {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 600;
-    cursor: pointer;
-  }
-  #home-bar-pill {
-    width: 138px;
-    height: 5px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.85);
-    transition: background 0.2s ease, transform 0.15s ease;
-  }
-  #home-bar-zone:active #home-bar-pill {
-    transform: scaleX(1.08);
-  }
-
-  /* ================= 1. LOCK SCREEN ================= */
-  #lock-screen {
-    position: absolute;
-    inset: 0;
-    z-index: 300;
-    background-color: #141e30;
-    background-image: linear-gradient(180deg, #1b2845 0%, #274060 50%, #1b2845 100%);
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 58px 18px 34px;
-    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
-    cursor: pointer;
-  }
-  #lock-screen::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(0,0,0,0.22) 0%, rgba(0,0,0,0.12) 50%, rgba(0,0,0,0.42) 100%);
-    pointer-events: none;
-  }
-  #lock-screen.unlocked {
-    transform: translateY(-100%);
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .ios-glass {
-    background: rgba(35, 38, 45, 0.58);
-    backdrop-filter: blur(28px);
-    -webkit-backdrop-filter: blur(28px);
-    border: 0.5px solid rgba(255, 255, 255, 0.18);
-  }
-
-  /* Passcode Modal */
-  #passcode-overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 350;
-    background: rgba(12, 15, 24, 0.78);
-    backdrop-filter: blur(35px);
-    -webkit-backdrop-filter: blur(35px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 90px 32px 44px;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: opacity 0.25s ease, visibility 0.25s ease;
-  }
-  #passcode-overlay.active {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-  }
-  .pin-dot {
-    width: 13px;
-    height: 13px;
-    border-radius: 50%;
-    border: 1.5px solid #fff;
-    background: transparent;
-    transition: background 0.12s ease, transform 0.12s ease;
-  }
-  .pin-dot.filled {
-    background: #fff;
-    transform: scale(1.08);
-  }
-  .keypad-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 78px);
-    gap: 16px 26px;
-    justify-content: center;
-  }
-  .key-btn {
-    width: 78px;
-    height: 78px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.16);
-    border: none;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background 0.12s ease;
-  }
-  .key-btn:active {
-    background: rgba(255, 255, 255, 0.42);
-  }
-  .key-num {
-    font-size: 31px;
-    font-weight: 400;
-    line-height: 1;
-  }
-  .key-sub {
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    margin-top: 3px;
-    opacity: 0.8;
-  }
-  @keyframes shakePin {
-    0%, 100% { transform: translateX(0); }
-    20%, 60% { transform: translateX(-12px); }
-    40%, 80% { transform: translateX(12px); }
-  }
-  .shake { animation: shakePin 0.35s ease; }
-
-  /* ================= 2. HOME SCREEN ================= */
-  #home-screen {
-    position: absolute;
-    inset: 0;
-    z-index: 100;
-    background-color: #1c2536;
-    background-image: linear-gradient(165deg, #1e293b 0%, #334155 50%, #0f172a 100%);
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 58px 20px 32px;
-  }
-  #home-screen::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.18);
-    pointer-events: none;
-  }
-
-  .app-grid {
-    position: relative;
-    z-index: 2;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px 14px;
-    justify-items: center;
-    max-width: 430px;
-    width: 100%;
-    margin: 0 auto;
-  }
-  .app-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    cursor: pointer;
-    position: relative;
-  }
-  .app-icon-box {
-    width: 62px;
-    height: 62px;
-    border-radius: 14.5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.28);
-    transition: transform 0.12s ease, filter 0.12s ease;
-    position: relative;
-    overflow: hidden;
-  }
-  .app-item:active .app-icon-box {
-    transform: scale(0.91);
-    filter: brightness(0.82);
-  }
-  .app-label {
-    font-size: 11.5px;
-    font-weight: 500;
-    color: #fff;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.65);
-    letter-spacing: -0.2px;
-  }
-  .ios-badge {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    min-width: 21px;
-    height: 21px;
-    padding: 0 6px;
-    border-radius: 999px;
-    background: var(--ios-red);
-    color: #fff;
-    font-size: 12px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 5;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-  }
-
-  .ios-dock {
-    position: relative;
-    z-index: 2;
-    max-width: 430px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 13px 18px;
-    border-radius: 32px;
-    background: rgba(255, 255, 255, 0.22);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
-
-  /* ================= 3. APP WINDOWS ================= */
-  .app-window {
-    position: absolute;
-    inset: 0;
-    z-index: 200;
-    display: flex;
-    flex-direction: column;
-    background: #fff;
-    color: #000;
-    transform: scale(0.92);
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.22s ease, visibility 0.28s;
-  }
-  .app-window.open {
-    transform: scale(1);
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-  }
-
-  /* KakaoTalk Bubble Tails & Styling */
-  .katalk-room-bg {
-    background-color: var(--kakao-bg);
-  }
-  .katalk-pfp {
-    width: 40px;
-    height: 40px;
-    border-radius: 15px;
-    object-fit: cover;
-    flex-shrink: 0;
-    background-size: cover;
-    background-position: center;
-  }
-  .katalk-list-pfp {
-    width: 50px;
-    height: 50px;
-    border-radius: 19px;
-    object-fit: cover;
-    flex-shrink: 0;
-    background-size: cover;
-    background-position: center;
-  }
-</style>
-</head>
-<body>
-
-<div id="ios-viewport">
-
+<!-- ... existing code ... -->
   <!-- Background Audio Element (Unlocked on 0612) -->
   <audio id="bgm-audio" loop preload="auto"></audio>
 
-  <!-- ================= 0. USER NAME INPUT MODAL ================= -->
-  <div id="name-gate">
-    <div class="name-dialog">
-      <div class="name-dialog-body">
-        <div class="name-dialog-title">이름을 입력하세요</div>
-        <div class="name-dialog-sub">성을 제외한 이름을 입력하면<br>이야기 속 주인공 이름으로 설정됩니다.</div>
-        <input id="user-name-input" type="text" class="name-input-box" placeholder="여주" value="여주" maxlength="10" autocomplete="off" />
-      </div>
-      <button id="name-submit-btn" class="name-dialog-btn">확인</button>
-    </div>
-  </div>
-
-  <!-- ================= iOS STATUS BAR ================= -->
-  <div id="status-bar" class="light-text">
-    <span id="status-clock">9:41</span>
-    <div class="status-icons">
-      <!-- Cellular -->
-      <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor">
-        <rect x="0" y="7" width="3" height="4" rx="0.8"/>
-        <rect x="4.5" y="5" width="3" height="6" rx="0.8"/>
-        <rect x="9" y="2.5" width="3" height="8.5" rx="0.8"/>
-        <rect x="13.5" y="0" width="3" height="11" rx="0.8"/>
-      </svg>
-      <!-- Wi-Fi -->
-      <svg width="16" height="11" viewBox="0 0 16 11" fill="currentColor">
-        <path d="M8 9.2a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8zm-3.6-2a5.2 5.2 0 0 1 7.2 0l1.2-1.2a6.9 6.9 0 0 0-9.6 0l1.2 1.2zm-2.8-2.8a9.2 9.2 0 0 1 12.8 0L15.6 3a11 11 0 0 0-15.2 0l1.2 1.4z"/>
-      </svg>
-      <!-- Battery -->
-      <div style="display:flex;align-items:center;gap:2px;">
-        <div style="width:23px;height:11.5px;border:1px solid currentColor;border-radius:3.5px;padding:1.5px;display:flex;align-items:center;">
-          <div style="width:82%;height:100%;background:currentColor;border-radius:1.5px;"></div>
+  <!-- ================= 0-A. EVERYTIME INTRO SCREEN ================= -->
+  <div id="everytime-intro">
+    <!-- View 1: 에브리타임 글쓰기 화면 -->
+    <div id="et-write-view" style="display:flex;flex-direction:column;height:100%;">
+      <div class="et-header">
+        <button onclick="skipEverytimeIntro()" style="background:none;border:none;font-size:20px;color:#292929;cursor:pointer;padding:4px;">✕</button>
+        <div style="text-align:center;">
+          <div style="font-size:16px;font-weight:700;color:#292929;line-height:1.1;">글쓰기</div>
+          <div style="font-size:11px;color:#999999;margin-top:2px;">자유게시판</div>
         </div>
+        <button id="et-done-btn" class="et-submit-btn" onclick="submitEverytimePostNow()">완료</button>
       </div>
-    </div>
-  </div>
 
-  <!-- ================= 1. LOCK SCREEN ================= -->
-  <div id="lock-screen" onclick="openPasscodeScreen()">
-    <div style="position:relative;z-index:2;text-align:center;margin-top:12px;">
-      <div style="display:flex;justify-content:center;margin-bottom:6px;opacity:0.85;">
-        <svg width="14" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6z"/></svg>
-      </div>
-      <div style="font-size:19px;font-weight:600;color:rgba(255,255,255,0.92);letter-spacing:-0.3px;">12월 25일 금요일</div>
-      <div id="lock-clock" style="font-size:84px;font-weight:700;line-height:1;letter-spacing:-3px;margin-top:4px;color:#fff;text-shadow:0 4px 24px rgba(0,0,0,0.25);">09:41</div>
-    </div>
+      <!-- 글 제목 & 본문 타이핑 영역 -->
+      <div style="flex:1;padding:16px 18px;display:flex;flex-direction:column;overflow-y:auto;">
+        <div style="padding-bottom:13px;border-bottom:1px solid #f0f0f0;font-size:16.5px;font-weight:700;color:#292929;min-height:33px;display:flex;align-items:center;">
+          <span id="et-title-text"></span><span id="et-title-cursor" class="et-cursor"></span>
+        </div>
+        <div style="padding-top:15px;font-size:14.5px;line-height:1.65;color:#292929;white-space:pre-line;flex:1;">
+          <span id="et-body-text"></span><span id="et-body-cursor" class="et-cursor" style="display:none;"></span>
+        </div>
 
-    <!-- Lock Screen Bottom: Music Player + 3 Kakao Notifications -->
-    <div style="position:relative;z-index:2;width:100%;max-width:420px;margin:0 auto;display:flex;flex-direction:column;gap:10px;">
-      <!-- iOS Lock Screen Now Playing Widget -->
-      <div class="ios-glass" style="border-radius:22px;padding:13px 15px;" onclick="event.stopPropagation(); toggleBgmPlayback();">
-        <div style="display:flex;align-items:center;gap:12px;">
-          <div id="lock-album-art" style="width:46px;height:46px;border-radius:10px;background:linear-gradient(135deg,#3b82f6,#1d4ed8);background-size:cover;background-position:center;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px;">🎸</div>
-          <div style="flex:1;min-width:0;">
-            <div id="bgm-title-lock" style="font-size:14.5px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Stop This Train</div>
-            <div id="bgm-artist-lock" style="font-size:12.5px;color:rgba(255,255,255,0.7);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">John Mayer</div>
-          </div>
-          <div style="display:flex;align-items:center;gap:14px;color:#fff;">
-            <button id="bgm-toggle-btn" style="background:none;border:none;color:#fff;font-size:20px;cursor:pointer;">▶</button>
-          </div>
+        <!-- 에브리타임 커뮤니티 이용규칙 안내 문구 -->
+        <div style="padding:14px 0;font-size:11.5px;line-height:1.5;color:#b8b8b8;">
+          에브리타임은 누구나 기분 좋게 참여할 수 있는 커뮤니티를 만들기 위해 커뮤니티 이용규칙을 제정하여 운영하고 있습니다.
         </div>
       </div>
 
-      <!-- 3 KakaoTalk Notifications -->
-      <div id="lock-notif-container" style="display:flex;flex-direction:column;gap:8px;"></div>
-
-      <div style="text-align:center;font-size:12.5px;color:rgba(255,255,255,0.78);margin-top:6px;font-weight:500;">터치하여 잠금 해제</div>
-    </div>
-  </div>
-
-  <!-- ================= PASSCODE OVERLAY (PIN: 0612) ================= -->
-  <div id="passcode-overlay">
-    <div style="text-align:center;margin-top:10px;">
-      <div style="font-size:19px;font-weight:600;margin-bottom:8px;">암호 입력</div>
-      <div id="pin-error-msg" style="font-size:12.5px;color:rgba(255,255,255,0.65);height:18px;">암호를 입력하십시오</div>
-      <div id="pin-dots" style="display:flex;gap:18px;justify-content:center;margin-top:18px;">
-        <div class="pin-dot"></div>
-        <div class="pin-dot"></div>
-        <div class="pin-dot"></div>
-        <div class="pin-dot"></div>
-      </div>
-    </div>
-
-    <div class="keypad-grid">
-      <button class="key-btn" onclick="pressPin('1')"><span class="key-num">1</span><span class="key-sub">&nbsp;</span></button>
-      <button class="key-btn" onclick="pressPin('2')"><span class="key-num">2</span><span class="key-sub">ABC</span></button>
-      <button class="key-btn" onclick="pressPin('3')"><span class="key-num">3</span><span class="key-sub">DEF</span></button>
-      <button class="key-btn" onclick="pressPin('4')"><span class="key-num">4</span><span class="key-sub">GHI</span></button>
-      <button class="key-btn" onclick="pressPin('5')"><span class="key-num">5</span><span class="key-sub">JKL</span></button>
-      <button class="key-btn" onclick="pressPin('6')"><span class="key-num">6</span><span class="key-sub">MNO</span></button>
-      <button class="key-btn" onclick="pressPin('7')"><span class="key-num">7</span><span class="key-sub">PQRS</span></button>
-      <button class="key-btn" onclick="pressPin('8')"><span class="key-num">8</span><span class="key-sub">TUV</span></button>
-      <button class="key-btn" onclick="pressPin('9')"><span class="key-num">9</span><span class="key-sub">WXYZ</span></button>
-      <div></div>
-      <button class="key-btn" onclick="pressPin('0')"><span class="key-num">0</span></button>
-      <div></div>
-    </div>
-
-    <div style="width:100%;max-width:290px;display:flex;justify-content:space-between;font-size:15px;font-weight:500;color:#fff;">
-      <button style="background:none;border:none;color:#fff;font-size:15px;cursor:pointer;" onclick="closePasscodeScreen()">취소</button>
-      <button style="background:none;border:none;color:#fff;font-size:15px;cursor:pointer;" onclick="deletePin()">삭제</button>
-    </div>
-  </div>
-
-  <!-- ================= 2. HOME SCREEN ================= -->
-  <div id="home-screen">
-    <div style="position:relative;z-index:2;max-width:430px;width:100%;margin:0 auto;">
-      <!-- Top Widgets Row -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px;">
-        <!-- Calendar Widget -->
-        <div onclick="openApp('calendar')" style="background:rgba(255,255,255,0.92);backdrop-filter:blur(20px);border-radius:22px;padding:14px;color:#000;height:148px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 8px 20px rgba(0,0,0,0.22);cursor:pointer;">
-          <div>
-            <div style="font-size:11px;font-weight:700;color:var(--ios-red);">12월 금요일</div>
-            <div style="font-size:32px;font-weight:700;line-height:1.05;letter-spacing:-1px;">25</div>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:4px;">
-            <div id="widget-cal-line1" style="background:rgba(255,59,48,0.12);border-left:3px solid var(--ios-red);padding:3px 6px;border-radius:4px;font-size:11px;font-weight:600;color:#b91c1c;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">🎄 크리스마스 호캉스</div>
-            <div style="background:rgba(0,122,255,0.12);border-left:3px solid var(--ios-blue);padding:3px 6px;border-radius:4px;font-size:11px;font-weight:600;color:#1d4ed8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">성수동 타르트 픽업</div>
-          </div>
+      <!-- 에브리타임 하단 옵션 바 (카메라 / 해시태그 / 익명 체크) -->
+      <div style="height:46px;border-top:1px solid #f0f0f0;padding:0 16px;display:flex;align-items:center;justify-content:space-between;background:#fff;">
+        <div style="display:flex;align-items:center;gap:18px;color:#737373;">
+          <svg width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          <span style="font-size:18px;font-weight:700;color:#737373;">#</span>
         </div>
-
-        <!-- Music Widget -->
-        <div onclick="toggleBgmPlayback()" style="background:rgba(30,32,40,0.75);backdrop-filter:blur(24px);border:0.5px solid rgba(255,255,255,0.15);border-radius:22px;padding:14px;color:#fff;height:148px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 8px 20px rgba(0,0,0,0.25);cursor:pointer;">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-            <div id="home-album-art" style="width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,#3b82f6,#1d4ed8);background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;font-size:22px;">🎸</div>
-            <span id="home-bgm-badge" style="font-size:11px;font-weight:600;color:#60a5fa;background:rgba(96,165,250,0.15);padding:3px 8px;border-radius:999px;">재생 중</span>
-          </div>
-          <div>
-            <div id="bgm-title-home" style="font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Stop This Train</div>
-            <div id="bgm-artist-home" style="font-size:12px;color:rgba(255,255,255,0.65);margin-top:2px;">John Mayer</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- App Icons Grid -->
-      <div class="app-grid">
-        <!-- KakaoTalk -->
-        <div class="app-item" onclick="openApp('kakao')">
-          <div class="ios-badge">4</div>
-          <div class="app-icon-box" style="background:var(--kakao-yellow);">
-            <svg width="34" height="34" viewBox="0 0 24 24" fill="#3A1D1D"><path d="M12 3c-5.52 0-10 3.58-10 8 0 2.86 1.89 5.37 4.72 6.77-.21.78-.77 2.82-.88 3.26-.14.55.2.54.42.39.17-.11 2.73-1.85 3.83-2.6.62.1 1.26.18 1.91.18 5.52 0 10-3.58 10-8s-4.48-8-10-8z"/></svg>
-          </div>
-          <span class="app-label">카카오톡</span>
-        </div>
-
-        <!-- Notes -->
-        <div class="app-item" onclick="openApp('notes')">
-          <div class="app-icon-box" style="background:#fff;flex-direction:column;">
-            <div style="width:100%;height:17px;background:#F5C211;"></div>
-            <div style="flex:1;width:100%;padding:6px 10px;display:flex;flex-direction:column;justify-content:space-around;">
-              <div style="height:2px;background:#E5E5EA;border-radius:1px;"></div>
-              <div style="height:2px;background:#E5E5EA;border-radius:1px;"></div>
-              <div style="height:2px;background:#E5E5EA;border-radius:1px;"></div>
-            </div>
-          </div>
-          <span class="app-label">메모</span>
-        </div>
-
-        <!-- YouTube -->
-        <div class="app-item" onclick="openApp('youtube')">
-          <div class="app-icon-box" style="background:#fff;">
-            <div style="width:42px;height:29px;background:#FF0000;border-radius:8px;display:flex;align-items:center;justify-content:center;">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
-            </div>
-          </div>
-          <span class="app-label">YouTube</span>
-        </div>
-
-        <!-- Musinsa -->
-        <div class="app-item" onclick="openApp('musinsa')">
-          <div class="app-icon-box" style="background:#000;border:0.5px solid rgba(255,255,255,0.2);">
-            <span style="font-size:11px;font-weight:900;letter-spacing:0.5px;color:#fff;">MUSINSA</span>
-          </div>
-          <span class="app-label">무신사</span>
-        </div>
-
-        <!-- Calendar -->
-        <div class="app-item" onclick="openApp('calendar')">
-          <div class="app-icon-box" style="background:#fff;flex-direction:column;color:#000;">
-            <span style="font-size:10px;font-weight:700;color:var(--ios-red);">금요일</span>
-            <span style="font-size:28px;font-weight:300;line-height:1;">25</span>
-          </div>
-          <span class="app-label">캘린더</span>
-        </div>
-
-        <!-- Safari -->
-        <div class="app-item" onclick="openApp('safari')">
-          <div class="app-icon-box" style="background:linear-gradient(180deg,#38bdf8,#0284c7);">
-            <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6">
-              <circle cx="12" cy="12" r="9.5"/>
-              <polygon points="15.8,8.2 13.4,13.4 8.2,15.8 10.6,10.6" fill="#FF3B30" stroke="none"/>
-              <polygon points="8.2,15.8 13.4,13.4 10.6,10.6" fill="#fff" stroke="none"/>
-            </svg>
-          </div>
-          <span class="app-label">Safari</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Bottom iOS Dock -->
-    <div class="ios-dock">
-      <div class="app-item" onclick="openApp('phone')">
-        <div class="app-icon-box" style="background:linear-gradient(180deg,#4ade80,#16a34a);">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-        </div>
-      </div>
-      <div class="app-item" onclick="openApp('safari')">
-        <div class="app-icon-box" style="background:linear-gradient(180deg,#38bdf8,#0284c7);">
-          <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6">
-            <circle cx="12" cy="12" r="9.5"/>
-            <polygon points="15.8,8.2 13.4,13.4 8.2,15.8 10.6,10.6" fill="#FF3B30" stroke="none"/>
-            <polygon points="8.2,15.8 13.4,13.4 10.6,10.6" fill="#fff" stroke="none"/>
-          </svg>
-        </div>
-      </div>
-      <div class="app-item" onclick="openApp('kakao')">
-        <div class="app-icon-box" style="background:var(--kakao-yellow);">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="#3A1D1D"><path d="M12 3c-5.52 0-10 3.58-10 8 0 2.86 1.89 5.37 4.72 6.77-.21.78-.77 2.82-.88 3.26-.14.55.2.54.42.39.17-.11 2.73-1.85 3.83-2.6.62.1 1.26.18 1.91.18 5.52 0 10-3.58 10-8s-4.48-8-10-8z"/></svg>
-        </div>
-      </div>
-      <div class="app-item" onclick="openApp('notes')">
-        <div class="app-icon-box" style="background:#fff;flex-direction:column;">
-          <div style="width:100%;height:16px;background:#F5C211;"></div>
-          <div style="flex:1;width:100%;padding:6px 10px;display:flex;flex-direction:column;justify-content:space-around;">
-            <div style="height:2px;background:#E5E5EA;"></div>
-            <div style="height:2px;background:#E5E5EA;"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= APP 1: KAKAOTALK ================= -->
-  <div id="app-kakao" class="app-window">
-    <!-- Chat List View -->
-    <div id="kakao-list-view" style="display:flex;flex-direction:column;height:100%;padding-top:48px;">
-      <div style="padding:10px 20px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:0.5px solid #EBEBEB;">
-        <h1 style="font-size:23px;font-weight:700;letter-spacing:-0.5px;">채팅</h1>
-        <div style="display:flex;gap:16px;color:#191919;">
-          <svg width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-          <svg width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
-        </div>
-      </div>
-
-      <div id="kakao-rooms-container" class="no-scrollbar" style="flex:1;overflow-y:auto;"></div>
-
-      <!-- Kakao Bottom Tab Bar -->
-      <div style="height:76px;background:#F9F9F9;border-top:0.5px solid #E5E5EA;display:flex;justify-content:space-around;align-items:flex-start;padding-top:10px;">
-        <div style="display:flex;flex-direction:column;align-items:center;color:#999;">
-          <svg width="23" height="23" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-          <span style="font-size:10px;margin-top:3px;">친구</span>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:center;color:#191919;position:relative;">
-          <svg width="23" height="23" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3c-5.52 0-10 3.58-10 8 0 2.86 1.89 5.37 4.72 6.77-.21.78-.77 2.82-.88 3.26-.14.55.2.54.42.39.17-.11 2.73-1.85 3.83-2.6.62.1 1.26.18 1.91.18 5.52 0 10-3.58 10-8s-4.48-8-10-8z"/></svg>
-          <span style="font-size:10px;font-weight:700;margin-top:3px;">채팅</span>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:center;color:#999;">
-          <svg width="23" height="23" fill="currentColor" viewBox="0 0 24 24"><path d="M19 6h-2c0-2.76-2.24-5-5-5S7 3.24 7 6H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg>
-          <span style="font-size:10px;margin-top:3px;">쇼핑</span>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:center;color:#999;">
-          <svg width="23" height="23" fill="currentColor" viewBox="0 0 24 24"><circle cx="6" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="12" r="2"/></svg>
-          <span style="font-size:10px;margin-top:3px;">더보기</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Chat Detail View -->
-    <div id="kakao-room-view" class="katalk-room-bg" style="display:none;flex-direction:column;height:100%;padding-top:48px;">
-      <div style="padding:10px 16px;display:flex;align-items:center;justify-content:space-between;background:rgba(171,193,209,0.94);backdrop-filter:blur(12px);">
-        <button onclick="closeKakaoRoom()" style="background:none;border:none;display:flex;align-items:center;gap:4px;font-size:16px;color:#191919;cursor:pointer;">
-          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>
-        </button>
-        <div id="kakao-room-header-title" style="font-size:16.5px;font-weight:700;color:#191919;"></div>
-        <div style="display:flex;gap:14px;color:#191919;">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-        </div>
-      </div>
-
-      <div id="kakao-messages-scroll" class="no-scrollbar" style="flex:1;overflow-y:auto;padding:12px 14px 20px;display:flex;flex-direction:column;gap:7px;"></div>
-
-      <!-- Kakao Input Bar -->
-      <div style="background:#fff;padding:8px 12px 30px;display:flex;align-items:center;gap:8px;">
-        <button style="width:30px;height:30px;border-radius:50%;background:#F2F2F7;border:none;color:#8E8E93;font-size:20px;display:flex;align-items:center;justify-content:center;">+</button>
-        <div style="flex:1;background:#F2F2F7;border-radius:18px;padding:7px 14px;display:flex;align-items:center;">
-          <input id="kakao-chat-input" type="text" placeholder="메시지 입력" style="width:100%;border:none;background:transparent;outline:none;font-size:14px;color:#191919;user-select:text;-webkit-user-select:text;" onkeydown="if(event.key==='Enter') sendKakaoMessage()" />
-        </div>
-        <button onclick="sendKakaoMessage()" style="width:32px;height:32px;border-radius:50%;background:var(--kakao-yellow);border:none;font-weight:700;font-size:13px;color:#191919;cursor:pointer;">↑</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= APP 2: NOTES (메모장) ================= -->
-  <div id="app-notes" class="app-window" style="background:var(--ios-light-bg);">
-    <!-- List View -->
-    <div id="notes-list-view" style="display:flex;flex-direction:column;height:100%;padding-top:48px;">
-      <div style="padding:10px 20px 6px;">
-        <div style="font-size:14px;color:#E0A800;font-weight:600;margin-bottom:4px;">‹ 폴더</div>
-        <h1 style="font-size:32px;font-weight:800;letter-spacing:-0.8px;color:#000;">메모</h1>
-      </div>
-      <div style="padding:6px 20px 12px;">
-        <div style="background:#E3E3E8;border-radius:10px;padding:8px 12px;font-size:14px;color:#8E8E93;display:flex;align-items:center;gap:6px;">
-          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-          검색
-        </div>
-      </div>
-
-      <div class="no-scrollbar" style="flex:1;overflow-y:auto;padding:0 20px 36px;">
-        <div id="notes-items-box" style="background:#fff;border-radius:14px;overflow:hidden;"></div>
-      </div>
-
-      <div style="height:68px;background:rgba(249,249,249,0.94);border-top:0.5px solid #D1D1D6;padding:12px 22px 0;display:flex;justify-content:space-between;align-items:flex-start;">
-        <span style="width:22px;"></span>
-        <span style="font-size:12px;color:#6E6E73;">8개의 메모</span>
-        <svg width="21" height="21" fill="none" stroke="#E0A800" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-      </div>
-    </div>
-
-    <!-- Detail View -->
-    <div id="notes-detail-view" style="display:none;flex-direction:column;height:100%;background:#fff;padding-top:48px;">
-      <div style="padding:10px 18px;display:flex;justify-content:space-between;align-items:center;">
-        <button onclick="closeNoteDetail()" style="background:none;border:none;color:#E0A800;font-size:16.5px;font-weight:600;display:flex;align-items:center;gap:2px;cursor:pointer;">
-          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>
-          메모
-        </button>
-        <span style="color:#E0A800;font-size:16.5px;font-weight:600;cursor:pointer;" onclick="closeNoteDetail()">완료</span>
-      </div>
-      <div class="no-scrollbar" style="flex:1;overflow-y:auto;padding:10px 24px 44px;">
-        <h2 id="note-detail-title" style="font-size:24px;font-weight:800;color:#000;margin-bottom:16px;letter-spacing:-0.5px;"></h2>
-        <div id="note-detail-body" style="font-size:16px;line-height:1.75;color:#1C1C1E;white-space:pre-line;"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= APP 3: YOUTUBE ================= -->
-  <div id="app-youtube" class="app-window" style="background:#0F0F0F;color:#fff;">
-    <div style="padding-top:48px;border-bottom:0.5px solid rgba(255,255,255,0.12);background:#0F0F0F;">
-      <div style="padding:10px 16px;display:flex;align-items:center;justify-content:space-between;">
-        <div style="display:flex;align-items:center;gap:5px;">
-          <div style="width:28px;height:20px;background:#FF0000;border-radius:5px;display:flex;align-items:center;justify-content:center;">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
-          </div>
-          <span style="font-size:19px;font-weight:800;letter-spacing:-0.8px;">YouTube</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:16px;">
-          <svg width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-          <div style="width:26px;height:26px;border-radius:50%;background:#3b82f6;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;">대영</div>
-        </div>
-      </div>
-    </div>
-
-    <div id="yt-feed-box" class="no-scrollbar" style="flex:1;overflow-y:auto;padding-bottom:36px;"></div>
-
-    <!-- Bottom Tab Bar -->
-    <div style="height:72px;background:#0F0F0F;border-top:0.5px solid rgba(255,255,255,0.12);display:flex;justify-content:space-around;align-items:flex-start;padding-top:10px;font-size:10px;">
-      <div style="display:flex;flex-direction:column;align-items:center;color:#fff;font-weight:600;">
-        <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-        <span style="margin-top:3px;">홈</span>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:center;color:#8E8E93;">
-        <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M10 14.65v-5.3L15 12l-5 2.65zm7.77-4.33-1.2-.5L18 9.06c1.84-.96 2.53-3.23 1.56-5.06s-3.24-2.53-5.07-1.56L6 6.94c-1.29.68-2.07 2.04-2 3.49.07 1.42.93 2.67 2.22 3.25.03.01 1.2.5 1.2.5L6 14.93c-1.83.97-2.53 3.24-1.56 5.07.97 1.83 3.24 2.53 5.07 1.56l8.5-4.5c1.29-.68 2.06-2.04 1.99-3.49-.07-1.42-.94-2.68-2.23-3.25z"/></svg>
-        <span style="margin-top:3px;">Shorts</span>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:center;color:#8E8E93;">
-        <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M20 8H4V6h16v2zm-2-6H6v2h12V2zm4 10v8c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2v-8c0-1.1.9-2 2-2h16c1.1 0 2 .9 2 2zm-6 4l-6-3.27v6.53L16 16z"/></svg>
-        <span style="margin-top:3px;">구독</span>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:center;color:#8E8E93;">
-        <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-        <span style="margin-top:3px;">나</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= APP 4: MUSINSA ================= -->
-  <div id="app-musinsa" class="app-window" style="background:#F5F5F5;">
-    <div style="padding-top:48px;background:#fff;border-bottom:1px solid #EBEBEB;">
-      <div style="padding:12px 18px;display:flex;justify-content:space-between;align-items:center;">
-        <span style="font-size:17px;font-weight:900;letter-spacing:0.4px;color:#000;">MUSINSA</span>
-        <span style="font-size:13px;font-weight:700;color:#000;">마이페이지 · 후기</span>
-      </div>
-    </div>
-
-    <div class="no-scrollbar" style="flex:1;overflow-y:auto;padding-bottom:36px;">
-      <!-- Profile Summary Card -->
-      <div style="background:#fff;padding:18px 20px;margin-bottom:8px;border-bottom:1px solid #EBEBEB;">
         <div style="display:flex;align-items:center;gap:14px;">
-          <div style="width:52px;height:52px;border-radius:50%;background:#111;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;">LV.3</div>
-          <div style="flex:1;">
-            <div style="font-size:17px;font-weight:800;color:#000;">LV.3김대영이</div>
-            <div style="font-size:12.5px;color:#666;margin-top:3px;">남성 / 183CM / 68kg</div>
+          <button onclick="skipEverytimeIntro()" style="background:none;border:none;font-size:12px;color:#999;cursor:pointer;">인트로 건너뛰기 ›</button>
+          <div style="display:flex;align-items:center;gap:5px;">
+            <div style="width:16px;height:16px;border-radius:4px;background:#C62917;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:800;">✓</div>
+            <span style="font-size:13px;font-weight:700;color:#C62917;">익명</span>
           </div>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px;padding:12px;background:#F9F9F9;border-radius:10px;text-align:center;">
+      </div>
+
+      <!-- iOS 키보드 영역 연출 -->
+      <div style="background:#D1D5DB;padding:8px 6px 28px;display:flex;flex-direction:column;gap:8px;user-select:none;">
+        <div style="display:grid;grid-template-columns:repeat(10,1fr);gap:5px;padding:0 2px;">
+          <div style="background:#fff;border-radius:5px;height:38px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#000;box-shadow:0 1px 0 #888;">ㅂ</div>
+          <div style="background:#fff;border-radius:5px;height:38px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#000;box-shadow:0 1px 0 #888;">ㅈ</div>
+          <div style="background:#fff;border-radius:5px;height:38px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#000;box-shadow:0 1px 0 #888;">ㄷ</div>
+          <div style="background:#fff;border-radius:5px;height:38px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#000;box-shadow:0 1px 0 #888;">ㄱ</div>
+          <div style="background:#fff;border-radius:5px;height:38px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#000;box-shadow:0 1px 0 #888;">ㅅ</div>
+          <div style="background:#fff;border-radius:5px;height:38px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#000;box-shadow:0 1px 0 #888;">ㅛ</div>
+          <div style="background:#fff;border-radius:5px;height:38px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#000;box-shadow:0 1px 0 #888;">ㅕ</div>
+          <div style="background:#fff;border-radius:5px;height:38px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#000;box-shadow:0 1px 0 #888;">ㅑ</div>
+          <div style="background:#fff;border-radius:5px;height:38px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#000;box-shadow:0 1px 0 #888;">ㅐ</div>
+          <div style="background:#fff;border-radius:5px;height:38px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#000;box-shadow:0 1px 0 #888;">ㅔ</div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(9,1fr);gap:5px;padding:0 18px;">
+          <div style="background:#fff;border-radius:5px;height:38px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#000;box-shadow:0 1px 0 #888;">ㅁ</div>
+          <div style="background:#fff;border-radius:5px;height:38px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#000;box-shadow:0 1px 0 #888;">ㄴ</div>
+          <div style="background:#fff;border-radius:5px;height:38px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#000;box-shadow:0 1px 0 #888;">ㅇ</div>
+          <div style="background:#fff;border-radius:5px;height:38px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#000;box-shadow:0 1px 0 #888;">ㄹ</div>
+          <div style="background:#fff;border-radius:5px;height:38px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#000;box-shadow:0 1px 0 #888;">ㅎ</div>
+          <div style="background:#fff;border-radius:5px;height:38px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#000;box-shadow:0 1px 0 #888;">ㅗ</div>
+          <div style="background:#fff;border-radius:5px;height:38px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#000;box-shadow:0 1px 0 #888;">ㅓ</div>
+          <div style="background:#fff;border-radius:5px;height:38px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#000;box-shadow:0 1px 0 #888;">ㅏ</div>
+          <div style="background:#fff;border-radius:5px;height:38px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#000;box-shadow:0 1px 0 #888;">ㅣ</div>
+        </div>
+        <div style="display:flex;gap:6px;padding:0 4px;">
+          <div style="width:42px;background:#ACB3BF;border-radius:5px;height:38px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#000;box-shadow:0 1px 0 #888;">⇧</div>
+          <div style="flex:1;display:grid;grid-template-columns:repeat(7,1fr);gap:5px;">
+            <div style="background:#fff;border-radius:5px;height:38px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#000;box-shadow:0 1px 0 #888;">ㅋ</div>
+            <div style="background:#fff;border-radius:5px;height:38px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#000;box-shadow:0 1px 0 #888;">ㅌ</div>
+            <div style="background:#fff;border-radius:5px;height:38px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#000;box-shadow:0 1px 0 #888;">ㅊ</div>
+            <div style="background:#fff;border-radius:5px;height:38px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#000;box-shadow:0 1px 0 #888;">ㅍ</div>
+            <div style="background:#fff;border-radius:5px;height:38px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#000;box-shadow:0 1px 0 #888;">ㅠ</div>
+            <div style="background:#fff;border-radius:5px;height:38px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#000;box-shadow:0 1px 0 #888;">ㅜ</div>
+            <div style="background:#fff;border-radius:5px;height:38px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#000;box-shadow:0 1px 0 #888;">ㅡ</div>
+          </div>
+          <div style="width:42px;background:#ACB3BF;border-radius:5px;height:38px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#000;box-shadow:0 1px 0 #888;">⌫</div>
+        </div>
+        <div style="display:flex;gap:6px;padding:0 4px;">
+          <div style="width:76px;background:#ACB3BF;border-radius:5px;height:38px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:#000;box-shadow:0 1px 0 #888;">123</div>
+          <div style="flex:1;background:#fff;border-radius:5px;height:38px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#000;box-shadow:0 1px 0 #888;">스페이스</div>
+          <div style="width:76px;background:#ACB3BF;border-radius:5px;height:38px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:#000;box-shadow:0 1px 0 #888;">줄바꿈</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- View 2: 에브리타임 소망대 자유게시판 등록 완료 목록 화면 -->
+    <div id="et-board-view" style="display:none;flex-direction:column;height:100%;background:#fff;">
+      <div class="et-header">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <svg width="20" height="20" fill="none" stroke="#292929" stroke-width="2.2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>
           <div>
-            <div style="font-size:11px;color:#888;">적립금</div>
-            <div style="font-size:14px;font-weight:800;color:#000;margin-top:2px;">25,621원</div>
+            <div style="font-size:16px;font-weight:800;color:#292929;line-height:1.1;">자유게시판</div>
+            <div style="font-size:11px;color:#C62917;font-weight:600;margin-top:2px;">소망대</div>
           </div>
-          <div style="border-left:1px solid #E5E5E5;border-right:1px solid #E5E5E5;">
-            <div style="font-size:11px;color:#888;">작성 후기</div>
-            <div style="font-size:14px;font-weight:800;color:#000;margin-top:2px;">105건</div>
-          </div>
-          <div>
-            <div style="font-size:11px;color:#888;">도움이 돼요</div>
-            <div style="font-size:14px;font-weight:800;color:#000;margin-top:2px;">612</div>
-          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;color:#292929;">
+          <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg>
         </div>
       </div>
 
-      <!-- Reviews Container (No Product Images) -->
-      <div id="musinsa-reviews-box" style="display:flex;flex-direction:column;gap:8px;"></div>
-    </div>
-  </div>
-
-  <!-- ================= APP 5: CALENDAR (UNCHANGED DATA) ================= -->
-  <div id="app-calendar" class="app-window" style="background:#fff;">
-    <div style="padding-top:48px;border-bottom:0.5px solid #E5E5EA;">
-      <div style="padding:8px 20px 10px;display:flex;justify-content:space-between;align-items:baseline;">
-        <div>
-          <span style="font-size:13px;font-weight:600;color:var(--ios-red);">2026년</span>
-          <h1 style="font-size:28px;font-weight:800;color:#000;letter-spacing:-0.8px;">12월</h1>
-        </div>
-        <button onclick="selectCalendarDay(25)" style="background:none;border:none;color:var(--ios-red);font-size:15px;font-weight:600;cursor:pointer;">오늘</button>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:11px;font-weight:600;color:#8E8E93;padding:0 12px 6px;">
-        <span style="color:var(--ios-red);">일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span style="color:var(--ios-blue);">토</span>
-      </div>
-    </div>
-
-    <div id="calendar-days-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;padding:8px 12px;border-bottom:0.5px solid #E5E5EA;text-align:center;"></div>
-
-    <div class="no-scrollbar" style="flex:1;overflow-y:auto;background:var(--ios-light-bg);padding:14px 18px 36px;">
-      <div id="calendar-selected-label" style="font-size:13px;font-weight:700;color:#6E6E73;margin-bottom:10px;"></div>
-      <div id="calendar-events-box" style="display:flex;flex-direction:column;gap:8px;"></div>
-    </div>
-  </div>
-
-  <!-- ================= APP 6: SAFARI (UNCHANGED DATA) ================= -->
-  <div id="app-safari" class="app-window" style="background:#fff;">
-    <div class="no-scrollbar" style="flex:1;overflow-y:auto;padding:58px 20px 24px;">
-      <div style="text-align:center;margin:16px 0 20px;">
-        <span style="font-size:38px;font-weight:800;letter-spacing:-1.5px;">
-          <span style="color:#4285F4;">G</span><span style="color:#EA4335;">o</span><span style="color:#FBBC05;">o</span><span style="color:#4285F4;">g</span><span style="color:#34A853;">l</span><span style="color:#EA4335;">e</span>
-        </span>
-      </div>
-
-      <div style="background:#F1F3F4;border-radius:999px;padding:11px 16px;display:flex;align-items:center;gap:10px;margin-bottom:18px;">
-        <svg width="17" height="17" fill="none" stroke="#5F6368" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-        <input id="safari-search-input" type="text" placeholder="Google 검색 또는 URL 입력" style="flex:1;border:none;background:transparent;outline:none;font-size:14.5px;color:#202124;user-select:text;-webkit-user-select:text;" />
-      </div>
-
-      <div style="display:flex;justify-content:space-between;align-items:center;padding:0 4px 8px;">
-        <span style="font-size:13px;font-weight:700;color:#5F6368;">최근 검색 기록</span>
-        <span style="font-size:12px;color:#1A73E8;">전체 삭제</span>
-      </div>
-
-      <div id="safari-history-box" style="border-top:0.5px solid #E8EAED;"></div>
-    </div>
-
-    <div style="padding:10px 18px 30px;background:#F8F9FA;border-top:0.5px solid #DADCE0;">
-      <div style="background:#fff;border:0.5px solid #DADCE0;border-radius:12px;padding:9px 14px;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#202124;">
-        <span style="font-size:11px;color:#5F6368;">가A</span>
-        <span style="font-weight:600;">google.co.kr</span>
-        <span>↻</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= APP 7: PHONE (UNCHANGED DATA) ================= -->
-  <div id="app-phone" class="app-window" style="background:#fff;">
-    <div id="phone-main-content" class="no-scrollbar" style="flex:1;overflow-y:auto;padding-top:48px;">
-      <!-- Tab: Recents -->
-      <div id="phone-tab-recents" style="padding:10px 20px 30px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-          <div style="background:#E5E5EA;padding:2px;border-radius:8px;display:flex;font-size:12px;font-weight:600;">
-            <span style="background:#fff;padding:3px 12px;border-radius:6px;box-shadow:0 1px 2px rgba(0,0,0,0.12);">전체</span>
-            <span style="padding:3px 12px;color:#6E6E73;">부재중</span>
+      <div style="flex:1;overflow-y:auto;">
+        <!-- 방금 등록된 분실물 게시글 -->
+        <div class="et-post-item new-highlight">
+          <div style="font-size:15px;font-weight:700;color:#292929;margin-bottom:5px;">음대 건물 앞에서 휴대폰 주웠다</div>
+          <div style="font-size:13.5px;color:#444444;line-height:1.48;white-space:pre-line;">음대 건물 앞에서 휴대폰 주웠다
+케이스 뒤에 여자친구 분? 이랑 찍은 것 같은 폴라 사진 끼워져 있고
+디지몬 스티커 붙여져 있다 기숙사 경비실에 맡겨놓겠다</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;font-size:11.5px;color:#a6a6a6;">
+            <span>방금 · 익명</span>
+            <div style="display:flex;gap:10px;">
+              <span style="color:#C62917;">👍 0</span>
+              <span style="color:#0ca5af;">💬 0</span>
+            </div>
           </div>
-          <span style="color:var(--ios-blue);font-size:15px;">편집</span>
         </div>
-        <h1 style="font-size:31px;font-weight:800;letter-spacing:-0.8px;margin-bottom:10px;">최근 통화</h1>
-        <div id="phone-recents-box" style="border-top:0.5px solid #E5E5EA;"></div>
-      </div>
 
-      <!-- Tab: Favorites -->
-      <div id="phone-tab-favorites" style="display:none;padding:10px 20px 30px;">
-        <h1 style="font-size:31px;font-weight:800;letter-spacing:-0.8px;margin-bottom:10px;">즐겨찾기</h1>
-        <div id="phone-favorites-box" style="border-top:0.5px solid #E5E5EA;"></div>
-      </div>
+        <!-- 자유게시판 기존 더미 게시글들 -->
+        <div class="et-post-item">
+          <div style="font-size:14.5px;font-weight:700;color:#292929;margin-bottom:4px;">계절학기 교양 들어본 사람 있냐</div>
+          <div style="font-size:13px;color:#666666;">출석만 잘하면 학점 잘 주시나요??</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:7px;font-size:11.5px;color:#a6a6a6;">
+            <span>3분 전 · 익명</span>
+            <div style="display:flex;gap:10px;">
+              <span style="color:#C62917;">👍 1</span>
+              <span style="color:#0ca5af;">💬 4</span>
+            </div>
+          </div>
+        </div>
 
-      <!-- Tab: Contacts -->
-      <div id="phone-tab-contacts" style="display:none;padding:10px 20px 30px;">
-        <h1 style="font-size:31px;font-weight:800;letter-spacing:-0.8px;margin-bottom:10px;">연락처</h1>
-        <div id="phone-contacts-box" style="border-top:0.5px solid #E5E5EA;"></div>
-      </div>
+        <div class="et-post-item">
+          <div style="font-size:14.5px;font-weight:700;color:#292929;margin-bottom:4px;">후문 순대국밥집 오늘 영업함?</div>
+          <div style="font-size:13px;color:#666666;">크리스마스인데 문 열었는지 아는 사람ㅠㅠ 해장 시급함</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:7px;font-size:11.5px;color:#a6a6a6;">
+            <span>11분 전 · 익명</span>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="color:#C62917;">👍 0</span>
+              <span style="color:#0ca5af;">💬 2</span>
+            </div>
+          </div>
+        </div>
 
-      <!-- Tab: Keypad -->
-      <div id="phone-tab-keypad" style="display:none;padding:28px 32px;flex-direction:column;align-items:center;">
-        <div id="phone-dial-str" style="height:44px;font-size:30px;font-weight:500;margin-bottom:18px;"></div>
-        <div style="display:grid;grid-template-columns:repeat(3,74px);gap:14px 24px;justify-content:center;">
-          <button onclick="appendDial('1')" style="width:74px;height:74px;border-radius:50%;background:#E5E5EA;border:none;font-size:28px;cursor:pointer;">1</button>
-          <button onclick="appendDial('2')" style="width:74px;height:74px;border-radius:50%;background:#E5E5EA;border:none;font-size:28px;cursor:pointer;">2</button>
-          <button onclick="appendDial('3')" style="width:74px;height:74px;border-radius:50%;background:#E5E5EA;border:none;font-size:28px;cursor:pointer;">3</button>
-          <button onclick="appendDial('4')" style="width:74px;height:74px;border-radius:50%;background:#E5E5EA;border:none;font-size:28px;cursor:pointer;">4</button>
-          <button onclick="appendDial('5')" style="width:74px;height:74px;border-radius:50%;background:#E5E5EA;border:none;font-size:28px;cursor:pointer;">5</button>
-          <button onclick="appendDial('6')" style="width:74px;height:74px;border-radius:50%;background:#E5E5EA;border:none;font-size:28px;cursor:pointer;">6</button>
-          <button onclick="appendDial('7')" style="width:74px;height:74px;border-radius:50%;background:#E5E5EA;border:none;font-size:28px;cursor:pointer;">7</button>
-          <button onclick="appendDial('8')" style="width:74px;height:74px;border-radius:50%;background:#E5E5EA;border:none;font-size:28px;cursor:pointer;">8</button>
-          <button onclick="appendDial('9')" style="width:74px;height:74px;border-radius:50%;background:#E5E5EA;border:none;font-size:28px;cursor:pointer;">9</button>
-          <button onclick="appendDial('*')" style="width:74px;height:74px;border-radius:50%;background:#E5E5EA;border:none;font-size:28px;cursor:pointer;">*</button>
-          <button onclick="appendDial('0')" style="width:74px;height:74px;border-radius:50%;background:#E5E5EA;border:none;font-size:28px;cursor:pointer;">0</button>
-          <button onclick="appendDial('#')" style="width:74px;height:74px;border-radius:50%;background:#E5E5EA;border:none;font-size:28px;cursor:pointer;">#</button>
+        <div class="et-post-item">
+          <div style="font-size:14.5px;font-weight:700;color:#292929;margin-bottom:4px;">중도 열람실에 에어팟 한쪽 두고 간 학우분</div>
+          <div style="font-size:13px;color:#666666;">3층 제1열람실 입구 데스크에 올려뒀어요</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:7px;font-size:11.5px;color:#a6a6a6;">
+            <span>24분 전 · 익명</span>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="color:#C62917;">👍 7</span>
+              <span style="color:#0ca5af;">💬 1</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
-    <!-- Phone Bottom Tab Bar -->
-    <div style="height:76px;background:#F9F9F9;border-top:0.5px solid #D1D1D6;display:flex;justify-content:space-around;align-items:flex-start;padding-top:8px;font-size:10px;">
-      <button onclick="switchPhoneTab('favorites')" id="ptab-btn-favorites" style="background:none;border:none;color:#8E8E93;display:flex;flex-direction:column;align-items:center;cursor:pointer;">
-        <span style="font-size:18px;">★</span><span>즐겨찾기</span>
-      </button>
-      <button onclick="switchPhoneTab('recents')" id="ptab-btn-recents" style="background:none;border:none;color:var(--ios-blue);display:flex;flex-direction:column;align-items:center;font-weight:600;cursor:pointer;">
-        <span style="font-size:18px;">🕒</span><span>최근 통화</span>
-      </button>
-      <button onclick="switchPhoneTab('contacts')" id="ptab-btn-contacts" style="background:none;border:none;color:#8E8E93;display:flex;flex-direction:column;align-items:center;cursor:pointer;">
-        <span style="font-size:18px;">👤</span><span>연락처</span>
-      </button>
-      <button onclick="switchPhoneTab('keypad')" id="ptab-btn-keypad" style="background:none;border:none;color:#8E8E93;display:flex;flex-direction:column;align-items:center;cursor:pointer;">
-        <span style="font-size:18px;">🔢</span><span>키패드</span>
-      </button>
-    </div>
   </div>
 
-  <!-- ================= HOME INDICATOR BAR ================= -->
-  <div id="home-bar-zone" onclick="goHomeScreen()">
-    <div id="home-bar-pill"></div>
-  </div>
-
-</div>
-
-<script>
-  /* =========================================================================
-   * [깃허브 커스텀 파일 경로 설정]
-   * 아래 경로에 원하는 이미지/음악 파일 URL 또는 상대 경로(예: "./assets/bg.jpg")를 넣으세요.
-   * 비워두면("") 기본 디자인이 표시됩니다.
-   * ========================================================================= */
-  const ASSET_CONFIG = {
-    // 1. 잠금 해제 즉시 자동재생될 배경음악 파일 경로
-    bgmUrl: "", // 예: "./assets/bgm.mp3" 또는 "https://raw.githubusercontent.com/.../song.mp3"
-    bgmTitle: "Stop This Train",
-    bgmArtist: "John Mayer",
-    bgmCoverImage: "", // 음악 위젯 앨범 아트 이미지 경로
-
-    // 2. 잠금화면 & 홈화면 배경 이미지 경로
-    lockScreenBg: "", // 예: "./assets/lockscreen.jpg"
-    homeScreenBg: "", // 예: "./assets/homescreen.jpg"
-
-    // 3. 카카오톡 프로필 사진 이미지 경로
-    kakaoProfiles: {
-      yeojoo: "",      // 여주❤ 프사
-      oliveyoung: "",  // 올리브영 프사
-      somangHigh: "",  // 소망남고 3-4 단톡 프사
-      postOffice: "",  // 우체국택배 프사
-      musinsa: "",     // 무신사 프사
-      bandTeam: "",    // 대동제 밴드팀 프사
-      musicDept: "",   // 실음과 25학번 수다방 프사
-      bro2: "",        // 작은형 프사
-      family: "",      // 울집 가족방 프사
-      mom: "",         // 엄마 프사
-      kakaoGift: ""    // 카카오톡 선물하기 프사
-    },
-
-    // 4. 유튜브 영상 썸네일 이미지 경로 (위에서부터 1번~11번 영상)
-    youtubeThumbnails: [
-      "", // 1. 노래 개 잘하는 고등학생 듀오가 학교 축제에서 대상 탄 무대 ㄷㄷ ‘Hello’ (허각) cover
-      "", // 2. 오키나와 겨울 커플 여행 코스 추천 (3박 4일)
-      "", // 3. 남자 반깐 머리 스타일링법
-      "", // 4. 시판 사골육수로 국밥집 순대국밥 끓이는 법 (다대기 비율 공개!!)
-      "", // 5. 여자친구가 ‘됐어’라고 할 때 진짜 속마음 해석 총정리 (연애초보 필독)
-      "", // 6. [결말포함] 첫눈 오는 날 무조건 봐야 하는 인생 로맨스 영화 요약 (1시간 순삭)
-      "", // 7. 180cm 남대생 겨울 룩북 ㅣ 여친이 좋아하는 깔끔 남친룩 코디 7가지
-      "", // 8. [영화리뷰] 신카이 마코토 극장판 애니메이션 결말 해석 및 숨겨진 디테일 총정리
-      "", // 9. 무신사 겨울 아우터 랭킹 1위부터 10위까지 직접 입어봤습니다 (코트/패딩 사이즈 팁)
-      "", // 10. 장기연애커플 설렘 200% 유지하는 현실 꿀팁 TOP 5
-      ""  // 11. John Mayer - Stop This Train (Acoustic Guitar Backing Track & Tab)
-    ]
-  };
-
-  /* =========================================================================
-   * [이름 및 한국어 받침(종성) 조사 자동 변환기]
-   * ========================================================================= */
-  let USER_NAME = "여주";
-
-  function hasFinalConsonant(str) {
-    if (!str || str.length === 0) return false;
-    const lastChar = str.charCodeAt(str.length - 1);
-    if (lastChar < 0xAC00 || lastChar > 0xD7A3) return false;
-    return (lastChar - 0xAC00) % 28 !== 0;
-  }
-
-  // 텍스트 내의 '김여주' 및 '여주'와 뒤따르는 조사를 유저 이름 받침에 맞춰 자연스럽게 변환
-  function applyUserName(rawText) {
-    if (!rawText) return "";
-    const name = USER_NAME.trim() || "여주";
-    const batchim = hasFinalConsonant(name);
-
-    // 성이 붙은 '김여주'도 유저가 성을 빼고 입력했으면 '김'+이름 또는 이름 자체로 자연스럽게 치환
-    let result = rawText;
-
-    // 1. 호격 및 조사 결합형 치환 ('여주야', '여주가', '여주는', '여주를', '여주랑', '여주네', '여주도', '여주한테', '여주와')
-    result = result.replace(/김?여주야/g, batchim ? `${name}아` : `${name}야`);
-    result = result.replace(/김?여주가/g, batchim ? `${name}이가` : `${name}가`);
-    result = result.replace(/김?여주는/g, batchim ? `${name}이는` : `${name}는`);
-    result = result.replace(/김?여주를/g, batchim ? `${name}이를` : `${name}를`);
-    result = result.replace(/김?여주랑/g, batchim ? `${name}이랑` : `${name}랑`);
-    result = result.replace(/김?여주네/g, batchim ? `${name}이네` : `${name}네`);
-    result = result.replace(/김?여주도/g, batchim ? `${name}이도` : `${name}도`);
-    result = result.replace(/김?여주한테/g, batchim ? `${name}이한테` : `${name}한테`);
-    result = result.replace(/김?여주와/g, batchim ? `${name}과` : `${name}와`);
-
-    // 2. 단독 명사구 뒤 공백 결합형 ('여주 선물이냐', '여주 자취방에도')
-    result = result.replace(/김?여주 선물이냐/g, batchim ? `${name}이 선물이냐` : `${name} 선물이냐`);
-    result = result.replace(/김?여주 자취방/g, batchim ? `${name}이 자취방` : `${name} 자취방`);
-
-    // 3. 나머지 일반 '김여주' 및 '여주' 치환
-    result = result.replace(/김여주/g, name);
-    result = result.replace(/여주/g, name);
-
-    return result;
-  }
-
-  /* =========================================================================
-   * [1. 카카오톡 데이터]
-   * ========================================================================= */
-  const KAKAO_ROOMS_DATA = [
-    {
-      id: "yeojoo",
-      title: "여주❤",
-      preview: "왜이래 ㅋㅋㅋㅋㅋㅋㅋ",
-      time: "오후 3:42",
-      unread: 0,
-      pinned: true,
-      pfpKey: "yeojoo",
-      fallbackBg: "#F472B6",
-      fallbackText: "❤",
-      messages: [
-        { type: "date", text: "2026년 12월 15일 화요일" },
-        { sender: "me", text: "나 학교 간다ㅏㅏ", time: "오전 8:30" },
-        { sender: "me", text: "오늘 하루도 파이팅 ㅎㅎ", time: "오전 8:30" },
-        { sender: "other", name: "여주❤", text: "응 너두 파이팅", time: "오전 8:35" },
-        { type: "date", text: "4시간 후" },
-        { sender: "other", name: "여주❤", text: "너 합주 언제 끝나?", time: "오후 12:40" },
-        { sender: "me", text: "방금 끝났다!", time: "오후 12:41" },
-        { sender: "me", text: "악기만 정리하고 바로 나갈라고", time: "오후 12:41" },
-        { sender: "me", text: "배고프나??", time: "오후 12:41" },
-        { sender: "other", name: "여주❤", text: "엉 배고파 빨리와", time: "오후 12:42" },
-        { sender: "me", text: "ㅎㅎ알따", time: "오후 12:42" },
-        { sender: "me", text: "뭐 먹고싶은데??", time: "오후 12:42" },
-        { sender: "other", name: "여주❤", text: "후문 순대국밥", time: "오후 12:43" },
-        { sender: "other", name: "여주❤", text: "얼큰이로", time: "오후 12:43" },
-        { sender: "me", text: "오키ㅋㅋㅋ", time: "오후 12:43" },
-        { sender: "me", text: "10분 내로 뛰어감", time: "오후 12:43" },
-        { sender: "other", name: "여주❤", text: "뛰지마", time: "오후 12:44" },
-        { sender: "other", name: "여주❤", text: "자빠져", time: "오후 12:44" },
-        { sender: "me", text: "안 자빠진다 ㅎㅎㅎ금방 가께", time: "오후 12:44" },
-
-        { type: "date", text: "2026년 12월 17일 목요일" },
-        { sender: "me", text: "시험 잘 쳤나??", time: "오후 4:10" },
-        { sender: "other", name: "여주❤", text: "묻지마", time: "오후 4:12" },
-        { sender: "other", name: "여주❤", text: "서술형 하나 소설 쓰고 나옴", time: "오후 4:12" },
-        { sender: "me", text: "ㅋㅋㅋㅋㅋㅋ고생했네에!!!", time: "오후 4:13" },
-        { sender: "me", text: "이제 하나 남았나?", time: "오후 4:13" },
-        { sender: "other", name: "여주❤", text: "응", time: "오후 4:14" },
-        { sender: "other", name: "여주❤", text: "밤까지 열람실 있다가 갈거야", time: "오후 4:14" },
-        { sender: "me", text: "나 마감 10시에 끝나니까 끝나고 데리러 가께", time: "오후 4:15" },
-        { sender: "other", name: "여주❤", text: "피곤하잖아 그냥 바로 집가", time: "오후 4:16" },
-        { sender: "other", name: "여주❤", text: "혼자 갈 수 있어", time: "오후 4:16" },
-        { sender: "me", text: "에이 뭐 어차피 가는길 똑같은데", time: "오후 4:16" },
-        { sender: "me", text: "글고 여자친구 봐야 피로가 풀리지 ㅎㅎㅎ", time: "오후 4:17" },
-        { sender: "other", name: "여주❤", text: "ㅋㅋㅋ참나", time: "오후 4:18" },
-        { sender: "me", text: "가방에 초콜릿 넣어뒀으니까 까먹으면서 하고", time: "오후 4:18" },
-        { sender: "me", text: "사랑해~~", time: "오후 4:18" },
-        { sender: "other", name: "여주❤", text: "ㅋㅋㅋ응 고마워 나도 사랑해", time: "오후 4:19" },
-
-        { type: "date", text: "2026년 12월 18일 금요일" },
-        { sender: "me", text: "아직 시험치고 있나??", time: "오후 5:50" },
-        { sender: "other", name: "여주❤", text: "드디어 끝남", time: "오후 5:52" },
-        { sender: "other", name: "여주❤", text: "종강이다", time: "오후 5:52" },
-        { sender: "other", name: "여주❤", text: "하", time: "오후 5:52" },
-        { sender: "me", text: "고생 많았다 진짜루!!", time: "오후 5:53" },
-        { sender: "me", text: "내도 지금 실기 끝났는데", time: "오후 5:53" },
-        { sender: "me", text: "인문관 앞으로 가까??", time: "오후 5:53" },
-        { sender: "other", name: "여주❤", text: "아니 내가 음대 쪽으로 갈게", time: "오후 5:54" },
-        { sender: "other", name: "여주❤", text: "너 기타 무겁잖아", time: "오후 5:54" },
-        { sender: "me", text: "안 무겁다 ㅋㅋ", time: "오후 5:54" },
-        { sender: "other", name: "여주❤", text: "됐거든 거기 벤치에 가만히 앉아있어", time: "오후 5:55" },
-        { sender: "other", name: "여주❤", text: "뛰어오기만해", time: "오후 5:55" },
-        { sender: "me", text: "넵ㅎㅎ", time: "오후 5:55" },
-        { sender: "me", text: "얌전히 앉아있으께요", time: "오후 5:55" },
-        { type: "date", text: "5시간 후" },
-        { sender: "me", text: "잘 들어갔제~", time: "오후 11:10" },
-        { sender: "other", name: "여주❤", text: "응 너는? 도착했어?", time: "오후 11:11" },
-        { sender: "me", text: "응응", time: "오후 11:11" },
-        { sender: "me", text: "머리 바싹 말리구 자라 감기 걸린다", time: "오후 11:12" },
-        { sender: "other", name: "여주❤", text: "말렸어 잔소리쟁이야", time: "오후 11:13" },
-        { sender: "other", name: "여주❤", text: "오늘 실기 치느라 고생했어", time: "오후 11:13" },
-        { sender: "me", text: "ㅎㅎㅎㅎㅎ고맙디", time: "오후 11:13" },
-        { sender: "other", name: "여주❤", text: "나 슬슬 졸리다", time: "오후 11:14" },
-        { sender: "me", text: "피곤하재ㅠㅠ", time: "오후 11:14" },
-        { sender: "me", text: "얼른 자자", time: "오후 11:14" },
-        { sender: "me", text: "오늘 하루도 고생 많았다아~~", time: "오후 11:15" },
-        { sender: "me", text: "낼 봐 사랑해❤", time: "오후 11:15" },
-        { sender: "other", name: "여주❤", text: "나도 사랑해 잘자❤", time: "오후 11:16" },
-
-        { type: "date", text: "2026년 12월 21일 월요일" },
-        { sender: "other", name: "여주❤", text: "일어났어?", time: "오전 8:15" },
-        { sender: "me", text: "방금 씻고 나와쓰 이제 출발할라고", time: "오전 8:16" },
-        { sender: "me", text: "일찍 일어났네??", time: "오전 8:16" },
-        { sender: "me", text: "오늘 암것도 없다지 않았나", time: "오전 8:16" },
-        { sender: "other", name: "여주❤", text: "그냥 눈이 떠져서", time: "오전 8:17" },
-        { sender: "other", name: "여주❤", text: "영하 7도래 목도리 귀도리 장갑 하고 가", time: "오전 8:17" },
-        { sender: "me", text: "ㅋㅋㅋㅋㅋ응응 다 하고갈게", time: "오전 8:18" },
-        { sender: "me", text: "아침은??", time: "오전 8:18" },
-        { sender: "other", name: "여주❤", text: "너가 어제 사다놓은 시리얼 먹으려고", time: "오전 8:19" },
-        { sender: "me", text: "우유 차갑게 먹지말고 전자레인지에 좀 돌려서 무라", time: "오전 8:19" },
-        { sender: "other", name: "여주❤", text: "아 누가 시리얼을 따뜻한 우유랑 먹어요", time: "오전 8:20" },
-        { sender: "me", text: "감기 걸렸잖아ㅠㅠ", time: "오전 8:20" },
-        { sender: "me", text: "그리고 초코라서 녹으면 맛있을걸??", time: "오전 8:20" },
-        { sender: "other", name: "여주❤", text: "ㅋㅋㅋ그런가", time: "오전 8:21" },
-        { sender: "other", name: "여주❤", text: "수업 잘 듣고 이따 연락해", time: "오전 8:21" },
-        { sender: "me", text: "오키!! 갔다오께❤", time: "오전 8:22" },
-
-        { type: "date", text: "2026년 12월 23일 수요일" },
-        { sender: "me", text: "여주야 오늘 오후에 실음과 종강총회 잠깐 들렀다 가야 될 것 같다ㅠㅠ", time: "오후 3:38" },
-        { sender: "me", text: "과대 인수인계만 하고 술은 한 입도 안대고 바로 나올게!!", time: "오후 3:38" },
-        { sender: "other", name: "여주❤", text: "누가 뭐래?", time: "오후 3:40" },
-        { sender: "other", name: "여주❤", text: "편하게 갔다와 ㅋㅋㅋ", time: "오후 3:40" },
-        { sender: "me", text: "진짜 1시간", time: "오후 3:41" },
-        { sender: "me", text: "아니", time: "오후 3:41" },
-        { sender: "me", text: "30분만 있다가 올게", time: "오후 3:41" },
-        { sender: "other", name: "여주❤", text: "더 있어도 돼", time: "오후 3:41" },
-        { sender: "me", text: "아니", time: "오후 3:42" },
-        { sender: "me", text: "미간에 힘빡주고 정색하고 앉아있으께", time: "오후 3:42" },
-        { sender: "other", name: "여주❤", text: "왜이래 ㅋㅋㅋㅋㅋㅋㅋ", time: "오후 3:42" }
-      ]
-    },
-    {
-      id: "kakaoGift",
-      title: "카카오톡 선물하기",
-      preview: "선물하기 완료 여주❤님에게 선물을 보냈습니다.",
-      time: "어제",
-      unread: 0,
-      pinned: false,
-      pfpKey: "kakaoGift",
-      fallbackBg: "#F59E0B",
-      fallbackText: "🎁",
-      messages: [
-        { type: "gift", item: "약국용 특대형 붙이는 핫팩 30매입 1박스", time: "오후 2:10" },
-        { type: "gift", item: "투썸플레이스 떠먹는 스트로베리 초콜릿 생크림 + 아메리카노(R)", time: "오후 8:40" },
-        { type: "gift", item: "올리브영 모바일 기프트카드 30,000원권", time: "오후 5:15" },
-        { type: "gift", item: "디올 어딕트 립 글로우 #001 핑크 (각인 서비스 포함)", time: "오전 11:20" }
-      ]
-    },
-    {
-      id: "mom",
-      title: "엄마",
-      preview: "헤헤 아부지랑 맛있는거 사드이소~",
-      time: "어제",
-      unread: 0,
-      pinned: true,
-      pfpKey: "mom",
-      fallbackBg: "#10B981",
-      fallbackText: "엄마",
-      messages: [
-        { sender: "other", name: "엄마", text: "영아 택배로 김치랑 장조림이랑 곰국 보냈다", time: "오후 6:12" },
-        { sender: "me", text: "엄마ㅏㅏㅏ 고맙습니다ㅠㅠ", time: "오후 6:14" },
-        { sender: "me", text: "알바 끝나고 들어가면서 바로 챙기께요!!", time: "오후 6:14" },
-        { sender: "other", name: "엄마", text: "반찬 여주 자취방에도 반 덜어다 주고", time: "오후 6:15" },
-        { sender: "other", name: "엄마", text: "곰국은 뜨끈하게 데워무라", time: "오후 6:15" },
-        { sender: "me", text: "안 그래도 지금 반찬통에 예쁘게 소분해가 여주네 가는 길ㅎㅎ", time: "오후 10:48" },
-        { sender: "me", text: "여주랑 같이 먹으니까 두배로 맛있다!!", time: "오후 10:48" },
-        { sender: "me", text: "엄마 음식이 우주 최고다 고마워요 사랑해애❤❤", time: "오후 10:49" },
-        { sender: "other", name: "엄마", text: "ㅋㅋ", time: "오후 10:52" },
-        { sender: "other", name: "엄마", text: "이번달 알바비 들어왔따꼬 엄마 용돈 보낸것도 잘쓰께 고맙다 아들", time: "오후 10:53" },
-        { sender: "me", text: "헤헤 아부지랑 맛있는거 사드이소~", time: "오후 10:54" }
-      ]
-    },
-    {
-      id: "family",
-      title: "울집 가족방",
-      count: 5,
-      preview: "여주랑 맛있는거 묵고 예쁜 사진 찍어서 보내드리께요!!",
-      time: "어제",
-      unread: 0,
-      pinned: false,
-      pfpKey: "family",
-      fallbackBg: "#6366F1",
-      fallbackText: "가족",
-      messages: [
-        { sender: "other", name: "아빠", text: "다들 성탄절 잘 보내라 막내는 여주랑 맛있는 거 사묵고", time: "오후 1:10" },
-        { sender: "other", name: "큰형", text: "아부지 왜 막내한테만 용돈 쏘십니까", time: "오후 1:12" },
-        { sender: "other", name: "작은형", text: "편애 심하십니다ㅋㅋㅋ", time: "오후 1:13" },
-        { sender: "me", text: "ㅋㅋㅋㅋ막둥이 용돈 감사합니다 아부지❤❤🙇‍♂️", time: "오후 1:15" },
-        { sender: "me", text: "여주랑 맛있는거 묵고 예쁜 사진 찍어서 보내드리께요!!", time: "오후 1:15" }
-      ]
-    },
-    {
-      id: "bro2",
-      title: "작은형",
-      preview: "역시 우리 작은형님밖에 없다 사랑합니데이ㅎㅎ❤",
-      time: "12월 22일",
-      unread: 0,
-      pinned: false,
-      pfpKey: "bro2",
-      fallbackBg: "#3B82F6",
-      fallbackText: "형",
-      messages: [
-        { sender: "me", text: "형아ㅏㅏ", time: "오후 9:20" },
-        { sender: "me", text: "바쁜가?? 질문 하나만 해도 되나ㅎㅎ", time: "오후 9:20" },
-        { sender: "other", name: "작은형", text: "뭔데 임마 또 여주 선물이냐", time: "오후 9:22" },
-        { sender: "me", text: "오 귀신같이 아네 역시ㅋㅋㅋ", time: "오후 9:23" },
-        { sender: "me", text: "저번에 형수님이랑 갔던 성수동 카페 이름 뭐였지??", time: "오후 9:23" },
-        { sender: "me", text: "여주가 초코 타르트 좋아해가지고 데려가고 싶어서", time: "오후 9:24" },
-        { sender: "other", name: "작은형", text: "기다려봐", time: "오후 9:25" },
-        { sender: "other", name: "작은형", text: "거기 웨이팅 기니까 캐치테이블로 미리 예약해라 링크 보내드림", time: "오후 9:26" },
-        { sender: "me", text: "와 센스….", time: "오후 9:27" },
-        { sender: "me", text: "역시 우리 작은형님밖에 없다 사랑합니데이ㅎㅎ❤", time: "오후 9:27" }
-      ]
-    },
-    {
-      id: "musicDept",
-      title: "실음과 25학번 수다방",
-      count: 61,
-      preview: "다들 한 해 동안 고생 많으셨습니다 메리 크리스마스 보내세요!!🎄",
-      time: "12월 24일",
-      unread: 0,
-      pinned: false,
-      pfpKey: "musicDept",
-      fallbackBg: "#8B5CF6",
-      fallbackText: "실음",
-      messages: [
-        { sender: "other", name: "박준혁", text: "다들 종강 축하하고 즐크~~", time: "오후 6:00" },
-        { sender: "me", text: "다들 한 해 동안 고생 많으셨습니다 메리 크리스마스 보내세요!!🎄", time: "오후 6:05" }
-      ]
-    },
-    {
-      id: "bandTeam",
-      title: "대동제 밴드팀",
-      count: 5,
-      preview: "대영이 요즘 얼굴 보기 하늘의 별따기네",
-      time: "12월 21일",
-      unread: 1,
-      pinned: false,
-      pfpKey: "bandTeam",
-      fallbackBg: "#EC4899",
-      fallbackText: "밴드",
-      messages: [
-        { sender: "other", name: "윤성", text: "이번주 뒤풀이 언제 하실", time: "오후 4:10" },
-        { sender: "me", text: "나 이번주는 목요일 저녁만 될 듯ㅠㅠ", time: "오후 4:12" },
-        { sender: "other", name: "윤성", text: "대영이 요즘 얼굴 보기 하늘의 별따기네", time: "오후 4:15" }
-      ]
-    },
-    {
-      id: "somangHigh",
-      title: "소망남고 3-4",
-      count: 26,
-      preview: "좋을 때다",
-      time: "12월 20일",
-      unread: 2,
-      pinned: false,
-      pfpKey: "somangHigh",
-      fallbackBg: "#0EA5E9",
-      fallbackText: "3-4",
-      messages: [
-        { sender: "other", name: "김민규", text: "12/30에 동성로에서 다같이 모이는 거 맞제?", time: "오후 8:10" },
-        { sender: "me", text: "이번 겨울방학 때 계절학기 때문에 서울에 있어야 된다 ", time: "오후 8:12" },
-        { sender: "me", text: "그때 못 내려갈 듯 미안ㅠ", time: "오후 8:12" },
-        { sender: "other", name: "김민규", text: "걍 여친이랑 약속있다고 해라 새끼야", time: "오후 8:13" },
-        { sender: "me", text: "ㅎㅎㅎ허", time: "오후 8:14" },
-        { sender: "other", name: "이승현", text: "ㅋㅋㅋㅋㅋㅋㅋ점마 저거 완전 푹 빠졌네", time: "오후 8:15" },
-        { sender: "other", name: "박지훈", text: "좋을 때다", time: "오후 8:16" }
-      ]
-    },
-    {
-      id: "postOffice",
-      title: "우체국택배",
-      preview: "[배달완료 안내] 김대영 고객님, 보내신 분(이숙자)의 소포...",
-      time: "12월 19일",
-      unread: 0,
-      pinned: false,
-      pfpKey: "postOffice",
-      fallbackBg: "#EF4444",
-      fallbackText: "우체국",
-      messages: [
-        { sender: "other", name: "우체국택배", text: "[배달완료 안내] 김대영 고객님, 보내신 분(이숙자)의 소포(등기번호: 68901-2481-9920)가 위탁장소(문앞)에 배달완료 되었습니다.", time: "오후 3:20" }
-      ]
-    },
-    {
-      id: "oliveyoung",
-      title: "올리브영",
-      preview: "(광고) [올리브영] 오늘드림 무료배송 쿠폰이 도착했어요!",
-      time: "12월 18일",
-      unread: 1,
-      pinned: false,
-      pfpKey: "oliveyoung",
-      fallbackBg: "#84CC16",
-      fallbackText: "OLIVE",
-      messages: [
-        { sender: "other", name: "올리브영", text: "(광고) [올리브영] 오늘드림 무료배송 쿠폰이 도착했어요! 지금 앱에서 립밥·핸드크림 보습 기획전을 확인해 보세요.", time: "오전 11:00" }
-      ]
-    },
-    {
-      id: "musinsa",
-      title: "무신사",
-      preview: "(광고) 겨울 아우터 최종 클리어런스 최대 80% 할인...",
-      time: "12월 16일",
-      unread: 0,
-      pinned: false,
-      pfpKey: "musinsa",
-      fallbackBg: "#111827",
-      fallbackText: "M",
-      messages: [
-        { sender: "other", name: "무신사", text: "(광고) 겨울 아우터 최종 클리어런스 최대 80% 할인 + 회원 전용 15% 더블 쿠폰팩이 지급되었습니다.\n\n무료수신거부 080-850-0000", time: "오후 12:00" }
-      ]
-    }
-  ];
-
-  /* =========================================================================
-   * [2. 메모장 데이터]
-   * ========================================================================= */
-  const NOTES_DATA = [
-    {
-      title: "중요!!!",
-      body: "예정일: 매달 12~14일 / 이지엔6이브"
-    },
-    {
-      title: "여주 메뉴",
-      body: "공차: 블랙밀크티+펄, 당도 50, 얼음 적게\n메가커피: 아바라 (원샷), 겨울엔 따뜻한 유자차\n엽떡: 착한맛 + 우동사리 + 바삭치즈만두\n서브웨이: 에그마요 플랫브레드 (스위트어니언+렌치)\n국밥: 다대기 따로"
-    },
-    {
-      title: "반지",
-      body: "검지 11호 약지 9호"
-    },
-    {
-      title: "12월 알바",
-      body: "평일 마감 (화/목/금) 18:00 ~ 22:30 (4.5시간)\n12/3 (목) 오픈 대타: +5시간\n12/12 (토) 주말 미들 대타: +6시간"
-    },
-    {
-      title: "위클리 합주 세팅",
-      body: "1곡: 어쿠스틱 편곡 (카포 2프렛)\n2곡: 풀밴드 (2절 브릿지 드럼 스틱 카운트 후 진입)\n개인 마이크 케이블 챙겨가기"
-    },
-    {
-      title: "자작곡 코드 스케치 (Capo 3)",
-      body: "Intro / Verse:\nG - D/F# - Em7 - Cadd9\nG - Bm7 - Am7 - D7sus4\n\nBridge:\nEm7 - Bm7 - Cmaj7 - Am7 - D7"
-    },
-    {
-      title: "살 거",
-      body: "서울우유 초코 4팩\n아몬드 초콜릿 2통\n붙이는 핫팩\n종량제 봉투\n세탁세제 리필"
-    },
-    {
-      title: "과대 인수인계",
-      body: "지하 합주실 2번방 마이크 케이블 교체 영수증 학과 사무실 제출"
-    }
-  ];
-
-  /* =========================================================================
-   * [3. 유튜브 데이터]
-   * ========================================================================= */
-  const YOUTUBE_DATA = [
-    {
-      title: "노래 개 잘하는 고등학생 듀오가 학교 축제에서 대상 탄 무대 ㄷㄷ ‘Hello’ (허각) cover",
-      meta: "조회수 80만회 · 3년 전",
-      duration: "4:18",
-      fallbackGradient: "linear-gradient(135deg,#1e1b4b,#3b0764)"
-    },
-    {
-      title: "오키나와 겨울 커플 여행 코스 추천 (3박 4일)",
-      meta: "조회수 10만회 · 1년 전",
-      duration: "14:52",
-      fallbackGradient: "linear-gradient(135deg,#0284c7,#0369a1)"
-    },
-    {
-      title: "남자 반깐 머리 스타일링법",
-      meta: "조회수 3만회 · 1년 전",
-      duration: "8:15",
-      fallbackGradient: "linear-gradient(135deg,#334155,#1e293b)"
-    },
-    {
-      title: "시판 사골육수로 국밥집 순대국밥 끓이는 법 (다대기 비율 공개!!)",
-      meta: "조회수 22만회 · 4개월 전",
-      duration: "11:04",
-      fallbackGradient: "linear-gradient(135deg,#7c2d12,#431407)"
-    },
-    {
-      title: "여자친구가 ‘됐어’라고 할 때 진짜 속마음 해석 총정리 (연애초보 필독)",
-      meta: "조회수 35만회 · 6개월 전",
-      duration: "9:42",
-      fallbackGradient: "linear-gradient(135deg,#831843,#500724)"
-    },
-    {
-      title: "[결말포함] 첫눈 오는 날 무조건 봐야 하는 인생 로맨스 영화 요약 (1시간 순삭)",
-      meta: "조회수 142만회 · 2년 전",
-      duration: "58:19",
-      fallbackGradient: "linear-gradient(135deg,#1e3a8a,#172554)"
-    },
-    {
-      title: "180cm 남대생 겨울 룩북 ㅣ 여친이 좋아하는 깔끔 남친룩 코디 7가지",
-      meta: "조회수 2.2만회 · 3주 전",
-      duration: "12:30",
-      fallbackGradient: "linear-gradient(135deg,#27272a,#18181b)"
-    },
-    {
-      title: "[영화리뷰] 신카이 마코토 극장판 애니메이션 결말 해석 및 숨겨진 디테일 총정리",
-      meta: "조회수 95만회 · 5개월 전",
-      duration: "19:45",
-      fallbackGradient: "linear-gradient(135deg,#0f766e,#1e3a8a)"
-    },
-    {
-      title: "무신사 겨울 아우터 랭킹 1위부터 10위까지 직접 입어봤습니다 (코트/패딩 사이즈 팁)",
-      meta: "조회수 13만회 · 1개월 전",
-      duration: "16:08",
-      fallbackGradient: "linear-gradient(135deg,#3f3f46,#18181b)"
-    },
-    {
-      title: "장기연애커플 설렘 200% 유지하는 현실 꿀팁 TOP 5",
-      meta: "조회수 27만회 · 5개월 전",
-      duration: "10:12",
-      fallbackGradient: "linear-gradient(135deg,#701a75,#3b0764)"
-    },
-    {
-      title: "John Mayer - Stop This Train (Acoustic Guitar Backing Track & Tab)",
-      meta: "조회수 54만회 · 2년 전",
-      duration: "4:45",
-      fallbackGradient: "linear-gradient(135deg,#451a03,#1c1917)"
-    }
-  ];
-
-  /* =========================================================================
-   * [4. 무신사 후기 데이터 (상품 사진 제외)]
-   * ========================================================================= */
-  const MUSINSA_REVIEWS_DATA = [
-    {
-      product: "디스이즈네버댓 - 헤비 폴리스 하이넥 집업 자켓 (크림 / S)",
-      text: "여자친구한테 선물해줬는데 엄청엄청 귀엽습니다 ㅎㅎ\n털빠짐도 없고 주머니 안감도 기모라 따뜻하고 좋습니다!! 추천해요👍 "
-    },
-    {
-      product: "무신사 스탠다드 - 헤비웨이트 오버핏 기모 후드 티셔츠 (멜란지 그레이 / XL)",
-      text: "저 입으려고 샀는데 여자친구가 맘에 든다고 해서 주고 하나 더 샀습니다 ㅎ허\n180대 기준으로는 적당한 세미 오버핏이고 160대 여성 분들이 입으시면 허벅지 반까지 덮고 소매는 두 번 접어도 손끝까지 남습니다! 기모 짱짱해서 한겨울 이너로 입기 괜찮을 것 같습니다."
-    },
-    {
-      product: "스부 (SUBU) - 스웨이드 방한 퍼 슬리퍼 뮬 (베이지 230 / 블랙 280)",
-      text: "여자친구랑 커플로 샀어요!! 여자친구가 수족냉증이 심한데 안에 퍼가 빵빵해서 따숩다고 좋아합니다 ㅎㅎ 가격대가 좀 나가지만 돈 쓴 보람이 있어요 굿굿"
-    },
-    {
-      product: "스카이보틀 - 무화과 퍼퓸 헤어 & 바디미스트 100ml",
-      text: "작은 형이 줘서 고등학생 때부터 뿌렸었는데 벌써 4년째 쓰고 있네요 ㅎㅎ\n사실 저는 제 냄새라서 그런지 잘 안 느껴지는데 여자친구가 엄청 좋아해요!\n그래서 계속 뿌리고 있습니다 잔향이 달짝지근하고 좋아요~ 추천합니다👍 "
-    },
-    {
-      product: "캐시미어 블렌드 머플러 아이보리",
-      text: "여자친구가 추위를 많이 타가지고 주려고 샀습니다. 피부가 좀 예민한 편인데 캐시미어 혼방이라 맨살에 닿아도 보들보들하다고 좋아하네요!! 길이도 적당해서 두 번 감으면 딱 좋습니다."
-    },
-    {
-      product: "브랜디드 - 와이드 스트레이트 데님 팬츠 (워시드 인디고 / L)",
-      text: "입고 나서 핏이 너무 잘 맞아서 놀랐습니다.\n기장 맞는 바지 찾기 힘든데 이건 발등 예쁘게 덮는 기장이라 마음에 듭니다!\n색감도 화면이랑 똑같고 사계절 무난하게 입기 좋아요! 잘 입겠습니다!!"
-    },
-    {
-      product: "페이퍼보이 - 미니멀 포켓 숄더백 (블랙)",
-      text: "넘 편하고 간편하게 들고 다니기 너무 좋아요. 생가보다 수납 공간도 넓어서 맨날 이거만 맴!"
-    },
-    {
-      product: "포멀 미니멀 라운드 니트 (네이비 / L)",
-      text: "후드티만 입고 다니다가 큰맘 먹고 샀습니다! 어깨선이 딱 맞고 팔 길이도 길어서 좋습니다. 짝사랑하는 친구가 예쁘다 해줬습니다 ㅎㅎ 뭔가 적당히 꾸민 티 내고 싶을 때 추천합니다👍 "
-    },
-    {
-      product: "디스이즈네버댓 - 퍼텍스 T 다운 자켓 (블랙 / L)",
-      text: "생각보다 엄청 가벼운데 충전재가 빵빵해서 밤에 돌아다녀도 안 춥네요! 주머니 안감도 기모처리 돼있어서 손 넣으면 따땃합니다~"
-    },
-    {
-      product: "커버낫 - 옥스포드 오버핏 셔츠 (스카이 블루 / L)",
-      text: "단독으로 입거나 니트 안에 레이어드하기 좋은 기본 셔츠입니다!\n세탁 후에도 깃 잘 안 무너지고 좋습니다~ \n감사합니다. 커버낫 자주 애용하겠습니다 "
-    },
-    {
-      product: "무신사 스탠다드 - 릴렉스 핏 크루 넥 반팔 티셔츠 2팩 [화이트+블랙 / L]",
-      text: "막 입고 다니려고 샀는데 목 시보리 짱짱하고 비침도 안 심해서 가성비 최고입니다~👍"
-    }
-  ];
-
-  /* =========================================================================
-   * [5. 캘린더, 사파리, 전화 데이터 (절대 수정 없이 기존 그대로 유지)]
-   * ========================================================================= */
-  const calendarEvents = {
-    1: [{ title: "전공 보컬 레슨", time: "14:00 - 15:00", color: "blue" }, { title: "카페 마감 알바", time: "18:00 - 22:30", color: "orange" }],
-    2: [{ title: "위클리 합주 리허설", time: "16:00 - 19:00", color: "purple" }, { title: "여주 도서관 마중", time: "21:30", color: "red" }],
-    3: [{ title: "실용화성학 과제 제출", time: "13:00", color: "blue" }, { title: "카페 알바 (오픈 대타)", time: "12:00 - 17:00", color: "orange" }],
-    4: [{ title: "과 학생회 회의", time: "17:00 - 18:00", color: "green" }, { title: "카페 마감 알바", time: "18:00 - 22:30", color: "orange" }],
-    5: [{ title: "여주랑 영화 & 저녁", time: "15:00 - 21:00", color: "red" }],
-    6: [{ title: "밴드팀 합주", time: "14:00 - 18:00", color: "purple" }],
-    8: [{ title: "전공 보컬 레슨", time: "14:00 - 15:00", color: "blue" }, { title: "카페 마감 알바", time: "18:00 - 22:30", color: "orange" }],
-    9: [{ title: "기말 위클리 리허설", time: "15:00 - 18:00", color: "purple" }, { title: "여주 야식 사다주기", time: "22:00", color: "red" }],
-    10: [{ title: "교양 기말고사", time: "10:30 - 12:00", color: "blue" }, { title: "알바비 입금일", time: "하루 종일", color: "green" }],
-    11: [{ title: "화성학 기말시험", time: "14:00 - 15:30", color: "blue" }, { title: "카페 마감 알바", time: "18:00 - 22:30", color: "orange" }],
-    12: [{ title: "약국 (이지엔6, 핫팩)", time: "11:00", color: "red" }, { title: "카페 주말 미들 대타", time: "13:00 - 19:00", color: "orange" }],
-    14: [{ title: "실기 곡 최종 런스루", time: "15:00 - 19:00", color: "purple" }],
-    15: [{ title: "전공 실기 시험 (보컬)", time: "13:00 - 16:00", color: "blue" }, { title: "카페 마감 알바", time: "18:00 - 22:30", color: "orange" }],
-    17: [{ title: "시창청음 기말평가", time: "11:00 - 12:30", color: "blue" }, { title: "여주 시험 끝 (마중)", time: "18:00", color: "red" }],
-    18: [{ title: "1학년 종강총회", time: "18:30 - 20:00", color: "green" }, { title: "여주 자취방", time: "20:10", color: "red" }],
-    19: [{ title: "여주랑 종강 데이트", time: "13:00 - 22:00", color: "red" }],
-    21: [{ title: "동계 계절학기 개강", time: "10:00 - 12:00", color: "blue" }],
-    22: [{ title: "계절학기 수업", time: "10:00 - 12:00", color: "blue" }, { title: "카페 마감 알바", time: "18:00 - 22:30", color: "orange" }],
-    23: [{ title: "계절학기 수업", time: "10:00 - 12:00", color: "blue" }, { title: "여주랑 저녁 (순대국밥)", time: "18:30", color: "red" }],
-    24: [{ title: "계절학기 수업", time: "10:00 - 12:00", color: "blue" }, { title: "성수동 타르트 픽업", time: "16:30", color: "red" }, { title: "크리스마스 이브", time: "18:00", color: "red" }],
-    25: [{ title: "🎄 크리스마스 호캉스", time: "하루 종일", color: "red" }, { title: "레스토랑 디너 예약", time: "19:00", color: "red" }],
-    28: [{ title: "계절학기 수업", time: "10:00 - 12:00", color: "blue" }],
-    29: [{ title: "계절학기 수업", time: "10:00 - 12:00", color: "blue" }, { title: "카페 마감 알바", time: "18:00 - 22:30", color: "orange" }],
-    31: [{ title: "여주랑 연말 카운트다운", time: "20:00", color: "red" }]
-  };
-
-  const safariHistory = [
-    "오키나와 겨울 여행 날씨",
-    "성수동 수제 초코 타르트 맛집",
-    "서울 야경 보이는 호텔 추천",
-    "여자친구 크리스마스 선물 20대 초반",
-    "수족냉증에 좋은 차",
-    "이지엔6 이브 복용 간격",
-    "순대국밥 다대기 황금레시피",
-    "스부 패딩 슬리퍼 사이즈 팁",
-    "디올 립글로우 각인 문구 추천",
-    "아몬드 초콜릿 대용량 박스",
-    "여자 반지 호수 몰래 재는 법",
-    "소망대 계절학기 학점 인정",
-    "John Mayer Stop This Train tab",
-    "여자친구 화났을 때 풀어주는 법",
-    "20대 여자 향수 추천 무화과",
-    "고양이 보러 갈 수 있는 카페"
-  ];
-
-  const callRecords = [
-    { name: "김여주❤️", type: "FaceTime 오디오", time: "오후 4:10", missed: false },
-    { name: "김여주❤️", type: "휴대전화", time: "오후 1:15", missed: false },
-    { name: "박준혁 (실음과)", type: "휴대전화", time: "오전 11:50", missed: false },
-    { name: "김여주❤️", type: "휴대전화", time: "오전 9:32", missed: false },
-    { name: "김여주❤️", type: "FaceTime 오디오", time: "어제", missed: false },
-    { name: "엄마❤️", type: "휴대전화", time: "어제", missed: false },
-    { name: "김여주❤️", type: "휴대전화", time: "어제", missed: false },
-    { name: "최윤성 (건반)", type: "휴대전화", time: "어제", missed: false },
-    { name: "김여주❤️", type: "휴대전화", time: "어제", missed: false },
-    { name: "카페 매니저님", type: "휴대전화", time: "어제", missed: false },
-    { name: "김여주❤️", type: "휴대전화", time: "어제", missed: false },
-    { name: "김여주❤️", type: "FaceTime 오디오", time: "수요일", missed: false },
-    { name: "이승우 선배 (학생회장)", type: "휴대전화", time: "수요일", missed: true },
-    { name: "김여주❤️", type: "휴대전화", time: "수요일", missed: false },
-    { name: "김여주❤️", type: "휴대전화", time: "수요일", missed: false },
-    { name: "정건우 (베이스)", type: "휴대전화", time: "수요일", missed: false },
-    { name: "김여주❤️", type: "휴대전화", time: "수요일", missed: false },
-    { name: "작은형", type: "휴대전화", time: "화요일", missed: false },
-    { name: "김여주❤️", type: "FaceTime 오디오", time: "화요일", missed: false },
-    { name: "김여주❤️", type: "휴대전화", time: "화요일", missed: false },
-    { name: "실음과 학과사무실", type: "대한민국", time: "화요일", missed: false },
-    { name: "김여주❤️", type: "휴대전화", time: "화요일", missed: false },
-    { name: "한지민 (드럼)", type: "휴대전화", time: "월요일", missed: false },
-    { name: "김여주❤️", type: "휴대전화", time: "월요일", missed: false },
-    { name: "김여주❤️", type: "FaceTime 오디오", time: "월요일", missed: false },
-    { name: "김민규 (소망남고)", type: "휴대전화", time: "월요일", missed: false },
-    { name: "김여주❤️", type: "휴대전화", time: "월요일", missed: false },
-    { name: "김여주❤️", type: "휴대전화", time: "일요일", missed: false },
-    { name: "아빠", type: "휴대전화", time: "일요일", missed: false },
-    { name: "김여주❤️", type: "FaceTime 오디오", time: "일요일", missed: false },
-    { name: "김여주❤️", type: "휴대전화", time: "일요일", missed: false },
-    { name: "강태현 (작곡과)", type: "휴대전화", time: "토요일", missed: false },
-    { name: "김여주❤️", type: "휴대전화", time: "토요일", missed: false },
-    { name: "김여주❤️", type: "휴대전화", time: "토요일", missed: false },
-    { name: "큰형", type: "휴대전화", time: "금요일", missed: false },
-    { name: "김여주❤️", type: "FaceTime 오디오", time: "금요일", missed: false }
-  ];
-
-  const favRecords = [
-    { name: "김여주❤️", sub: "휴대전화" },
-    { name: "엄마❤️", sub: "휴대전화" },
-    { name: "아빠", sub: "휴대전화" },
-    { name: "큰형", sub: "휴대전화" },
-    { name: "작은형", sub: "휴대전화" }
-  ];
-
-  const contactsList = [
-    "강태현 (작곡과)", "김민규 (소망남고)", "김여주❤️", "박준혁 (실음과)",
-    "실음과 학과사무실", "아빠", "엄마❤️", "이승우 선배 (학생회장)",
-    "작은형", "정건우 (베이스)", "최윤성 (건반)", "카페 매니저님", "큰형", "한지민 (드럼)"
-  ];
-
-  /* =========================================================================
-   * [초기화 및 커스텀 에셋 적용]
-   * ========================================================================= */
-  function applyCustomAssets() {
-    const lockEl = document.getElementById("lock-screen");
-    const homeEl = document.getElementById("home-screen");
-    const bgmEl = document.getElementById("bgm-audio");
-
-    if (ASSET_CONFIG.lockScreenBg) {
-      lockEl.style.backgroundImage = `url('${ASSET_CONFIG.lockScreenBg}')`;
-    }
-    if (ASSET_CONFIG.homeScreenBg) {
-      homeEl.style.backgroundImage = `url('${ASSET_CONFIG.homeScreenBg}')`;
-    }
-    if (ASSET_CONFIG.bgmUrl) {
-      bgmEl.src = ASSET_CONFIG.bgmUrl;
-    }
-    if (ASSET_CONFIG.bgmTitle) {
-      document.getElementById("bgm-title-lock").textContent = ASSET_CONFIG.bgmTitle;
-      document.getElementById("bgm-title-home").textContent = ASSET_CONFIG.bgmTitle;
-    }
-    if (ASSET_CONFIG.bgmArtist) {
-      document.getElementById("bgm-artist-lock").textContent = ASSET_CONFIG.bgmArtist;
-      document.getElementById("bgm-artist-home").textContent = ASSET_CONFIG.bgmArtist;
-    }
-    if (ASSET_CONFIG.bgmCoverImage) {
-      const lockArt = document.getElementById("lock-album-art");
-      const homeArt = document.getElementById("home-album-art");
-      lockArt.style.backgroundImage = `url('${ASSET_CONFIG.bgmCoverImage}')`;
-      lockArt.textContent = "";
-      homeArt.style.backgroundImage = `url('${ASSET_CONFIG.bgmCoverImage}')`;
-      homeArt.textContent = "";
-    }
-  }
-
+  <!-- ================= 0. USER NAME INPUT MODAL ================= -->
+  <div id="name-gate" class="hidden">
+    <div class="name-dialog">
+<!-- ... existing code ... -->
   function submitUserName() {
     const val = document.getElementById("user-name-input").value.trim();
     USER_NAME = val || "여주";
     document.getElementById("name-gate").classList.add("hidden");
+    document.getElementById("status-bar").className = "light-text";
+    document.getElementById("home-bar-pill").style.background = "rgba(255,255,255,0.85)";
     renderAllDynamicContent();
   }
 
@@ -1681,486 +261,106 @@
     if (e.key === "Enter") submitUserName();
   });
 
-  function renderAllDynamicContent() {
-    renderLockNotifications();
-    renderKakaoRooms();
-    renderNotesList();
-    renderYouTubeFeed();
-    renderMusinsaReviews();
-    renderCalendar(25);
-    renderSafariHistory();
-    renderPhoneViews();
-  }
-
   /* =========================================================================
-   * [잠금화면 & 암호 0612 & 배경음악 자동재생]
+   * [에브리타임 인트로 타이핑 & 등록 시퀀스]
    * ========================================================================= */
-  function renderLockNotifications() {
-    const box = document.getElementById("lock-notif-container");
-    const items = [
-      { title: applyUserName("여주❤"), body: "더 있어도 돼", time: "방금" },
-      { title: applyUserName("여주❤"), body: "왜이래 ㅋㅋㅋㅋㅋㅋㅋ", time: "방금" },
-      { title: "엄마", body: applyUserName("반찬 여주 자취방에도 반 덜어다 주고"), time: "어제" }
-    ];
-    box.innerHTML = items.map(n => `
-      <div class="ios-glass" style="border-radius:18px;padding:11px 14px;display:flex;align-items:center;gap:11px;">
-        <div style="width:36px;height:36px;border-radius:9px;background:var(--kakao-yellow);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="#3A1D1D"><path d="M12 3c-5.52 0-10 3.58-10 8 0 2.86 1.89 5.37 4.72 6.77-.21.78-.77 2.82-.88 3.26-.14.55.2.54.42.39.17-.11 2.73-1.85 3.83-2.6.62.1 1.26.18 1.91.18 5.52 0 10-3.58 10-8s-4.48-8-10-8z"/></svg>
-        </div>
-        <div style="flex:1;min-width:0;">
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-size:13.5px;font-weight:700;color:#fff;">${n.title}</span>
-            <span style="font-size:11px;color:rgba(255,255,255,0.65);">${n.time}</span>
-          </div>
-          <div style="font-size:13px;color:rgba(255,255,255,0.9);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px;">${n.body}</div>
-        </div>
-      </div>
-    `).join("");
-  }
+  const ET_INTRO_TITLE = "음대 건물 앞에서 휴대폰 주웠다";
+  const ET_INTRO_BODY = "음대 건물 앞에서 휴대폰 주웠다\n케이스 뒤에 여자친구 분? 이랑 찍은 것 같은 폴라 사진 끼워져 있고\n디지몬 스티커 붙여져 있다 기숙사 경비실에 맡겨놓겠다";
+  let etIntroTimer = null;
+  let etIntroFinished = false;
 
-  let enteredPin = "";
+  function startEverytimeIntro() {
+    // 에브리타임은 흰 배경이므로 상단 상태바를 어두운 텍스트로 표시
+    document.getElementById("status-bar").className = "dark-text";
+    document.getElementById("home-bar-pill").style.background = "rgba(0,0,0,0.75)";
 
-  function openPasscodeScreen() {
-    enteredPin = "";
-    updatePinDots();
-    document.getElementById("passcode-overlay").classList.add("active");
-  }
+    const titleEl = document.getElementById("et-title-text");
+    const bodyEl = document.getElementById("et-body-text");
+    const titleCur = document.getElementById("et-title-cursor");
+    const bodyCur = document.getElementById("et-body-cursor");
 
-  function closePasscodeScreen() {
-    enteredPin = "";
-    updatePinDots();
-    document.getElementById("passcode-overlay").classList.remove("active");
-  }
+    let tIdx = 0;
+    let bIdx = 0;
 
-  function pressPin(digit) {
-    if (enteredPin.length >= 4) return;
-    enteredPin += digit;
-    updatePinDots();
-
-    if (enteredPin.length === 4) {
-      if (enteredPin === "0612") {
-        setTimeout(() => {
-          document.getElementById("passcode-overlay").classList.remove("active");
-          document.getElementById("lock-screen").classList.add("unlocked");
-          startBgmOnUnlock();
-        }, 120);
+    function typeTitleStep() {
+      if (etIntroFinished) return;
+      if (tIdx < ET_INTRO_TITLE.length) {
+        titleEl.textContent += ET_INTRO_TITLE.charAt(tIdx);
+        tIdx++;
+        etIntroTimer = setTimeout(typeTitleStep, 48);
       } else {
-        const dotsEl = document.getElementById("pin-dots");
-        dotsEl.classList.add("shake");
-        document.getElementById("pin-error-msg").textContent = "암호가 일치하지 않습니다 (힌트: 0612)";
-        setTimeout(() => {
-          dotsEl.classList.remove("shake");
-          enteredPin = "";
-          updatePinDots();
-        }, 420);
+        titleCur.style.display = "none";
+        bodyCur.style.display = "inline-block";
+        etIntroTimer = setTimeout(typeBodyStep, 260);
       }
     }
-  }
 
-  function deletePin() {
-    enteredPin = enteredPin.slice(0, -1);
-    updatePinDots();
-  }
-
-  function updatePinDots() {
-    const dots = document.querySelectorAll("#pin-dots .pin-dot");
-    dots.forEach((d, idx) => {
-      if (idx < enteredPin.length) d.classList.add("filled");
-      else d.classList.remove("filled");
-    });
-  }
-
-  function startBgmOnUnlock() {
-    const bgmEl = document.getElementById("bgm-audio");
-    if (ASSET_CONFIG.bgmUrl && bgmEl.src) {
-      bgmEl.play().then(() => {
-        document.getElementById("bgm-toggle-btn").textContent = "⏸";
-        document.getElementById("home-bgm-badge").textContent = "재생 중";
-      }).catch(() => {});
+    function typeBodyStep() {
+      if (etIntroFinished) return;
+      if (bIdx < ET_INTRO_BODY.length) {
+        bodyEl.textContent += ET_INTRO_BODY.charAt(bIdx);
+        bIdx++;
+        const ch = ET_INTRO_BODY.charAt(bIdx - 1);
+        const delay = ch === "\n" ? 220 : 34;
+        etIntroTimer = setTimeout(typeBodyStep, delay);
+      } else {
+        etIntroTimer = setTimeout(submitEverytimePostNow, 550);
+      }
     }
+
+    etIntroTimer = setTimeout(typeTitleStep, 450);
   }
 
-  function toggleBgmPlayback() {
-    const bgmEl = document.getElementById("bgm-audio");
-    if (!ASSET_CONFIG.bgmUrl) return;
-    if (bgmEl.paused) {
-      bgmEl.play();
-      document.getElementById("bgm-toggle-btn").textContent = "⏸";
-      document.getElementById("home-bgm-badge").textContent = "재생 중";
-    } else {
-      bgmEl.pause();
-      document.getElementById("bgm-toggle-btn").textContent = "▶";
-      document.getElementById("home-bgm-badge").textContent = "일시정지";
-    }
+  function submitEverytimePostNow() {
+    if (etIntroFinished) return;
+    etIntroFinished = true;
+    if (etIntroTimer) clearTimeout(etIntroTimer);
+
+    document.getElementById("et-title-text").textContent = ET_INTRO_TITLE;
+    document.getElementById("et-body-text").textContent = ET_INTRO_BODY;
+    document.getElementById("et-title-cursor").style.display = "none";
+    document.getElementById("et-body-cursor").style.display = "none";
+
+    const doneBtn = document.getElementById("et-done-btn");
+    doneBtn.classList.add("pressed");
+
+    setTimeout(() => {
+      doneBtn.classList.remove("pressed");
+      document.getElementById("et-write-view").style.display = "none";
+      document.getElementById("et-board-view").style.display = "flex";
+
+      // 게시판에 등록된 모습을 잠시 보여준 뒤 페이드아웃 -> 이름 입력창 표시
+      setTimeout(() => {
+        finishEverytimeIntroToNameGate();
+      }, 1750);
+    }, 220);
   }
 
-  /* =========================================================================
-   * [앱 열기 / 홈 화면 복귀]
-   * ========================================================================= */
-  function openApp(appName) {
-    document.querySelectorAll(".app-window").forEach(w => w.classList.remove("open"));
-    const target = document.getElementById("app-" + appName);
-    if (target) target.classList.add("open");
-
-    const statusBar = document.getElementById("status-bar");
-    const homePill = document.getElementById("home-bar-pill");
-
-    if (appName === "youtube") {
-      statusBar.className = "light-text";
-      homePill.style.background = "rgba(255,255,255,0.85)";
-    } else {
-      statusBar.className = "dark-text";
-      homePill.style.background = "rgba(0,0,0,0.75)";
-    }
+  function skipEverytimeIntro() {
+    etIntroFinished = true;
+    if (etIntroTimer) clearTimeout(etIntroTimer);
+    finishEverytimeIntroToNameGate();
   }
 
-  function goHomeScreen() {
-    const lockEl = document.getElementById("lock-screen");
-    if (!lockEl.classList.contains("unlocked")) {
-      openPasscodeScreen();
-      return;
-    }
-    document.querySelectorAll(".app-window").forEach(w => w.classList.remove("open"));
+  function finishEverytimeIntroToNameGate() {
+    const introEl = document.getElementById("everytime-intro");
+    introEl.classList.add("fade-out");
     document.getElementById("status-bar").className = "light-text";
     document.getElementById("home-bar-pill").style.background = "rgba(255,255,255,0.85)";
+
+    const nameGate = document.getElementById("name-gate");
+    nameGate.classList.remove("hidden");
+    setTimeout(() => {
+      document.getElementById("user-name-input").focus();
+    }, 350);
   }
 
-  /* =========================================================================
-   * [카카오톡 렌더링]
-   * ========================================================================= */
-  let activeKakaoRoomId = null;
-
-  function getKakaoAvatarHtml(pfpKey, fallbackBg, fallbackText, cssClass) {
-    const imgUrl = ASSET_CONFIG.kakaoProfiles[pfpKey];
-    if (imgUrl) {
-      return `<div class="${cssClass}" style="background-image:url('${imgUrl}');"></div>`;
-    }
-    return `<div class="${cssClass}" style="background:${fallbackBg};color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;">${applyUserName(fallbackText)}</div>`;
-  }
-
-  function renderKakaoRooms() {
-    const container = document.getElementById("kakao-rooms-container");
-    container.innerHTML = KAKAO_ROOMS_DATA.map(r => {
-      const displayTitle = applyUserName(r.title);
-      const displayPreview = applyUserName(r.preview);
-      return `
-        <div onclick="openKakaoRoom('${r.id}')" style="padding:11px 20px;display:flex;align-items:center;gap:13px;cursor:pointer;">
-          ${getKakaoAvatarHtml(r.pfpKey, r.fallbackBg, r.fallbackText, "katalk-list-pfp")}
-          <div style="flex:1;min-width:0;">
-            <div style="display:flex;align-items:center;gap:5px;">
-              <span style="font-size:15.5px;font-weight:700;color:#191919;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${displayTitle}</span>
-              ${r.count ? `<span style="font-size:13px;color:#8E8E93;font-weight:600;">${r.count}</span>` : ""}
-              ${r.pinned ? `<span style="font-size:11px;color:#B0B0B5;">📌</span>` : ""}
-            </div>
-            <div style="font-size:13px;color:#767676;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px;">${displayPreview}</div>
-          </div>
-          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0;">
-            <span style="font-size:11.5px;color:#999;">${r.time}</span>
-            ${r.unread > 0 ? `<span style="background:#FF3B30;color:#fff;font-size:11px;font-weight:700;padding:1px 6px;border-radius:999px;">${r.unread}</span>` : `<span style="height:16px;"></span>`}
-          </div>
-        </div>
-      `;
-    }).join("");
-  }
-
-  function openKakaoRoom(roomId) {
-    activeKakaoRoomId = roomId;
-    const room = KAKAO_ROOMS_DATA.find(r => r.id === roomId);
-    if (!room) return;
-    room.unread = 0;
-    renderKakaoRooms();
-
-    document.getElementById("kakao-list-view").style.display = "none";
-    const roomView = document.getElementById("kakao-room-view");
-    roomView.style.display = "flex";
-    document.getElementById("kakao-room-header-title").textContent = applyUserName(room.title) + (room.count ? ` (${room.count})` : "");
-
-    renderKakaoMessages(room);
-  }
-
-  function closeKakaoRoom() {
-    document.getElementById("kakao-room-view").style.display = "none";
-    document.getElementById("kakao-list-view").style.display = "flex";
-    activeKakaoRoomId = null;
-  }
-
-  function renderKakaoMessages(room) {
-    const scrollEl = document.getElementById("kakao-messages-scroll");
-    let html = "";
-
-    room.messages.forEach((m, idx) => {
-      if (m.type === "date") {
-        html += `
-          <div style="display:flex;justify-content:center;margin:10px 0;">
-            <span style="background:rgba(0,0,0,0.16);color:#fff;font-size:11.5px;padding:4px 12px;border-radius:999px;">${applyUserName(m.text)}</span>
-          </div>
-        `;
-        return;
-      }
-
-      if (m.type === "gift") {
-        const receiver = applyUserName("여주❤");
-        html += `
-          <div style="display:flex;align-items:flex-end;gap:6px;margin-top:4px;">
-            ${getKakaoAvatarHtml(room.pfpKey, room.fallbackBg, room.fallbackText, "katalk-pfp")}
-            <div>
-              <div style="font-size:12px;color:#4A5568;margin-bottom:3px;">카카오톡 선물하기</div>
-              <div style="width:236px;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,0.08);">
-                <div style="background:#FEE500;padding:9px 13px;font-size:12px;font-weight:800;color:#3A1D1D;">선물하기 완료</div>
-                <div style="padding:13px;">
-                  <div style="font-size:13.5px;font-weight:700;color:#191919;margin-bottom:6px;">${receiver}님에게 선물을 보냈습니다.</div>
-                  <div style="font-size:12.5px;color:#555;line-height:1.45;">상품명: ${applyUserName(m.item)}</div>
-                  <div style="margin-top:11px;padding:8px;background:#F4F4F6;border-radius:8px;text-align:center;font-size:12px;font-weight:600;color:#333;">선물함에서 보기</div>
-                </div>
-              </div>
-            </div>
-            <span style="font-size:10px;color:#556677;">${m.time}</span>
-          </div>
-        `;
-        return;
-      }
-
-      const prev = room.messages[idx - 1];
-      const next = room.messages[idx + 1];
-      const samePrevSender = prev && !prev.type && prev.sender === m.sender && prev.name === m.name;
-      const sameNextTime = next && !next.type && next.sender === m.sender && next.time === m.time;
-
-      if (m.sender === "me") {
-        html += `
-          <div style="display:flex;justify-content:flex-end;align-items:flex-end;gap:5px;">
-            ${!sameNextTime ? `<span style="font-size:10px;color:#556677;">${m.time}</span>` : ""}
-            <div style="max-width:74%;background:var(--kakao-yellow);color:#191919;padding:8px 12px;border-radius:15px;border-top-right-radius:${samePrevSender ? '15px' : '3px'};font-size:14px;line-height:1.42;word-break:break-word;white-space:pre-line;box-shadow:0 1px 1px rgba(0,0,0,0.05);">${applyUserName(m.text)}</div>
-          </div>
-        `;
-      } else {
-        html += `
-          <div style="display:flex;align-items:flex-start;gap:8px;margin-top:${samePrevSender ? '0' : '4px'};">
-            ${!samePrevSender ? getKakaoAvatarHtml(room.pfpKey, room.fallbackBg, room.fallbackText, "katalk-pfp") : `<div style="width:40px;flex-shrink:0;"></div>`}
-            <div style="max-width:72%;">
-              ${!samePrevSender ? `<div style="font-size:12px;color:#3B4754;margin-bottom:3px;font-weight:500;">${applyUserName(m.name || room.title)}</div>` : ""}
-              <div style="display:flex;align-items:flex-end;gap:5px;">
-                <div style="background:#fff;color:#191919;padding:8px 12px;border-radius:15px;border-top-left-radius:${samePrevSender ? '15px' : '3px'};font-size:14px;line-height:1.42;word-break:break-word;white-space:pre-line;box-shadow:0 1px 1px rgba(0,0,0,0.05);">${applyUserName(m.text)}</div>
-                ${!sameNextTime ? `<span style="font-size:10px;color:#556677;flex-shrink:0;">${m.time}</span>` : ""}
-              </div>
-            </div>
-          </div>
-        `;
-      }
-    });
-
-    scrollEl.innerHTML = html;
-    scrollEl.scrollTop = scrollEl.scrollHeight;
-  }
-
-  function sendKakaoMessage() {
-    const input = document.getElementById("kakao-chat-input");
-    const txt = input.value.trim();
-    if (!txt || !activeKakaoRoomId) return;
-    const room = KAKAO_ROOMS_DATA.find(r => r.id === activeKakaoRoomId);
-    if (!room) return;
-
-    room.messages.push({ sender: "me", text: txt, time: "방금" });
-    room.preview = txt;
-    input.value = "";
-    renderKakaoMessages(room);
-    renderKakaoRooms();
-  }
-
-  /* =========================================================================
-   * [메모장 렌더링]
-   * ========================================================================= */
-  function renderNotesList() {
-    const box = document.getElementById("notes-items-box");
-    box.innerHTML = NOTES_DATA.map((n, idx) => {
-      const title = applyUserName(n.title);
-      const firstLine = applyUserName(n.body.split("\n")[0]);
-      return `
-        <div onclick="openNoteDetail(${idx})" style="padding:13px 16px;border-bottom:${idx === NOTES_DATA.length - 1 ? 'none' : '0.5px solid #E5E5EA'};cursor:pointer;">
-          <div style="font-size:16px;font-weight:700;color:#000;margin-bottom:3px;">${title}</div>
-          <div style="font-size:13.5px;color:#8E8E93;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${firstLine}</div>
-        </div>
-      `;
-    }).join("");
-  }
-
-  function openNoteDetail(idx) {
-    const note = NOTES_DATA[idx];
-    if (!note) return;
-    document.getElementById("notes-list-view").style.display = "none";
-    document.getElementById("notes-detail-view").style.display = "flex";
-    document.getElementById("note-detail-title").textContent = applyUserName(note.title);
-    document.getElementById("note-detail-body").textContent = applyUserName(note.body);
-  }
-
-  function closeNoteDetail() {
-    document.getElementById("notes-detail-view").style.display = "none";
-    document.getElementById("notes-list-view").style.display = "flex";
-  }
-
-  /* =========================================================================
-   * [유튜브 렌더링]
-   * ========================================================================= */
-  function renderYouTubeFeed() {
-    const box = document.getElementById("yt-feed-box");
-    box.innerHTML = YOUTUBE_DATA.map((v, idx) => {
-      const customThumb = ASSET_CONFIG.youtubeThumbnails[idx];
-      const bgStyle = customThumb
-        ? `background-image:url('${customThumb}');background-size:cover;background-position:center;`
-        : `background:${v.fallbackGradient};`;
-
-      return `
-        <div style="margin-bottom:18px;">
-          <div style="width:100%;aspect-ratio:16/9;${bgStyle}position:relative;display:flex;align-items:center;justify-content:center;">
-            ${!customThumb ? `<div style="width:48px;height:48px;border-radius:50%;background:rgba(0,0,0,0.45);display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></div>` : ""}
-            <span style="position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,0.82);color:#fff;font-size:11.5px;font-weight:600;padding:2px 6px;border-radius:4px;">${v.duration}</span>
-          </div>
-          <div style="padding:11px 14px 4px;display:flex;gap:12px;">
-            <div style="width:36px;height:36px;border-radius:50%;background:#27272A;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;color:#fff;">▶</div>
-            <div style="flex:1;min-width:0;">
-              <div style="font-size:14.5px;font-weight:600;color:#F1F1F1;line-height:1.38;">${applyUserName(v.title)}</div>
-              <div style="font-size:12px;color:#AAAAAA;margin-top:4px;">${v.meta}</div>
-            </div>
-          </div>
-        </div>
-      `;
-    }).join("");
-  }
-
-  /* =========================================================================
-   * [무신사 후기 렌더링 (상품 사진 제외)]
-   * ========================================================================= */
-  function renderMusinsaReviews() {
-    const box = document.getElementById("musinsa-reviews-box");
-    box.innerHTML = MUSINSA_REVIEWS_DATA.map(item => `
-      <div style="background:#fff;padding:16px 20px;border-bottom:1px solid #EBEBEB;">
-        <div style="font-size:13px;font-weight:800;color:#111;padding-bottom:10px;border-bottom:1px solid #F2F2F2;margin-bottom:10px;">
-          ${applyUserName(item.product)}
-        </div>
-        <div style="color:#F59E0B;font-size:13px;letter-spacing:1px;margin-bottom:8px;">★★★★★</div>
-        <div style="font-size:14px;color:#222;line-height:1.58;white-space:pre-line;">${applyUserName(item.text)}</div>
-      </div>
-    `).join("");
-  }
-
-  /* =========================================================================
-   * [캘린더, 사파리, 전화 렌더링 (기존 유지)]
-   * ========================================================================= */
-  function renderCalendar(selectedDay) {
-    const grid = document.getElementById("calendar-days-grid");
-    let html = "";
-    // 2026년 12월 1일은 화요일 (앞 빈칸 2개)
-    for (let i = 0; i < 2; i++) html += `<div></div>`;
-    for (let d = 1; d <= 31; d++) {
-      const evs = calendarEvents[d] || [];
-      const isSelected = d === selectedDay;
-      const isToday = d === 25;
-      html += `
-        <div onclick="selectCalendarDay(${d})" style="padding:6px 0;display:flex;flex-direction:column;align-items:center;cursor:pointer;">
-          <div style="width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:${isSelected || isToday ? '700' : '500'};background:${isSelected ? (isToday ? 'var(--ios-red)' : '#000') : 'transparent'};color:${isSelected ? '#fff' : (isToday ? 'var(--ios-red)' : '#000')};">
-            ${d}
-          </div>
-          <div style="display:flex;gap:3px;height:6px;margin-top:3px;">
-            ${evs.slice(0, 3).map(e => `<span style="width:4.5px;height:4.5px;border-radius:50%;background:${e.color === 'red' ? '#FF3B30' : e.color === 'orange' ? '#FF9500' : e.color === 'purple' ? '#AF52DE' : '#007AFF'};"></span>`).join("")}
-          </div>
-        </div>
-      `;
-    }
-    grid.innerHTML = html;
-    selectCalendarDay(selectedDay);
-  }
-
-  function selectCalendarDay(day) {
-    document.getElementById("calendar-selected-label").textContent = `2026년 12월 ${day}일 일정`;
-    const box = document.getElementById("calendar-events-box");
-    const evs = calendarEvents[day] || [];
-
-    if (evs.length === 0) {
-      box.innerHTML = `<div style="background:#fff;border-radius:12px;padding:18px;text-align:center;color:#8E8E93;font-size:14px;">등록된 일정이 없습니다.</div>`;
-    } else {
-      box.innerHTML = evs.map(e => `
-        <div style="background:#fff;border-radius:12px;padding:13px 16px;display:flex;justify-content:space-between;align-items:center;border-left:4px solid ${e.color === 'red' ? '#FF3B30' : e.color === 'orange' ? '#FF9500' : e.color === 'purple' ? '#AF52DE' : '#007AFF'};">
-          <span style="font-size:15px;font-weight:700;color:#000;">${applyUserName(e.title)}</span>
-          <span style="font-size:13px;color:#8E8E93;">${e.time}</span>
-        </div>
-      `).join("");
-    }
-  }
-
-  function renderSafariHistory() {
-    const box = document.getElementById("safari-history-box");
-    box.innerHTML = safariHistory.map(q => {
-      const displayQ = applyUserName(q);
-      return `
-        <div onclick="document.getElementById('safari-search-input').value='${displayQ}'" style="padding:12px 4px;border-bottom:0.5px solid #F1F3F4;display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
-          <div style="display:flex;align-items:center;gap:12px;">
-            <span style="color:#9AA0A6;font-size:14px;">🕒</span>
-            <span style="font-size:14.5px;color:#202124;">${displayQ}</span>
-          </div>
-          <span style="color:#9AA0A6;font-size:14px;">↖</span>
-        </div>
-      `;
-    }).join("");
-  }
-
-  function renderPhoneViews() {
-    const recBox = document.getElementById("phone-recents-box");
-    recBox.innerHTML = callRecords.map(r => `
-      <div style="padding:11px 0;border-bottom:0.5px solid #E5E5EA;display:flex;justify-content:space-between;align-items:center;">
-        <div>
-          <div style="font-size:15.5px;font-weight:700;color:${r.missed ? 'var(--ios-red)' : '#000'};">${applyUserName(r.name)}</div>
-          <div style="font-size:12.5px;color:#8E8E93;margin-top:2px;">${r.type}</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;">
-          <span style="font-size:13px;color:#8E8E93;">${r.time}</span>
-          <span style="color:var(--ios-blue);font-size:16px;">ⓘ</span>
-        </div>
-      </div>
-    `).join("");
-
-    const favBox = document.getElementById("phone-favorites-box");
-    favBox.innerHTML = favRecords.map(f => `
-      <div style="padding:12px 0;border-bottom:0.5px solid #E5E5EA;display:flex;justify-content:space-between;align-items:center;">
-        <div>
-          <div style="font-size:16px;font-weight:700;color:#000;">${applyUserName(f.name)}</div>
-          <div style="font-size:12.5px;color:#8E8E93;">${f.sub}</div>
-        </div>
-        <span style="color:var(--ios-blue);">ⓘ</span>
-      </div>
-    `).join("");
-
-    const conBox = document.getElementById("phone-contacts-box");
-    conBox.innerHTML = contactsList.map(c => `
-      <div style="padding:12px 0;border-bottom:0.5px solid #E5E5EA;font-size:15.5px;font-weight:600;color:#000;">
-        ${applyUserName(c)}
-      </div>
-    `).join("");
-  }
-
-  function switchPhoneTab(tab) {
-    ["favorites", "recents", "contacts", "keypad"].forEach(t => {
-      document.getElementById("phone-tab-" + t).style.display = (t === tab) ? (t === "keypad" ? "flex" : "block") : "none";
-      const btn = document.getElementById("ptab-btn-" + t);
-      btn.style.color = (t === tab) ? "var(--ios-blue)" : "#8E8E93";
-      btn.style.fontWeight = (t === tab) ? "600" : "400";
-    });
-  }
-
-  function appendDial(ch) {
-    const el = document.getElementById("phone-dial-str");
-    if (el.textContent.length < 13) el.textContent += ch;
-  }
-
-  // 키보드로도 잠금화면 암호(0612) 입력 가능
-  window.addEventListener("keydown", function(e) {
-    const passOverlay = document.getElementById("passcode-overlay");
-    if (!passOverlay.classList.contains("active")) return;
-    if (e.key >= "0" && e.key <= "9") pressPin(e.key);
-    else if (e.key === "Backspace") deletePin();
-  });
-
+  function renderAllDynamicContent() {
+<!-- ... existing code ... -->
   // 초기 실행
   applyCustomAssets();
   renderAllDynamicContent();
+  startEverytimeIntro();
 </script>
 </body>
 </html>
