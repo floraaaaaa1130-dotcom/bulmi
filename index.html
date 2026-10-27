@@ -1067,42 +1067,49 @@
   </div>
 
   <!-- ================= APP 4: MUSINSA ================= -->
-  <div id="app-musinsa" class="app-window" style="background:#F5F5F5;">
-    <div style="padding-top:48px;background:#fff;border-bottom:1px solid #EBEBEB;">
+  <div id="app-musinsa" class="app-window" style="background:#F2F2F2;">
+    <!-- 상단 헤더 -->
+    <div style="padding-top:48px;background:#fff;">
       <div style="padding:12px 18px;display:flex;justify-content:space-between;align-items:center;">
-        <span style="font-size:17px;font-weight:900;letter-spacing:0.4px;color:#000;">MUSINSA</span>
-        <span style="font-size:13px;font-weight:700;color:#000;">마이페이지 · 후기</span>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"><path d="M15 19l-7-7 7-7"/></svg>
+          <span style="font-size:18px;font-weight:600;color:#000;">후기</span>
+        </div>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       </div>
     </div>
 
-    <div class="no-scrollbar" style="flex:1;overflow-y:auto;padding-bottom:36px;">
-      <!-- Profile Summary Card -->
-      <div style="background:#fff;padding:18px 20px;margin-bottom:8px;border-bottom:1px solid #EBEBEB;">
-        <div style="display:flex;align-items:center;gap:14px;">
-          <div style="width:52px;height:52px;border-radius:50%;background:#111;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;">LV.3</div>
-          <div style="flex:1;">
-            <div style="font-size:17px;font-weight:800;color:#000;">LV.3김대영이</div>
-            <div style="font-size:12.5px;color:#666;margin-top:3px;">남성 / 183CM / 68kg</div>
-          </div>
+    <div class="no-scrollbar" style="flex:1;overflow-y:auto;background:#F2F2F2;">
+      <!-- 내 후기 요약 상단부 -->
+      <div style="background:#fff;padding:20px 18px 0;">
+        <div style="font-size:18px;font-weight:700;margin-bottom:8px;">적립가능 금액 <span style="color:#007AFF;">0원</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;color:#666;margin-bottom:16px;">
+          <span>나의 후기 11개 · 도움돼요 612개</span>
+          <span style="text-decoration:underline;color:#888;">작성 안내</span>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px;padding:12px;background:#F9F9F9;border-radius:10px;text-align:center;">
-          <div>
-            <div style="font-size:11px;color:#888;">적립금</div>
-            <div style="font-size:14px;font-weight:800;color:#000;margin-top:2px;">25,621원</div>
-          </div>
-          <div style="border-left:1px solid #E5E5E5;border-right:1px solid #E5E5E5;">
-            <div style="font-size:11px;color:#888;">작성 후기</div>
-            <div style="font-size:14px;font-weight:800;color:#000;margin-top:2px;">65건</div>
-          </div>
-          <div>
-            <div style="font-size:11px;color:#888;">도움이 돼요</div>
-            <div style="font-size:14px;font-weight:800;color:#000;margin-top:2px;">612</div>
-          </div>
+        <div style="background:#F9F9F9;border:1px solid #E5E5E5;border-radius:6px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:700;margin-bottom:16px;">
+          100만원 적립금의 후기왕에 도전해보세요!
+          <span style="color:#888;font-weight:400;">></span>
+        </div>
+        
+        <!-- 메인 탭 메뉴 -->
+        <div style="display:flex;gap:20px;font-size:15px;color:#888;border-bottom:1px solid #EBEBEB;">
+          <div style="padding-bottom:12px;">작성 가능한 후기 0</div>
+          <div style="padding-bottom:12px;color:#000;font-weight:700;border-bottom:2px solid #000;">작성한 후기 11</div>
+          <div style="padding-bottom:12px;display:flex;align-items:center;gap:2px;">체험단 신청 ↗</div>
         </div>
       </div>
+      
+      <!-- 서브 탭 메뉴 (회색 배경) -->
+      <div style="background:#F2F2F2;padding:12px 18px;display:flex;gap:16px;font-size:13px;color:#888;border-bottom:1px solid #E5E5E5;">
+        <div style="color:#000;font-weight:700;">전체 11</div>
+        <div>승인 완료 11</div>
+        <div>승인 대기중 0</div>
+        <div>승인 보류 0</div>
+      </div>
 
-      <!-- Reviews Container (No Product Images) -->
-      <div id="musinsa-reviews-box" style="display:flex;flex-direction:column;gap:8px;"></div>
+      <!-- 후기 리스트 컨테이너 -->
+      <div id="musinsa-reviews-box" style="display:flex;flex-direction:column;gap:8px;background:#F2F2F2;padding-bottom:36px;"></div>
     </div>
   </div>
 
@@ -1280,7 +1287,7 @@
     
     // 3. 카카오톡 프로필 사진 이미지 경로
     kakaoProfiles: {
-      yeojoo: "./assets/yj.jpg",      // 여주❤ 프사
+      yeojoo: "./assets/yj2.jpg",      // 여주❤ 프사
       oliveyoung: "./assets/olive.png",  // 올리브영 프사
       somangHigh: "./assets/pro.jpg",  // 소망남고 3-4 단톡 프사
       postOffice: "./assets/post.jpg",  // 우체국택배 프사
@@ -2709,15 +2716,76 @@
    * ========================================================================= */
   function renderMusinsaReviews() {
     const box = document.getElementById("musinsa-reviews-box");
-    box.innerHTML = MUSINSA_REVIEWS_DATA.map(item => `
-      <div style="background:#fff;padding:16px 20px;border-bottom:1px solid #EBEBEB;">
-        <div style="font-size:13px;font-weight:800;color:#111;padding-bottom:10px;border-bottom:1px solid #F2F2F2;margin-bottom:10px;">
-          ${applyUserName(item.product)}
+    box.innerHTML = MUSINSA_REVIEWS_DATA.map((item, idx) => {
+      // 기존 "브랜드 - 상품명 (옵션)" 형태의 문자열을 파싱
+      let brand = "브랜드";
+      let productName = applyUserName(item.product);
+      let option = "옵션 없음";
+      
+      if(item.product.includes("-")) {
+        const parts = item.product.split("-");
+        brand = parts[0].trim();
+        let rest = parts.slice(1).join("-").trim();
+        if(rest.includes("(")) {
+          const subParts = rest.split("(");
+          productName = applyUserName(subParts[0].trim());
+          option = subParts[1].replace(")", "").trim();
+        } else {
+          productName = applyUserName(rest);
+        }
+      }
+
+      // 인덱스에 따라 과거 날짜 가짜 생성 (26.12.xx)
+      const d = new Date(2026, 11, 25 - idx * 2);
+      const dateStr = `${d.getFullYear().toString().slice(2)}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`;
+
+      return `
+        <div style="background:#fff;padding:20px 18px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span style="font-size:15px;font-weight:700;color:#000;">후기</span>
+              <span style="font-size:12px;color:#0055FF;background:#E8F0FE;padding:2px 6px;border-radius:2px;">승인 완료</span>
+            </div>
+            <span style="color:#000;font-weight:700;letter-spacing:1px;font-size:18px;">...</span>
+          </div>
+          
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+            <div style="color:#FF8A00;font-size:15px;letter-spacing:2px;">★★★★★ <span style="color:#000;font-weight:800;font-size:14px;letter-spacing:0;">5</span></div>
+            <span style="font-size:13px;color:#888;">${dateStr}</span>
+          </div>
+
+          <div style="margin-bottom:14px;">
+            <div style="font-size:15px;font-weight:700;color:#000;margin-bottom:4px;">${brand}</div>
+            <div style="font-size:14px;color:#000;">${productName}</div>
+          </div>
+
+          <div style="background:#F2F2F2;border-radius:6px;padding:14px;margin-bottom:18px;">
+            <div style="display:flex;gap:16px;margin-bottom:8px;font-size:13px;">
+              <span style="color:#888;min-width:45px;">상품명</span>
+              <span style="color:#000;">${productName}</span>
+            </div>
+            <div style="display:flex;gap:16px;font-size:13px;">
+              <span style="color:#888;min-width:45px;">구매옵션</span>
+              <span style="color:#000;">${option}</span>
+            </div>
+          </div>
+
+          <div style="font-size:14.5px;color:#000;line-height:1.65;white-space:pre-line;margin-bottom:12px;">${applyUserName(item.text)}</div>
+          <div style="font-size:13px;color:#888;text-decoration:underline;text-underline-position:under;margin-bottom:20px;">접기</div>
+
+          <div style="display:flex;gap:8px;">
+            <button style="flex:1;max-width:90px;height:34px;background:#fff;border:1px solid #E5E5E5;border-radius:4px;display:flex;align-items:center;justify-content:center;gap:4px;font-size:13px;color:#000;font-weight:500;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
+              도움돼요
+            </button>
+            <button style="flex:1;max-width:80px;height:34px;background:#fff;border:1px solid #E5E5E5;border-radius:4px;display:flex;align-items:center;justify-content:center;gap:4px;font-size:13px;color:#000;font-weight:500;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              댓글
+            </button>
+          </div>
         </div>
-        <div style="color:#F59E0B;font-size:13px;letter-spacing:1px;margin-bottom:8px;">★★★★★</div>
-        <div style="font-size:14px;color:#222;line-height:1.58;white-space:pre-line;">${applyUserName(item.text)}</div>
-      </div>
-    `).join("");
+      `;
+    }).join("");
   }
 
   /* =========================================================================
