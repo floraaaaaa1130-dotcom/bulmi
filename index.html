@@ -537,14 +537,13 @@
         <div style="padding-top:15px;font-size:14.5px;line-height:1.68;color:#292929;white-space:pre-line;flex:1;">
           <span id="et-body-text"></span><span id="et-body-cursor" class="et-cursor" style="display:none;"></span>
         </div>
-
-        <!-- 에브리타임 커뮤니티 이용규칙 안내 문구 -->
+        
         <div style="padding:14px 0;font-size:11.5px;line-height:1.5;color:#b8b8b8;">
           에브리타임은 누구나 기분 좋게 참여할 수 있는 커뮤니티를 만들기 위해 커뮤니티 이용규칙을 제정하여 운영하고 있습니다.
         </div>
       </div>
 
-      <!-- 에브리타임 하단 옵션 바 (카메라 / 해시태그 / 익명 체크) -->
+      <!-- 하단 옵션 바 -->
       <div style="height:46px;border-top:1px solid #f0f0f0;padding:0 18px;display:flex;align-items:center;justify-content:space-between;background:#fff;">
         <div style="display:flex;align-items:center;gap:18px;color:#737373;">
           <svg width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
@@ -605,7 +604,7 @@
       </div>
     </div>
 
-    <!-- View 2: 에브리타임 소망대 자유게시판 등록 완료 목록 화면 -->
+    <!-- View 2: 등록 완료 목록 화면 -->
     <div id="et-board-view" style="display:none;flex-direction:column;height:100%;background:#fff;">
       <div class="et-header">
         <div style="display:flex;align-items:center;gap:8px;">
@@ -636,7 +635,7 @@
           </div>
         </div>
 
-        <!-- 자유게시판 기존 더미 게시글들 -->
+        <!-- 자유게시판 기존 게시글들 -->
         <div class="et-post-item">
           <div style="font-size:14.5px;font-weight:700;color:#292929;margin-bottom:4px;">계절학기 ㄱㅇㅅ교수님 마관론</div>
           <div style="font-size:13px;color:#666666;">학점 잘 주시나요??</div>
@@ -833,7 +832,7 @@
           <span class="app-label">메모</span>
         </div>
 
-        <!-- Voice Memos (음성 메모) -->
+        <!-- Voice Memos -->
         <div class="app-item" onclick="openApp('voicememos')">
           <div class="app-icon-box" style="background:#1C1C1E;border:0.5px solid rgba(255,255,255,0.14);">
             <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
@@ -984,7 +983,7 @@
     </div>
   </div>
 
-  <!-- ================= APP 2: NOTES (메모장) ================= -->
+  <!-- ================= APP 2: NOTES ================= -->
   <div id="app-notes" class="app-window" style="background:var(--ios-light-bg);">
     <!-- List View -->
     <div id="notes-list-view" style="display:flex;flex-direction:column;height:100%;padding-top:48px;">
@@ -1100,7 +1099,7 @@
         </div>
       </div>
       
-      <!-- 서브 탭 메뉴 (회색 배경) -->
+      <!-- 서브 탭 메뉴 -->
       <div style="background:#F2F2F2;padding:12px 18px;display:flex;gap:16px;font-size:13px;color:#888;border-bottom:1px solid #E5E5E5;">
         <div style="color:#000;font-weight:700;">전체 45</div>
         <div>승인 완료 45</div>
@@ -1113,7 +1112,7 @@
     </div>
   </div>
 
-  <!-- ================= APP 5: CALENDAR (UNCHANGED DATA) ================= -->
+  <!-- ================= APP 5: CALENDAR ================= -->
   <div id="app-calendar" class="app-window" style="background:#fff;">
     <div style="padding-top:48px;border-bottom:0.5px solid #E5E5EA;">
       <div style="padding:8px 20px 10px;display:flex;justify-content:space-between;align-items:baseline;">
@@ -1151,7 +1150,7 @@
         <input id="safari-search-input" type="text" placeholder="Google 검색 또는 URL 입력" style="flex:1; border:none; background:transparent; outline:none; font-size:14.5px; color:#202124; user-select:text; -webkit-user-select:text;" onclick="const w = document.getElementById('safari-history-wrapper'); w.style.display = w.style.display === 'none' ? 'block' : 'none';" />
       </div>
 
-      <!-- 검색 기록 래퍼 (초기 숨김) -->
+      <!-- 검색 기록 -->
       <div id="safari-history-wrapper" style="display:none; flex-shrink:0; padding-bottom:24px;">
         <div style="display:flex; justify-content:space-between; align-items:center; padding:0 4px 8px;">
           <span style="font-size:13px; font-weight:700; color:#5F6368;">최근 검색 기록</span>
@@ -1161,7 +1160,7 @@
       </div>
     </div>
 
-    <!-- 하단 주소창 (절대 스크롤되지 않게 하단 고정) -->
+    <!-- 하단 주소창 -->
     <div style="flex-shrink:0; padding:10px 18px 30px; background:#F8F9FA; border-top:0.5px solid #DADCE0; z-index:10;">
       <div style="background:#fff; border:0.5px solid #DADCE0; border-radius:12px; padding:9px 14px; display:flex; justify-content:space-between; align-items:center; font-size:13px; color:#202124;">
         <span style="font-size:11px; color:#5F6368;">가A</span>
@@ -1236,7 +1235,7 @@
     </div>
   </div>
 
-  <!-- ================= APP 8: VOICE MEMOS (음성 메모) ================= -->
+  <!-- ================= APP 8: VOICE MEMOS ================= -->
   <div id="app-voicememos" class="app-window" style="background:#000;color:#fff;">
     <div style="display:flex;flex-direction:column;height:100%;padding-top:48px;">
       <div style="padding:10px 20px 6px;display:flex;justify-content:space-between;align-items:center;">
@@ -1275,21 +1274,17 @@
 <script>
   /* =========================================================================
    * [깃허브 커스텀 파일 경로 설정]
-   * 아래 경로에 원하는 이미지/음악 파일 URL 또는 상대 경로(예: "./assets/bg.jpg")를 넣으세요.
-   * 비워두면("") 기본 디자인이 표시됩니다.
    * ========================================================================= */
   const ASSET_CONFIG = {
-    // 1. 잠금 해제 즉시 자동재생될 배경음악 파일 경로
+
     bgmUrl: "./assets/wish.mp3", // 예: "./assets/bgm.mp3" 또는 "https://raw.githubusercontent.com/.../song.mp3"
     bgmTitle: "이 세상 끝까지",
     bgmArtist: "NCT WISH",
     bgmCoverImage: "./assets/album.jpg", // 음악 위젯 앨범 아트 이미지 경로
 
-    // 2. 잠금화면 & 홈화면 배경 이미지 경로
     lockScreenBg: "./assets/iphone.png",
     homeScreenBg: "./assets/home.png",
     
-    // 3. 카카오톡 프로필 사진 이미지 경로
     kakaoProfiles: {
       yeojoo: "./assets/yj2.jpg",      // 여주❤ 프사
       oliveyoung: "./assets/olive.png",  // 올리브영 프사
@@ -1305,27 +1300,25 @@
       kakaoGift: "./assets/gift.png"    // 카카오톡 선물하기 프사
     },
 
-    // 4. 유튜브 영상 썸네일 이미지 경로 (위에서부터 1번~14번 영상)
     youtubeThumbnails: [
-      "", // 1. 노래 개 잘하는 고등학생 듀오가 학교 축제에서 대상 탄 무대 ㄷㄷ ‘Hello’ (허각) cover
-      "", // 2. 오키나와 겨울 커플 여행 코스 추천 (3박 4일)
-      "", // 3. 남자 반깐 머리 스타일링법
-      "", // 4. 시판 사골육수로 국밥집 순대국밥 끓이는 법 (다대기 비율 공개!!)
-      "", // 5. 여자친구가 ‘됐어’라고 할 때 진짜 속마음 해석 총정리 (연애초보 필독)
-      "", // 6. [결말포함] 첫눈 오는 날 무조건 봐야 하는 인생 로맨스 영화 요약 (1시간 순삭)
-      "", // 7. 180cm 남대생 겨울 룩북 ㅣ 여친이 좋아하는 깔끔 남친룩 코디 7가지
-      "", // 8. 장롱면허 도로연수 브이로그 ㅣ 초보운전 주차 공식 완벽 정리
-      "", // 9. [영화리뷰] 신카이 마코토 극장판 애니메이션 결말 해석 및 숨겨진 디테일 총정리
-      "", // 10. 자취방 세면대 막혔을 때 옷걸이 하나로 1분 만에 뚫는 꿀팁
-      "", // 11. [Playlist] 공부할 때 듣기 좋은 잔잔한 인디 어쿠스틱 모음 (광고 없음)
-      "", // 12. 무신사 겨울 아우터 랭킹 1위부터 10위까지 직접 입어봤습니다 (코트/패딩 사이즈 팁)
-      "", // 13. 장기연애커플 설렘 200% 유지하는 현실 꿀팁 TOP 5
+      "", 
+      "",
+      "", 
+      "",
+      "",
+      "", 
+      "", 
+      "", 
+      "", 
+      "",
+      "", 
+      "", 
+      "", 
       ""
     ],
 
-    // 5. 음성 메모 오디오 파일 경로 (깃허브 mp3/m4a/wav 경로 입력)
     voiceMemoUrls: [
-      "./assets/voice1.m4a", // 1번 음성 메모 파일 경로 (예: "")
+      "./assets/voice1.m4a",
       "./assets/voice2.m4a",
       "./assets/voice3.m4a",
       "./assets/voice4.m4a",
@@ -1334,7 +1327,7 @@
   };
 
   /* =========================================================================
-   * [이름 및 한국어 받침(종성) 조사 자동 변환기]
+   * [조사 자동 변환기]
    * ========================================================================= */
   let USER_NAME = "여주";
 
@@ -1352,7 +1345,6 @@
 
     let result = rawText;
 
-    // 1. 호격 및 조사 결합형 치환
     result = result.replace(/여주야/g, batchim ? `${name}아` : `${name}야`);
     result = result.replace(/여주가/g, batchim ? `${name}이가` : `${name}가`);
     result = result.replace(/여주는/g, batchim ? `${name}이는` : `${name}는`);
@@ -1363,11 +1355,9 @@
     result = result.replace(/여주한테/g, batchim ? `${name}이한테` : `${name}한테`);
     result = result.replace(/여주와/g, batchim ? `${name}과` : `${name}와`);
 
-    // 2. 단독 명사구 뒤 공백 결합형
     result = result.replace(/여주 선물이냐/g, batchim ? `${name}이 선물이냐` : `${name} 선물이냐`);
     result = result.replace(/여주 자취방/g, batchim ? `${name}이 자취방` : `${name} 자취방`);
 
-    // 3. 나머지 일반 '여주' 치환
     result = result.replace(/여주/g, name);
 
     return result;
@@ -1923,7 +1913,7 @@
   ];
 
   /* =========================================================================
-   * [4. 무신사 후기 데이터 (상품 사진 제외)]
+   * [4. 무신사 후기 데이터]
    * ========================================================================= */
   const MUSINSA_REVIEWS_DATA = [
     {
@@ -1984,7 +1974,7 @@
   ];
 
   /* =========================================================================
-   * [5. 캘린더, 사파리, 전화 데이터 (절대 수정 없이 기존 그대로 유지)]
+   * [5. 캘린더, 사파리, 전화 데이터]
    * ========================================================================= */
   const calendarEvents = {
     1: [{ title: "전공 보컬 레슨", time: "14:00 - 15:00", color: "blue" }, { title: "카페 마감", time: "18:00 - 22:30", color: "orange" }],
@@ -2120,7 +2110,7 @@
   });
 
   /* =========================================================================
-   * [에브리타임 인트로 타이핑 & 등록 시퀀스 (타이핑 속도 완화)]
+   * [에브리타임 인트로 타이핑 & 등록 시퀀스]
    * ========================================================================= */
   const ET_INTRO_TITLE = "먐이카페 근처에서 휴대폰 잃어버리신 분??";
   const ET_INTRO_BODY = "케이스 뒤에 여자친구 분? 이랑 찍은 것 같은 폴라 사진 끼워져 있고 디지몬 스티커 붙여져 있어요! 카페 사장님께 맡겨놨어요~";
@@ -2227,7 +2217,7 @@
   }
 
   /* =========================================================================
-   * [잠금화면 & 암호 0621 & 배경음악 자동재생]
+   * [잠금화면 & 암호 & 배경음악 자동재생]
    * ========================================================================= */
   function renderLockNotifications() {
     const box = document.getElementById("lock-notif-container");
@@ -2320,7 +2310,6 @@
     if (!ASSET_CONFIG.bgmUrl) return;
 
     if (bgmEl.paused) {
-      // BGM 켤 때 음성 메모가 켜져있으면 멈춤
       if (vmAudio && !vmAudio.paused) {
         vmAudio.pause();
         if (typeof renderVoiceMemos === "function") renderVoiceMemos();
@@ -2371,7 +2360,6 @@
       return;
     }
     
-    // 앱을 닫을 때 음성 메모가 꺼지는 코드 삭제됨 (백그라운드 재생 유지)
     document.querySelectorAll(".app-window").forEach(w => w.classList.remove("open"));
     document.getElementById("status-bar").className = "light-text";
     document.getElementById("home-bar-pill").style.background = "rgba(255,255,255,0.85)";
@@ -2552,9 +2540,6 @@
   /* =========================================================================
    * [음성 메모 렌더링 및 연속 재생 제어 (백그라운드 재생 유지)]
    * ========================================================================= */
-  /* =========================================================================
-   * [음성 메모 렌더링 및 연속 재생 제어 (백그라운드 재생 유지)]
-   * ========================================================================= */
   let activeVoiceMemoIdx = 0;
 
   function formatAudioTime(sec) {
@@ -2587,7 +2572,6 @@
       }
     });
 
-    // 한 곡이 끝나면 다음 메모로 넘어가 연속 재생
     vmAudio.addEventListener("ended", () => {
       const nextIdx = (activeVoiceMemoIdx + 1) % VOICE_MEMOS_DATA.length;
       playVoiceMemoByIndex(nextIdx);
@@ -2599,7 +2583,6 @@
     const vmAudio = document.getElementById("voice-memo-audio");
     const bgmEl = document.getElementById("bgm-audio");
 
-    // 음성 메모 재생 시 BGM 정지
     if (bgmEl && !bgmEl.paused) {
       bgmEl.pause();
       const bgmBtn = document.getElementById("bgm-toggle-btn");
@@ -2715,12 +2698,11 @@
   }
 
   /* =========================================================================
-   * [무신사 후기 렌더링 (상품 사진 제외)]
+   * [무신사 후기 렌더링]
    * ========================================================================= */
   function renderMusinsaReviews() {
     const box = document.getElementById("musinsa-reviews-box");
     box.innerHTML = MUSINSA_REVIEWS_DATA.map((item, idx) => {
-      // 기존 "브랜드 - 상품명 (옵션)" 형태의 문자열을 파싱
       let brand = "브랜드";
       let productName = applyUserName(item.product);
       let option = "옵션 없음";
@@ -2788,7 +2770,7 @@
   }
 
   /* =========================================================================
-   * [캘린더, 사파리, 전화 렌더링 (기존 유지)]
+   * [캘린더, 사파리, 전화 렌더링]
    * ========================================================================= */
   function renderCalendar(selectedDay) {
     const grid = document.getElementById("calendar-days-grid");
@@ -2894,7 +2876,6 @@
     if (el.textContent.length < 13) el.textContent += ch;
   }
 
-  // 키보드로도 잠금화면 암호(0621) 입력 가능
   window.addEventListener("keydown", function(e) {
     const passOverlay = document.getElementById("passcode-overlay");
     if (!passOverlay.classList.contains("active")) return;
