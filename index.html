@@ -1148,8 +1148,7 @@
       <div style="background:#F1F3F4;border-radius:999px;padding:11px 16px;display:flex;align-items:center;gap:10px;margin-bottom:18px;">
         <svg width="17" height="17" fill="none" stroke="#5F6368" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
         <!-- 검색창 클릭 시(onfocus) 기록 표시, 다른 곳 터치 시(onblur) 숨김 -->
-        <input id="safari-search-input" type="text" placeholder="Google 검색 또는 URL 입력" style="flex:1;border:none;background:transparent;outline:none;font-size:14.5px;color:#202124;user-select:text;-webkit-user-select:text;" onfocus="document.getElementById('safari-history-wrapper').style.display='block'" onblur="setTimeout(() => document.getElementById('safari-history-wrapper').style.display='none', 200)" />
-      </div>
+        <input id="safari-search-input" type="text" placeholder="Google 검색 또는 URL 입력" style="flex:1;border:none;background:transparent;outline:none;font-size:14.5px;color:#202124;user-select:text;-webkit-user-select:text;" onclick="const w = document.getElementById('safari-history-wrapper'); w.style.display = w.style.display === 'none' ? 'block' : 'none';" />
 
       <!-- 검색 기록 전체를 감싸는 래퍼 (초기 상태: 숨김) -->
       <div id="safari-history-wrapper" style="display:none;">
