@@ -729,8 +729,8 @@
         <div style="display:flex;align-items:center;gap:12px;">
           <div id="lock-album-art" style="width:46px;height:46px;border-radius:10px;background:linear-gradient(135deg,#3b82f6,#1d4ed8);background-size:cover;background-position:center;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px;">🎸</div>
           <div style="flex:1;min-width:0;">
-            <div id="bgm-title-lock" style="font-size:14.5px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Off My Face</div>
-            <div id="bgm-artist-lock" style="font-size:12.5px;color:rgba(255,255,255,0.7);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Justin Bieber</div>
+            <div id="bgm-title-lock" style="font-size:14.5px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">이 세상 끝까지</div>
+            <div id="bgm-artist-lock" style="font-size:12.5px;color:rgba(255,255,255,0.7);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">NCT WISH</div>
           </div>
           <div style="display:flex;align-items:center;gap:14px;color:#fff;">
             <button id="bgm-toggle-btn" style="background:none;border:none;color:#fff;font-size:20px;cursor:pointer;">▶</button>
@@ -803,8 +803,8 @@
             <span id="home-bgm-badge" style="font-size:11px;font-weight:600;color:#60a5fa;background:rgba(96,165,250,0.15);padding:3px 8px;border-radius:999px;">재생 중</span>
           </div>
           <div>
-            <div id="bgm-title-home" style="font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Off My Face</div>
-            <div id="bgm-artist-home" style="font-size:12px;color:rgba(255,255,255,0.65);margin-top:2px;">Justin Bieber</div>
+            <div id="bgm-title-home" style="font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">이 세상 끝까지</div>
+            <div id="bgm-artist-home" style="font-size:12px;color:rgba(255,255,255,0.65);margin-top:2px;">NCT WISH</div>
           </div>
         </div>
       </div>
@@ -1269,29 +1269,29 @@
    * ========================================================================= */
   const ASSET_CONFIG = {
     // 1. 잠금 해제 즉시 자동재생될 배경음악 파일 경로
-    bgmUrl: "", // 예: "./assets/bgm.mp3" 또는 "https://raw.githubusercontent.com/.../song.mp3"
-    bgmTitle: "Off My Face",
-    bgmArtist: "Justin Bieber",
-    bgmCoverImage: "", // 음악 위젯 앨범 아트 이미지 경로
+    bgmUrl: "./assets/wish.mp3", // 예: "./assets/bgm.mp3" 또는 "https://raw.githubusercontent.com/.../song.mp3"
+    bgmTitle: "이 세상 끝까지",
+    bgmArtist: "NCT WISH",
+    bgmCoverImage: "./assets/album.jpg", // 음악 위젯 앨범 아트 이미지 경로
 
     // 2. 잠금화면 & 홈화면 배경 이미지 경로
-    lockScreenBg: "", // 예: "./assets/lockscreen.jpg"
-    homeScreenBg: "", // 예: "./assets/homescreen.jpg"
-
+    lockScreenBg: "./assets/iphone.png",
+    homeScreenBg: "./assets/home.png",
+    
     // 3. 카카오톡 프로필 사진 이미지 경로
     kakaoProfiles: {
-      yeojoo: "",      // 여주❤ 프사
-      oliveyoung: "",  // 올리브영 프사
+      yeojoo: "./assets/yj.jpg",      // 여주❤ 프사
+      oliveyoung: "./assets/olive.png",  // 올리브영 프사
       somangHigh: "",  // 소망남고 3-4 단톡 프사
-      postOffice: "",  // 우체국택배 프사
-      musinsa: "",     // 무신사 프사
+      postOffice: "./assets/post.jpg",  // 우체국택배 프사
+      musinsa: "./assets/musinsa.jpg",     // 무신사 프사
       bandTeam: "",    // 대동제 밴드팀 프사
       musicDept: "",   // 실음과 25학번 수다방 프사
-      bro2: "",        // 작은형 프사
+      bro2: "./assets/pro.jpg",        // 작은형 프사
       family: "",      // 울집 가족방 프사
-      mom: "",         // 엄마 프사
-      yjmom: "",       // 장모님 프사
-      kakaoGift: ""    // 카카오톡 선물하기 프사
+      mom: "./assets/pro.jpg",         // 엄마 프사
+      yjmom: "./assets/yjmom.jpg",       // 장모님 프사
+      kakaoGift: "./assets/gift.png"    // 카카오톡 선물하기 프사
     },
 
     // 4. 유튜브 영상 썸네일 이미지 경로 (위에서부터 1번~14번 영상)
@@ -1309,15 +1309,16 @@
       "", // 11. [Playlist] 공부할 때 듣기 좋은 잔잔한 인디 어쿠스틱 모음 (광고 없음)
       "", // 12. 무신사 겨울 아우터 랭킹 1위부터 10위까지 직접 입어봤습니다 (코트/패딩 사이즈 팁)
       "", // 13. 장기연애커플 설렘 200% 유지하는 현실 꿀팁 TOP 5
-      ""  // 14. Justin Bieber - Off My Face (Acoustic Guitar Backing Track & Tab)
+      ""  // 14. NCT WISH - 이 세상 끝까지 (Acoustic Guitar Backing Track & Tab)
     ],
 
     // 5. 음성 메모 오디오 파일 경로 (깃허브 mp3/m4a/wav 경로 입력)
     voiceMemoUrls: [
-      "", // 1번 음성 메모 파일 경로 (예: "./assets/voice1.mp3")
-      "", // 2번 음성 메모 파일 경로
-      "", // 3번 음성 메모 파일 경로
-      ""  // 4번 음성 메모 파일 경로
+      "./assets/voice1.m4a", // 1번 음성 메모 파일 경로 (예: "")
+      "./assets/voice2.m4a",
+      "./assets/voice3.m4a",
+      "./assets/voice4.m4a",
+      "./assets/voice5.m4a" 
     ]
   };
 
@@ -1786,29 +1787,29 @@
    * ========================================================================= */
   const VOICE_MEMOS_DATA = [
     {
+      title: "취중진담",
+      date: "2026. 04. 20.",
+      duration: "00:39"
+    },
+    {
       title: "little star",
-      date: "2026. 12. 20.",
-      duration: "00:48"
-    },
-    {
-      title: "사막에서 꽃을 피우듯",
-      date: "2026. 12. 12.",
-      duration: "00:24"
-    },
-    {
-      title: "안아줘",
-      date: "2026. 12. 08.",
-      duration: "01:35"
+      date: "2026. 06. 12.",
+      duration: "00:28"
     },
     {
       title: "소나기",
-      date: "2026. 11. 27.",
-      duration: "02:14"
+      date: "2026. 08. 31.",
+      duration: "00:38"
     },
     {
-      title: "취중진담",
-      date: "2026. 11. 27.",
-      duration: "02:14"
+      title: "안아줘",
+      date: "2026. 10. 25.",
+      duration: "01:24"
+    },
+    {
+      title: "사막에서 꽃을 피우듯",
+      date: "2026. 12. 20.",
+      duration: "01:35"
     }
   ];
 
@@ -1895,7 +1896,7 @@
       fallbackGradient: "linear-gradient(135deg,#701a75,#3b0764)"
     },
     {
-      title: "Justin Bieber - Off My Face (Acoustic Guitar Backing Track & Tab)",
+      title: "NCT WISH - 이 세상 끝까지 (Acoustic Guitar Backing Track & Tab)",
       meta: "조회수 54만회 · 2년 전",
       duration: "4:45",
       fallbackGradient: "linear-gradient(135deg,#451a03,#1c1917)"
