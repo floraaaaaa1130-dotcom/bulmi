@@ -1138,32 +1138,33 @@
 
   <!-- ================= APP 6: SAFARI (UNCHANGED DATA) ================= -->
   <div id="app-safari" class="app-window" style="background:#fff;">
-    <div class="no-scrollbar" style="flex:1;overflow-y:auto;padding:58px 20px 24px;">
-      <div style="text-align:center;margin:16px 0 20px;">
-        <span style="font-size:38px;font-weight:800;letter-spacing:-1.5px;">
+    <!-- 상단 콘텐츠 스크롤 영역 -->
+    <div class="no-scrollbar" style="flex:1; overflow-y:auto; padding:58px 20px 0; display:flex; flex-direction:column;">
+      <div style="text-align:center; margin:16px 0 20px; flex-shrink:0;">
+        <span style="font-size:38px; font-weight:800; letter-spacing:-1.5px;">
           <span style="color:#4285F4;">G</span><span style="color:#EA4335;">o</span><span style="color:#FBBC05;">o</span><span style="color:#4285F4;">g</span><span style="color:#34A853;">l</span><span style="color:#EA4335;">e</span>
         </span>
       </div>
 
-      <div style="background:#F1F3F4;border-radius:999px;padding:11px 16px;display:flex;align-items:center;gap:10px;margin-bottom:18px;">
+      <div style="background:#F1F3F4; border-radius:999px; padding:11px 16px; display:flex; align-items:center; gap:10px; margin-bottom:18px; flex-shrink:0;">
         <svg width="17" height="17" fill="none" stroke="#5F6368" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-        <!-- 검색창 클릭 시(onfocus) 기록 표시, 다른 곳 터치 시(onblur) 숨김 -->
-        <input id="safari-search-input" type="text" placeholder="Google 검색 또는 URL 입력" style="flex:1;border:none;background:transparent;outline:none;font-size:14.5px;color:#202124;user-select:text;-webkit-user-select:text;" onclick="const w = document.getElementById('safari-history-wrapper'); w.style.display = w.style.display === 'none' ? 'block' : 'none';" />
+        <input id="safari-search-input" type="text" placeholder="Google 검색 또는 URL 입력" style="flex:1; border:none; background:transparent; outline:none; font-size:14.5px; color:#202124; user-select:text; -webkit-user-select:text;" onclick="const w = document.getElementById('safari-history-wrapper'); w.style.display = w.style.display === 'none' ? 'block' : 'none';" />
+      </div>
 
-      <!-- 검색 기록 전체를 감싸는 래퍼 (초기 상태: 숨김) -->
-      <div id="safari-history-wrapper" style="display:none;">
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:0 4px 8px;">
-          <span style="font-size:13px;font-weight:700;color:#5F6368;">최근 검색 기록</span>
-          <span style="font-size:12px;color:#1A73E8;cursor:pointer;" onclick="document.getElementById('safari-history-box').innerHTML='';">전체 삭제</span>
+      <!-- 검색 기록 래퍼 (초기 숨김) -->
+      <div id="safari-history-wrapper" style="display:none; flex-shrink:0; padding-bottom:24px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:0 4px 8px;">
+          <span style="font-size:13px; font-weight:700; color:#5F6368;">최근 검색 기록</span>
+          <span style="font-size:12px; color:#1A73E8; cursor:pointer;" onclick="document.getElementById('safari-history-box').innerHTML='';">전체 삭제</span>
         </div>
-
         <div id="safari-history-box" style="border-top:0.5px solid #E8EAED;"></div>
       </div>
     </div>
 
-    <div style="padding:10px 18px 30px;background:#F8F9FA;border-top:0.5px solid #DADCE0;">
-      <div style="background:#fff;border:0.5px solid #DADCE0;border-radius:12px;padding:9px 14px;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#202124;">
-        <span style="font-size:11px;color:#5F6368;">가A</span>
+    <!-- 하단 주소창 (절대 스크롤되지 않게 하단 고정) -->
+    <div style="flex-shrink:0; padding:10px 18px 30px; background:#F8F9FA; border-top:0.5px solid #DADCE0; z-index:10;">
+      <div style="background:#fff; border:0.5px solid #DADCE0; border-radius:12px; padding:9px 14px; display:flex; justify-content:space-between; align-items:center; font-size:13px; color:#202124;">
+        <span style="font-size:11px; color:#5F6368;">가A</span>
         <span style="font-weight:600;">google.co.kr</span>
         <span>↻</span>
       </div>
