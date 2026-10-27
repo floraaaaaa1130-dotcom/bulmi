@@ -511,10 +511,10 @@
 
 <div id="ios-viewport">
 
-  <!-- Background Audio Element (Unlocked on 0621) -->
+ <!-- Background Audio Element (Unlocked on 0621) -->
   <audio id="bgm-audio" loop preload="auto"></audio>
   <!-- Voice Memo Audio Element -->
-  <audio id="vm-audio" preload="metadata"></audio>
+  <audio id="voice-memo-audio" preload="metadata"></audio>
 
   <!-- ================= 0-A. EVERYTIME INTRO SCREEN ================= -->
   <div id="everytime-intro">
@@ -2212,7 +2212,6 @@
     renderPhoneViews();
     if (typeof renderVoiceMemos === "function") renderVoiceMemos();
   }
-  }
 
   /* =========================================================================
    * [잠금화면 & 암호 0621 & 배경음악 자동재생]
@@ -2308,10 +2307,10 @@
     if (!ASSET_CONFIG.bgmUrl) return;
 
     if (bgmEl.paused) {
-      // BGM 재생 시 음성 메모가 켜져 있다면 정지
+      // BGM 켤 때 음성 메모가 켜져있으면 멈춤
       if (vmAudio && !vmAudio.paused) {
         vmAudio.pause();
-        renderVoiceMemos();
+        if (typeof renderVoiceMemos === "function") renderVoiceMemos();
       }
       bgmEl.play();
       document.getElementById("bgm-toggle-btn").textContent = "⏸";
@@ -2358,7 +2357,8 @@
       openPasscodeScreen();
       return;
     }
-    stopVoiceMemoPlayback();
+    
+    // 앱을 닫을 때 음성 메모가 꺼지는 코드 삭제됨 (백그라운드 재생 유지)
     document.querySelectorAll(".app-window").forEach(w => w.classList.remove("open"));
     document.getElementById("status-bar").className = "light-text";
     document.getElementById("home-bar-pill").style.background = "rgba(255,255,255,0.85)";
@@ -2539,6 +2539,9 @@
   /* =========================================================================
    * [음성 메모 렌더링 및 연속 재생 제어 (백그라운드 재생 유지)]
    * ========================================================================= */
+  /* =========================================================================
+   * [음성 메모 렌더링 및 연속 재생 제어 (백그라운드 재생 유지)]
+   * ========================================================================= */
   let activeVoiceMemoIdx = 0;
 
   function formatAudioTime(sec) {
@@ -2548,13 +2551,11 @@
     return `${m}:${s < 10 ? "0" + s : s}`;
   }
 
-  // 오디오 엘리먼트 초기화 및 다음 파일 자동 연속 재생 이벤트 등록
   function initVoiceMemoAudioEvents() {
     const vmAudio = document.getElementById("voice-memo-audio");
     if (!vmAudio || vmAudio.dataset.bound === "true") return;
     vmAudio.dataset.bound = "true";
 
-    // 재생 시간 업데이트
     vmAudio.addEventListener("timeupdate", () => {
       const curEl = document.getElementById(`vm-cur-${activeVoiceMemoIdx}`);
       const barEl = document.getElementById(`vm-bar-${activeVoiceMemoIdx}`);
@@ -2564,29 +2565,28 @@
       }
     });
 
-    // 메타데이터 로드 시 실제 파일 길이 표시
     vmAudio.addEventListener("loadedmetadata", () => {
       const durEl = document.getElementById(`vm-dur-${activeVoiceMemoIdx}`);
-      if (durEl && vmAudio.duration) {
-        durEl.textContent = formatAudioTime(vmAudio.duration);
-        VOICE_MEMOS_DATA[activeVoiceMemoIdx].duration = formatAudioTime(vmAudio.duration);
+      if (durEl && vmAudio.duration && isFinite(vmAudio.duration)) {
+        const durStr = formatAudioTime(vmAudio.duration);
+        durEl.textContent = durStr;
+        VOICE_MEMOS_DATA[activeVoiceMemoIdx].duration = durStr;
       }
     });
 
-    // 한 파일 재생이 끝나면 다음 순서의 음성 메모를 자동으로 이어서 재생
+    // 한 곡이 끝나면 다음 메모로 넘어가 연속 재생
     vmAudio.addEventListener("ended", () => {
       const nextIdx = (activeVoiceMemoIdx + 1) % VOICE_MEMOS_DATA.length;
       playVoiceMemoByIndex(nextIdx);
     });
   }
 
-  // 기존 BGM을 멈추고 지정한 인덱스의 음성 메모를 즉시 재생
   function playVoiceMemoByIndex(idx) {
     initVoiceMemoAudioEvents();
     const vmAudio = document.getElementById("voice-memo-audio");
     const bgmEl = document.getElementById("bgm-audio");
 
-    // 1. 기존 BGM 정지 및 위젯 상태 업데이트
+    // 음성 메모 재생 시 BGM 정지
     if (bgmEl && !bgmEl.paused) {
       bgmEl.pause();
       const bgmBtn = document.getElementById("bgm-toggle-btn");
@@ -2595,7 +2595,6 @@
       if (bgmBadge) bgmBadge.textContent = "일시정지";
     }
 
-    // 2. 선택한 음성 메모 로드 및 재생
     activeVoiceMemoIdx = idx;
     const url = (ASSET_CONFIG.voiceMemoUrls && ASSET_CONFIG.voiceMemoUrls[idx]) || "";
     if (url) {
@@ -2608,7 +2607,6 @@
     renderVoiceMemos();
   }
 
-  // 목록에서 항목 클릭 시: 다른 항목이면 바로 재생, 현재 항목이면 펼침
   function selectVoiceMemo(idx) {
     const vmAudio = document.getElementById("voice-memo-audio");
     if (activeVoiceMemoIdx !== idx || !vmAudio || vmAudio.paused) {
@@ -2618,7 +2616,6 @@
     }
   }
 
-  // 재생/일시정지 버튼 클릭 시
   function toggleVoiceMemoPlay(idx, event) {
     if (event) event.stopPropagation();
     initVoiceMemoAudioEvents();
@@ -2634,16 +2631,14 @@
 
   function renderVoiceMemos() {
     initVoiceMemoAudioEvents();
-    const box = document.getElementById("voice-memo-list-box");
+    const box = document.getElementById("voicememos-list-box");
     const vmAudio = document.getElementById("voice-memo-audio");
     if (!box) return;
 
     box.innerHTML = VOICE_MEMOS_DATA.map((m, idx) => {
       const isSelected = idx === activeVoiceMemoIdx;
       const isPlaying = isSelected && vmAudio && !vmAudio.paused;
-      const pct = (isSelected && vmAudio && vmAudio.duration)
-        ? (vmAudio.currentTime / vmAudio.duration) * 100
-        : 0;
+      const pct = (isSelected && vmAudio && vmAudio.duration) ? (vmAudio.currentTime / vmAudio.duration) * 100 : 0;
       const curTimeStr = (isSelected && vmAudio) ? formatAudioTime(vmAudio.currentTime) : "0:00";
 
       return `
@@ -2676,128 +2671,7 @@
       `;
     }).join("");
   }
-
-  function selectVoiceMemo(idx) {
-    if (activeVoiceMemoIdx === idx) return;
-    stopVoiceMemoPlayback();
-    activeVoiceMemoIdx = idx;
-    vmCurrentSec = 0;
-    vmTotalSec = parseDurationToSec(VOICE_MEMOS_DATA[idx].duration);
-    renderVoiceMemos();
-  }
-
-  function toggleVoiceMemoPlay() {
-    const vmAudio = document.getElementById("vm-audio");
-    const customUrl = (ASSET_CONFIG.voiceMemoUrls && ASSET_CONFIG.voiceMemoUrls[activeVoiceMemoIdx]) || "";
-
-    if (vmIsPlaying) {
-      vmIsPlaying = false;
-      if (customUrl) vmAudio.pause();
-      if (vmFallbackTimer) clearInterval(vmFallbackTimer);
-      const btn = document.getElementById("vm-play-btn");
-      if (btn) btn.textContent = "▶";
-      return;
-    }
-
-    // 음성 메모 재생 시 배경음악 일시정지
-    const bgmEl = document.getElementById("bgm-audio");
-    if (bgmEl && !bgmEl.paused) {
-      bgmEl.pause();
-      document.getElementById("bgm-toggle-btn").textContent = "▶";
-      document.getElementById("home-bgm-badge").textContent = "일시정지";
-    }
-
-    vmIsPlaying = true;
-    const btn = document.getElementById("vm-play-btn");
-    if (btn) btn.textContent = "⏸";
-
-    if (customUrl) {
-      if (vmAudio.getAttribute("data-idx") !== String(activeVoiceMemoIdx)) {
-        vmAudio.src = customUrl;
-        vmAudio.setAttribute("data-idx", String(activeVoiceMemoIdx));
-      }
-      vmAudio.play().catch(() => {});
-    } else {
-      vmTotalSec = parseDurationToSec(VOICE_MEMOS_DATA[activeVoiceMemoIdx].duration);
-      if (vmCurrentSec >= vmTotalSec) vmCurrentSec = 0;
-      if (vmFallbackTimer) clearInterval(vmFallbackTimer);
-      vmFallbackTimer = setInterval(() => {
-        vmCurrentSec += 0.25;
-        if (vmCurrentSec >= vmTotalSec) {
-          vmCurrentSec = 0;
-          stopVoiceMemoPlayback();
-        }
-        updateVoiceMemoProgressUI(vmCurrentSec, vmTotalSec);
-      }, 250);
-    }
-  }
-
-  function stopVoiceMemoPlayback() {
-    vmIsPlaying = false;
-    if (vmFallbackTimer) clearInterval(vmFallbackTimer);
-    const vmAudio = document.getElementById("vm-audio");
-    if (vmAudio && !vmAudio.paused) vmAudio.pause();
-    const btn = document.getElementById("vm-play-btn");
-    if (btn) btn.textContent = "▶";
-  }
-
-  function skipVoiceMemo(deltaSec) {
-    const vmAudio = document.getElementById("vm-audio");
-    const customUrl = (ASSET_CONFIG.voiceMemoUrls && ASSET_CONFIG.voiceMemoUrls[activeVoiceMemoIdx]) || "";
-    if (customUrl && vmAudio.duration) {
-      vmAudio.currentTime = Math.min(vmAudio.duration, Math.max(0, vmAudio.currentTime + deltaSec));
-    } else {
-      vmCurrentSec = Math.min(vmTotalSec, Math.max(0, vmCurrentSec + deltaSec));
-      updateVoiceMemoProgressUI(vmCurrentSec, vmTotalSec);
-    }
-  }
-
-  function seekVoiceMemo(percentVal) {
-    const vmAudio = document.getElementById("vm-audio");
-    const customUrl = (ASSET_CONFIG.voiceMemoUrls && ASSET_CONFIG.voiceMemoUrls[activeVoiceMemoIdx]) || "";
-    const ratio = parseFloat(percentVal) / 100;
-    if (customUrl && vmAudio.duration) {
-      vmAudio.currentTime = vmAudio.duration * ratio;
-    } else {
-      vmCurrentSec = vmTotalSec * ratio;
-      updateVoiceMemoProgressUI(vmCurrentSec, vmTotalSec);
-    }
-  }
-
-  function updateVoiceMemoProgressUI(cur, total) {
-    const curEl = document.getElementById("vm-cur-time");
-    const remEl = document.getElementById("vm-rem-time");
-    const scrubEl = document.getElementById("vm-scrubber");
-    if (curEl) curEl.textContent = formatSecToTime(cur);
-    if (remEl) remEl.textContent = "-" + formatSecToTime(Math.max(0, total - cur));
-    if (scrubEl && total > 0) scrubEl.value = ((cur / total) * 100).toFixed(1);
-  }
-
-  // 실제 오디오 태그 이벤트 바인딩
-  (function bindVoiceMemoAudioEvents() {
-    const vmAudio = document.getElementById("vm-audio");
-    if (!vmAudio) return;
-    vmAudio.addEventListener("loadedmetadata", () => {
-      if (vmAudio.duration && isFinite(vmAudio.duration)) {
-        vmTotalSec = vmAudio.duration;
-        const durFormatted = formatSecToTime(vmTotalSec);
-        VOICE_MEMOS_DATA[activeVoiceMemoIdx].duration = durFormatted;
-        const lbl = document.getElementById("vm-dur-label-" + activeVoiceMemoIdx);
-        if (lbl) lbl.textContent = durFormatted;
-        updateVoiceMemoProgressUI(vmAudio.currentTime, vmTotalSec);
-      }
-    });
-    vmAudio.addEventListener("timeupdate", () => {
-      if (vmAudio.duration && isFinite(vmAudio.duration)) {
-        updateVoiceMemoProgressUI(vmAudio.currentTime, vmAudio.duration);
-      }
-    });
-    vmAudio.addEventListener("ended", () => {
-      stopVoiceMemoPlayback();
-      updateVoiceMemoProgressUI(0, vmTotalSec);
-    });
-  })();
-
+  
   /* =========================================================================
    * [유튜브 렌더링]
    * ========================================================================= */
