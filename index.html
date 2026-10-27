@@ -622,9 +622,9 @@
       <div style="flex:1;overflow-y:auto;max-width:680px;width:100%;margin:0 auto;">
         <!-- 방금 등록된 분실물 게시글 -->
         <div class="et-post-item new-highlight">
-          <div style="font-size:15px;font-weight:700;color:#292929;margin-bottom:5px;">음대 건물 앞에서 휴대폰 주웠다</div>
+          <div style="font-size:15px;font-weight:700;color:#292929;margin-bottom:5px;">먐이포차 건물 앞에서 휴대폰 잃어버리신 분??</div>
           <div style="font-size:13.5px;color:#444444;line-height:1.48;white-space:pre-line;">케이스 뒤에 여자친구 분? 이랑 찍은 것 같은 폴라 사진 끼워져 있고
-디지몬 스티커 붙여져 있다 기숙사 경비실에 맡겨놓겠다</div>
+디지몬 스티커 붙여져 있어요! 기숙사 관제실에 맡겨놓을게요~</div>
           <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;font-size:11.5px;color:#a6a6a6;">
             <span>방금 · 익명</span>
             <div style="display:flex;gap:10px;">
@@ -636,8 +636,8 @@
 
         <!-- 자유게시판 기존 더미 게시글들 -->
         <div class="et-post-item">
-          <div style="font-size:14.5px;font-weight:700;color:#292929;margin-bottom:4px;">계절학기 교양 들어본 사람 있냐</div>
-          <div style="font-size:13px;color:#666666;">출석만 잘하면 학점 잘 주시나요??</div>
+          <div style="font-size:14.5px;font-weight:700;color:#292929;margin-bottom:4px;">계절학기 ㄱㅇㅅ교수님 마관론</div>
+          <div style="font-size:13px;color:#666666;">학점 잘 주시나요??</div>
           <div style="display:flex;align-items:center;justify-content:space-between;margin-top:7px;font-size:11.5px;color:#a6a6a6;">
             <span>3분 전 · 익명</span>
             <div style="display:flex;gap:10px;">
@@ -679,7 +679,7 @@
     <div class="name-dialog">
       <div class="name-dialog-body">
         <div class="name-dialog-title">이름을 입력하세요</div>
-        <div class="name-dialog-sub">성을 제외한 이름을 입력하면<br>이야기 속 주인공 이름으로 설정됩니다.</div>
+        <div class="name-dialog-sub">*성을 제외한 이름을 입력해주세요.</div>
         <input id="user-name-input" type="text" class="name-input-box" placeholder="여주" value="여주" maxlength="10" autocomplete="off" />
       </div>
       <button id="name-submit-btn" class="name-dialog-btn">확인</button>
@@ -1243,6 +1243,7 @@
       bro2: "",        // 작은형 프사
       family: "",      // 울집 가족방 프사
       mom: "",         // 엄마 프사
+      yjmom: "",         // 장모님 프사
       kakaoGift: ""    // 카카오톡 선물하기 프사
     },
 
@@ -1258,7 +1259,10 @@
       "", // 8. [영화리뷰] 신카이 마코토 극장판 애니메이션 결말 해석 및 숨겨진 디테일 총정리
       "", // 9. 무신사 겨울 아우터 랭킹 1위부터 10위까지 직접 입어봤습니다 (코트/패딩 사이즈 팁)
       "", // 10. 장기연애커플 설렘 200% 유지하는 현실 꿀팁 TOP 5
-      ""  // 11. John Mayer - Stop This Train (Acoustic Guitar Backing Track & Tab)
+      "", // 11. 장기연애커플 설렘 200% 유지하는 현실 꿀팁 TOP 5
+      "", // 12. 장기연애커플 설렘 200% 유지하는 현실 꿀팁 TOP 5
+      "", // 13. 장기연애커플 설렘 200% 유지하는 현실 꿀팁 TOP 5
+      ""  // 14. John Mayer - Stop This Train (Acoustic Guitar Backing Track & Tab)
     ]
   };
 
@@ -1282,22 +1286,21 @@
     let result = rawText;
 
     // 1. 호격 및 조사 결합형 치환
-    result = result.replace(/김?여주야/g, batchim ? `${name}아` : `${name}야`);
-    result = result.replace(/김?여주가/g, batchim ? `${name}이가` : `${name}가`);
-    result = result.replace(/김?여주는/g, batchim ? `${name}이는` : `${name}는`);
-    result = result.replace(/김?여주를/g, batchim ? `${name}이를` : `${name}를`);
-    result = result.replace(/김?여주랑/g, batchim ? `${name}이랑` : `${name}랑`);
-    result = result.replace(/김?여주네/g, batchim ? `${name}이네` : `${name}네`);
-    result = result.replace(/김?여주도/g, batchim ? `${name}이도` : `${name}도`);
-    result = result.replace(/김?여주한테/g, batchim ? `${name}이한테` : `${name}한테`);
-    result = result.replace(/김?여주와/g, batchim ? `${name}과` : `${name}와`);
+    result = result.replace(/여주야/g, batchim ? `${name}아` : `${name}야`);
+    result = result.replace(/여주가/g, batchim ? `${name}이가` : `${name}가`);
+    result = result.replace(/여주는/g, batchim ? `${name}이는` : `${name}는`);
+    result = result.replace(/여주를/g, batchim ? `${name}이를` : `${name}를`);
+    result = result.replace(/여주랑/g, batchim ? `${name}이랑` : `${name}랑`);
+    result = result.replace(/여주네/g, batchim ? `${name}이네` : `${name}네`);
+    result = result.replace(/여주도/g, batchim ? `${name}이도` : `${name}도`);
+    result = result.replace(/여주한테/g, batchim ? `${name}이한테` : `${name}한테`);
+    result = result.replace(/여주와/g, batchim ? `${name}과` : `${name}와`);
 
     // 2. 단독 명사구 뒤 공백 결합형
-    result = result.replace(/김?여주 선물이냐/g, batchim ? `${name}이 선물이냐` : `${name} 선물이냐`);
-    result = result.replace(/김?여주 자취방/g, batchim ? `${name}이 자취방` : `${name} 자취방`);
+    result = result.replace(/여주 선물이냐/g, batchim ? `${name}이 선물이냐` : `${name} 선물이냐`);
+    result = result.replace(/여주 자취방/g, batchim ? `${name}이 자취방` : `${name} 자취방`);
 
-    // 3. 나머지 일반 '김여주' 및 '여주' 치환
-    result = result.replace(/김여주/g, name);
+    // 3. 나머지 일반 '여주' 치환
     result = result.replace(/여주/g, name);
 
     return result;
@@ -1310,8 +1313,8 @@
     {
       id: "yeojoo",
       title: "여주❤",
-      preview: "왜이래 ㅋㅋㅋㅋㅋㅋㅋ",
-      time: "오후 3:42",
+      preview: "넵!!❤",
+      time: "오후 6:08",
       unread: 0,
       pinned: true,
       pfpKey: "yeojoo",
@@ -1322,7 +1325,6 @@
         { sender: "me", text: "나 학교 간다ㅏㅏ", time: "오전 8:30" },
         { sender: "me", text: "오늘 하루도 파이팅 ㅎㅎ", time: "오전 8:30" },
         { sender: "other", name: "여주❤", text: "응 너두 파이팅", time: "오전 8:35" },
-        { type: "date", text: "4시간 후" },
         { sender: "other", name: "여주❤", text: "너 합주 언제 끝나?", time: "오후 12:40" },
         { sender: "me", text: "방금 끝났다!", time: "오후 12:41" },
         { sender: "me", text: "악기만 정리하고 바로 나갈라고", time: "오후 12:41" },
@@ -1337,6 +1339,30 @@
         { sender: "other", name: "여주❤", text: "뛰지마", time: "오후 12:44" },
         { sender: "other", name: "여주❤", text: "자빠져", time: "오후 12:44" },
         { sender: "me", text: "안 자빠진다 ㅎㅎㅎ금방 가께", time: "오후 12:44" },
+
+        { type: "date", text: "2026년 12월 16일 수요일" },
+        { sender: "other", name: "여주❤", text: "너 두고간 후드티 입어도 돼?", time: "오전 10:35" },
+        { sender: "me", text: "당연하지!!", time: "오전 10:35" },
+        { sender: "me", text: "그거 기모 빵빵해서 엄청 따숩다ㅎㅎ", time: "오전 10:35" },
+        { sender: "other", name: "여주❤", text: "오 대박", time: "오전 10:40" },
+        { sender: "other", name: "여주❤", text: "좋다 어디서 샀어?", time: "오전 10:40" },
+        { sender: "me", text: "사게??", time: "오전 10:41" },
+        { sender: "other", name: "여주❤", text: "응 무신사?", time: "오전 10:41" },
+        { sender: "me", text: "그냥 그거 가져도 된다ㅎㅎ", time: "오전 10:42" },
+        { sender: "other", name: "여주❤", text: "됐어 내돈내산 할거야", time: "오전 10:42" },
+        { sender: "me", text: "말라꼬ㅡㅡ", time: "오전 10:42" },
+        { sender: "other", name: "여주❤", text: "사이즈도 너무 커", time: "오전 10:43" },
+        { sender: "me", text: "헐 귀엽겠다 사진 보내주라", time: "오전 10:44" },
+        { sender: "me", text: "궁금하다 얼마나 큰데??", time: "오전 10:44" },
+        { sender: "other", name: "여주❤", text: "싫어 바보같아", time: "오전 10:45" },
+        { sender: "me", text: "아 제발요ㅠㅠ", time: "오전 10:45" },
+        { sender: "me", text: "한 번만 보여주라 응??", time: "오전 10:45" },
+        { sender: "me", text: "소원입니다!!", time: "오전 10:45" },
+        { sender: "other", name: "여주❤", text: "무슨ㅋㅋㅋ", time: "오전 10:46" },
+        { sender: "other", name: "여주❤", text: "나중에 집 와서 봐", time: "오전 10:46" },
+        { sender: "me", text: "ㅜㅜ자휴하까", time: "오전 10:47" },
+        { sender: "other", name: "여주❤", text: "하기만 해", time: "오전 10:47" },
+        { sender: "me", text: "네에..", time: "오전 10:47" },
 
         { type: "date", text: "2026년 12월 17일 목요일" },
         { sender: "me", text: "시험 잘 쳤나??", time: "오후 4:10" },
@@ -1415,7 +1441,30 @@
         { sender: "other", name: "여주❤", text: "더 있어도 돼", time: "오후 3:41" },
         { sender: "me", text: "아니", time: "오후 3:42" },
         { sender: "me", text: "미간에 힘빡주고 정색하고 앉아있으께", time: "오후 3:42" },
-        { sender: "other", name: "여주❤", text: "왜이래 ㅋㅋㅋㅋㅋㅋㅋ", time: "오후 3:42" }
+        { sender: "other", name: "여주❤", text: "왜이래 ㅋㅋㅋㅋㅋㅋㅋ", time: "오후 3:42" },
+        { sender: "me", text: "이제 곧 시작!!", time: "오후 6:01" },
+        { sender: "me", text: "약 먹고 있어서 술 못 먹는다캤다ㅎㅎ", time: "오후 6:02" },
+        { sender: "other", name: "여주❤", text: "거짓말을 술술 하네 아주", time: "오후 6:03" },
+        { sender: "me", text: "이렇게 말 안 하면 절대 안 보내준다ㅠ", time: "오후 6:03" },
+        { sender: "other", name: "여주❤", text: "ㅋㅋㅋ아니 그냥 마시고 와도 된다니까", time: "오후 6:04" },
+        { sender: "other", name: "여주❤", text: "너 술자리 안 간지 오래됐잖아 맨날 나 때문에 빠지고", time: "오후 6:04" },
+        { sender: "me", text: "에이 그냥 내가 여주랑 있고 싶어서 빠진 거지", time: "오후 6:04" },
+        { sender: "other", name: "여주❤", text: "그게 나 때문인 거 아냐?? ㅋㅋㅋ", time: "오후 6:04" },
+        { sender: "me", text: "여주가 빠지라고 강요한 거 아니잖아 ㅎㅎ", time: "오후 6:05" },
+        { sender: "me", text: "암튼 진짜 딱 30분만!! 기다려주라 금방 가께", time: "오후 6:05" },
+        { sender: "other", name: "여주❤", text: "30분이면 밥도 제대로 못 먹겠다", time: "오후 6:05" },
+        { sender: "me", text: "저녁은 같이 먹어야지 ㅎㅎ", time: "오후 6:05" },
+        { sender: "other", name: "여주❤", text: "나 저녁 먹었는데", time: "오후 6:06" },
+        { sender: "me", text: "앗 글나ㅠ", time: "오후 6:06" },
+        { sender: "me", text: "오늘 좀 빨리먹었네ㅠㅠㅠ", time: "오후 6:06" },
+        { sender: "other", name: "여주❤", text: "ㅋㅋㅋㅋㅋㅋ", time: "오후 6:06" },
+        { sender: "other", name: "여주❤", text: "뻥이야 먹고싶은거 생각해와", time: "오후 6:06" },
+        { sender: "me", text: "아 ㅋㅋㅋㅎㅎㅎㅎ", time: "오후 6:07" },
+        { sender: "me", text: "여주 먹고싶은거!!", time: "오후 6:07" },
+        { sender: "other", name: "여주❤", text: "대영이 먹고싶은거 생각해와", time: "오후 6:07" },
+        { sender: "me", text: "여주 사랑!!", time: "오후 6:08" },
+        { sender: "other", name: "여주❤", text: "대영이 먹고싶은거 제대로 생각해와", time: "오후 6:08" },
+        { sender: "me", text: "넵!!❤", time: "오후 6:08" }
       ]
     },
     {
@@ -1431,6 +1480,8 @@
       messages: [
         { type: "gift", item: "약국용 특대형 붙이는 핫팩 30매입 1박스", time: "오후 2:10" },
         { type: "gift", item: "투썸플레이스 떠먹는 스트로베리 초콜릿 생크림 + 아메리카노(R)", time: "오후 8:40" },
+        { type: "gift", item: "오쏘몰 이뮨 멀티비타민&미네랄 30일분", time: "오후 2:10" },
+        { type: "gift", item: "록시땅 시어버터 드라이 스킨 핸드 크림 150ml", time: "오후 2:10" },
         { type: "gift", item: "올리브영 모바일 기프트카드 30,000원권", time: "오후 5:15" },
         { type: "gift", item: "디올 어딕트 립 글로우 #001 핑크 (각인 서비스 포함)", time: "오전 11:20" }
       ]
@@ -1596,6 +1647,26 @@
       messages: [
         { sender: "other", name: "무신사", text: "(광고) 겨울 아우터 최종 클리어런스 최대 80% 할인 + 회원 전용 15% 더블 쿠폰팩이 지급되었습니다.\n\n무료수신거부 080-850-0000", time: "오후 12:00" }
       ]
+    },
+        {
+      id: "yjmom",
+      title: "장모님",
+      preview: "네 어머니도 감기 조심하세요!! 사랑합니다ㅎㅎ❤",
+      time: "12월 1일",
+      unread: 0,
+      pinned: true,
+      pfpKey: "yjmom",
+      fallbackBg: "#10B981",
+      fallbackText: "장모님",
+      messages: [
+        { sender: "other", name: "장모님", text: "대영아~ 이번 주말에 여주랑 내려오니?", time: "오후 6:12" },
+        { sender: "me", text: "어머니!! 저번에 보내주신 과일 너무 맛있게 잘 먹었습니다ㅎㅎ", time: "오후 6:14" },
+        { sender: "me", text: "이번 주말은 제가 알바 대타가 있어서 같이 못 내려갈 것 같아요ㅠㅠ", time: "오후 6:14" },
+        { sender: "me", text: "종강하고 바로 내려가서 인사드리겠습니다!!", time: "오후 6:14" },
+        { sender: "other", name: "장모님", text: "그래그래 공부하랴 일하랴 고생이 많네 우리 사위~", time: "오후 6:15" },
+        { sender: "other", name: "장모님", text: "날 추운데 여주랑 뜨끈한 거 사 먹고 감기 조심해라^^", time: "오후 6:16" },
+        { sender: "me", text: "네 어머니도 감기 조심하세요!! 사랑합니다ㅎㅎ❤", time: "오후 6:16" }
+      ]
     }
   ];
 
@@ -1684,10 +1755,28 @@
       fallbackGradient: "linear-gradient(135deg,#27272a,#18181b)"
     },
     {
+      title: "장롱면허 도로연수 브이로그 ㅣ 초보운전 주차 공식 완벽 정리",
+      meta: "조회수 3만회 · 3주 전",
+      duration: "24:20",
+      fallbackGradient: "linear-gradient(135deg,#27272a,#18181b)"
+    },
+    {
       title: "[영화리뷰] 신카이 마코토 극장판 애니메이션 결말 해석 및 숨겨진 디테일 총정리",
       meta: "조회수 95만회 · 5개월 전",
       duration: "19:45",
       fallbackGradient: "linear-gradient(135deg,#0f766e,#1e3a8a)"
+    },
+    {
+      title: "자취방 세면대 막혔을 때 옷걸이 하나로 1분 만에 뚫는 꿀팁",
+      meta: "조회수 89만회 · 2년 전",
+      duration: "03:24",
+      fallbackGradient: "linear-gradient(135deg,#27272a,#18181b)"
+    },
+    {
+      title: "[Playlist] 공부할 때 듣기 좋은 잔잔한 인디 어쿠스틱 모음 (광고 없음)",
+      meta: "조회수 35만회 · 1년 전",
+      duration: "1:02:10",
+      fallbackGradient: "linear-gradient(135deg,#27272a,#18181b)"
     },
     {
       title: "무신사 겨울 아우터 랭킹 1위부터 10위까지 직접 입어봤습니다 (코트/패딩 사이즈 팁)",
@@ -1763,30 +1852,30 @@
    * [5. 캘린더, 사파리, 전화 데이터 (절대 수정 없이 기존 그대로 유지)]
    * ========================================================================= */
   const calendarEvents = {
-    1: [{ title: "전공 보컬 레슨", time: "14:00 - 15:00", color: "blue" }, { title: "카페 마감 알바", time: "18:00 - 22:30", color: "orange" }],
-    2: [{ title: "위클리 합주 리허설", time: "16:00 - 19:00", color: "purple" }, { title: "여주 도서관 마중", time: "21:30", color: "red" }],
-    3: [{ title: "실용화성학 과제 제출", time: "13:00", color: "blue" }, { title: "카페 알바 (오픈 대타)", time: "12:00 - 17:00", color: "orange" }],
-    4: [{ title: "과 학생회 회의", time: "17:00 - 18:00", color: "green" }, { title: "카페 마감 알바", time: "18:00 - 22:30", color: "orange" }],
-    5: [{ title: "여주랑 영화 & 저녁", time: "15:00 - 21:00", color: "red" }],
+    1: [{ title: "전공 보컬 레슨", time: "14:00 - 15:00", color: "blue" }, { title: "카페 마감", time: "18:00 - 22:30", color: "orange" }],
+    2: [{ title: "위클리 합주 리허설", time: "16:00 - 19:00", color: "purple" }, { title: "여주 도서관 마중❤", time: "21:30", color: "red" }],
+    3: [{ title: "실용화성학 과제 제출", time: "13:00", color: "blue" }, { title: "카페 오픈 대타", time: "12:00 - 17:00", color: "orange" }],
+    4: [{ title: "과 학생회 회의", time: "17:00 - 18:00", color: "green" }, { title: "카페 마감", time: "18:00 - 22:30", color: "orange" }],
+    5: [{ title: "여주랑 영화❤", time: "15:00 - 21:00", color: "red" }],
     6: [{ title: "밴드팀 합주", time: "14:00 - 18:00", color: "purple" }],
-    8: [{ title: "전공 보컬 레슨", time: "14:00 - 15:00", color: "blue" }, { title: "카페 마감 알바", time: "18:00 - 22:30", color: "orange" }],
-    9: [{ title: "기말 위클리 리허설", time: "15:00 - 18:00", color: "purple" }, { title: "여주 야식 사다주기", time: "22:00", color: "red" }],
+    8: [{ title: "전공 보컬 레슨", time: "14:00 - 15:00", color: "blue" }, { title: "카페 마감", time: "18:00 - 22:30", color: "orange" }],
+    9: [{ title: "기말 위클리 리허설", time: "15:00 - 18:00", color: "purple" }, { title: "여주집❤", time: "22:00", color: "red" }],
     10: [{ title: "교양 기말고사", time: "10:30 - 12:00", color: "blue" }, { title: "알바비 입금일", time: "하루 종일", color: "green" }],
-    11: [{ title: "화성학 기말시험", time: "14:00 - 15:30", color: "blue" }, { title: "카페 마감 알바", time: "18:00 - 22:30", color: "orange" }],
-    12: [{ title: "약국 (이지엔6, 핫팩)", time: "11:00", color: "red" }, { title: "카페 주말 미들 대타", time: "13:00 - 19:00", color: "orange" }],
+    11: [{ title: "화성학 기말시험", time: "14:00 - 15:30", color: "blue" }, { title: "카페 마감", time: "18:00 - 22:30", color: "orange" }],
+    12: [{ title: "약국 (이지엔6, 핫팩)", time: "11:00", color: "red" }, { title: "카페 미들 대타", time: "13:00 - 19:00", color: "orange" }],
     14: [{ title: "실기 곡 최종 런스루", time: "15:00 - 19:00", color: "purple" }],
-    15: [{ title: "전공 실기 시험 (보컬)", time: "13:00 - 16:00", color: "blue" }, { title: "카페 마감 알바", time: "18:00 - 22:30", color: "orange" }],
-    17: [{ title: "시창청음 기말평가", time: "11:00 - 12:30", color: "blue" }, { title: "여주 시험 끝 (마중)", time: "18:00", color: "red" }],
-    18: [{ title: "1학년 종강총회", time: "18:30 - 20:00", color: "green" }, { title: "여주 자취방", time: "20:10", color: "red" }],
-    19: [{ title: "여주랑 종강 데이트", time: "13:00 - 22:00", color: "red" }],
-    21: [{ title: "동계 계절학기 개강", time: "10:00 - 12:00", color: "blue" }],
-    22: [{ title: "계절학기 수업", time: "10:00 - 12:00", color: "blue" }, { title: "카페 마감 알바", time: "18:00 - 22:30", color: "orange" }],
-    23: [{ title: "계절학기 수업", time: "10:00 - 12:00", color: "blue" }, { title: "여주랑 저녁 (순대국밥)", time: "18:30", color: "red" }],
+    15: [{ title: "전공 실기 시험 (보컬)", time: "13:00 - 16:00", color: "blue" }, { title: "카페 마감", time: "18:00 - 22:30", color: "orange" }],
+    17: [{ title: "시창청음 기말평가", time: "11:00 - 12:30", color: "blue" }, { title: "여주 시험 끝❤", time: "18:00", color: "red" }],
+    18: [{ title: "1학년 종강총회", time: "18:30 - 20:00", color: "green" }, { title: "여주집❤", time: "20:10", color: "red" }],
+    19: [{ title: "여주랑 서울숲❤", time: "13:00 - 22:00", color: "red" }],
+    21: [{ title: "계절학기 개강", time: "10:00 - 12:00", color: "blue" }],
+    22: [{ title: "계절학기 수업", time: "10:00 - 12:00", color: "blue" }, { title: "카페 마감", time: "18:00 - 22:30", color: "orange" }],
+    23: [{ title: "계절학기 수업", time: "10:00 - 12:00", color: "blue" }, { title: "여주랑 저녁❤", time: "18:30", color: "red" }],
     24: [{ title: "계절학기 수업", time: "10:00 - 12:00", color: "blue" }, { title: "성수동 타르트 픽업", time: "16:30", color: "red" }, { title: "크리스마스 이브", time: "18:00", color: "red" }],
-    25: [{ title: "🎄 크리스마스 호캉스", time: "하루 종일", color: "red" }, { title: "레스토랑 디너 예약", time: "19:00", color: "red" }],
+    25: [{ title: "🎄여주랑 크리스마스 호캉스❤", time: "하루 종일", color: "red" }, { title: "레스토랑 디너 예약", time: "19:00", color: "red" }],
     28: [{ title: "계절학기 수업", time: "10:00 - 12:00", color: "blue" }],
-    29: [{ title: "계절학기 수업", time: "10:00 - 12:00", color: "blue" }, { title: "카페 마감 알바", time: "18:00 - 22:30", color: "orange" }],
-    31: [{ title: "여주랑 연말 카운트다운", time: "20:00", color: "red" }]
+    29: [{ title: "계절학기 수업", time: "10:00 - 12:00", color: "blue" }, { title: "카페 마감", time: "18:00 - 22:30", color: "orange" }],
+    31: [{ title: "여주랑 새해 카운트다운❤", time: "20:00", color: "red" }]
   };
 
   const safariHistory = [
@@ -1796,68 +1885,68 @@
     "여자친구 크리스마스 선물 20대 초반",
     "수족냉증에 좋은 차",
     "이지엔6 이브 복용 간격",
-    "순대국밥 다대기 황금레시피",
-    "스부 패딩 슬리퍼 사이즈 팁",
-    "디올 립글로우 각인 문구 추천",
-    "아몬드 초콜릿 대용량 박스",
-    "여자 반지 호수 몰래 재는 법",
+    "립스틱 각인 문구 추천",
+    "초콜릿 대용량",
+    "여자친구 반지 호수 몰래 재는 법",
     "소망대 계절학기 학점 인정",
-    "John Mayer Stop This Train tab",
     "여자친구 화났을 때 풀어주는 법",
-    "20대 여자 향수 추천 무화과",
-    "고양이 보러 갈 수 있는 카페"
+    "20대 여자 향수 추천",
+    "기타 손가락 물집 빨리 낫는 법",
+    "국제운전면허증 발급 준비물",
+    "사랑니 발치 후 키스",
+    "아기돼지 볼 수 있는 카페"
   ];
 
   const callRecords = [
-    { name: "김여주❤️", type: "FaceTime 오디오", time: "오후 4:10", missed: false },
-    { name: "김여주❤️", type: "휴대전화", time: "오후 1:15", missed: false },
+    { name: "여주❤️", type: "FaceTime 오디오", time: "오후 4:10", missed: false },
+    { name: "여주❤️", type: "휴대전화", time: "오후 1:15", missed: false },
     { name: "박준혁 (실음과)", type: "휴대전화", time: "오전 11:50", missed: false },
-    { name: "김여주❤️", type: "휴대전화", time: "오전 9:32", missed: false },
-    { name: "김여주❤️", type: "FaceTime 오디오", time: "어제", missed: false },
-    { name: "엄마❤️", type: "휴대전화", time: "어제", missed: false },
-    { name: "김여주❤️", type: "휴대전화", time: "어제", missed: false },
+    { name: "여주❤️", type: "휴대전화", time: "오전 9:32", missed: false },
+    { name: "여주❤️", type: "FaceTime 오디오", time: "어제", missed: false },
+    { name: "엄마", type: "휴대전화", time: "어제", missed: false },
+    { name: "여주❤️", type: "휴대전화", time: "어제", missed: false },
     { name: "최윤성 (건반)", type: "휴대전화", time: "어제", missed: false },
-    { name: "김여주❤️", type: "휴대전화", time: "어제", missed: false },
+    { name: "여주❤️", type: "휴대전화", time: "어제", missed: false },
     { name: "카페 매니저님", type: "휴대전화", time: "어제", missed: false },
-    { name: "김여주❤️", type: "휴대전화", time: "어제", missed: false },
-    { name: "김여주❤️", type: "FaceTime 오디오", time: "수요일", missed: false },
+    { name: "여주❤️", type: "휴대전화", time: "어제", missed: false },
+    { name: "여주❤️", type: "FaceTime 오디오", time: "수요일", missed: false },
     { name: "이승우 선배 (학생회장)", type: "휴대전화", time: "수요일", missed: true },
-    { name: "김여주❤️", type: "휴대전화", time: "수요일", missed: false },
-    { name: "김여주❤️", type: "휴대전화", time: "수요일", missed: false },
+    { name: "여주❤️", type: "휴대전화", time: "수요일", missed: false },
+    { name: "여주❤️", type: "휴대전화", time: "수요일", missed: false },
     { name: "정건우 (베이스)", type: "휴대전화", time: "수요일", missed: false },
-    { name: "김여주❤️", type: "휴대전화", time: "수요일", missed: false },
+    { name: "여주❤️", type: "휴대전화", time: "수요일", missed: false },
     { name: "작은형", type: "휴대전화", time: "화요일", missed: false },
-    { name: "김여주❤️", type: "FaceTime 오디오", time: "화요일", missed: false },
-    { name: "김여주❤️", type: "휴대전화", time: "화요일", missed: false },
+    { name: "여주❤️", type: "FaceTime 오디오", time: "화요일", missed: false },
+    { name: "여주❤️", type: "휴대전화", time: "화요일", missed: false },
     { name: "실음과 학과사무실", type: "대한민국", time: "화요일", missed: false },
-    { name: "김여주❤️", type: "휴대전화", time: "화요일", missed: false },
+    { name: "여주❤️", type: "휴대전화", time: "화요일", missed: false },
     { name: "한지민 (드럼)", type: "휴대전화", time: "월요일", missed: false },
-    { name: "김여주❤️", type: "휴대전화", time: "월요일", missed: false },
-    { name: "김여주❤️", type: "FaceTime 오디오", time: "월요일", missed: false },
-    { name: "김민규 (소망남고)", type: "휴대전화", time: "월요일", missed: false },
-    { name: "김여주❤️", type: "휴대전화", time: "월요일", missed: false },
-    { name: "김여주❤️", type: "휴대전화", time: "일요일", missed: false },
+    { name: "여주❤️", type: "휴대전화", time: "월요일", missed: false },
+    { name: "여주❤️", type: "FaceTime 오디오", time: "월요일", missed: false },
+    { name: "김민규", type: "휴대전화", time: "월요일", missed: false },
+    { name: "여주❤️", type: "휴대전화", time: "월요일", missed: false },
+    { name: "여주❤️", type: "휴대전화", time: "일요일", missed: false },
     { name: "아빠", type: "휴대전화", time: "일요일", missed: false },
-    { name: "김여주❤️", type: "FaceTime 오디오", time: "일요일", missed: false },
-    { name: "김여주❤️", type: "휴대전화", time: "일요일", missed: false },
+    { name: "여주❤️", type: "FaceTime 오디오", time: "일요일", missed: false },
+    { name: "여주❤️", type: "휴대전화", time: "일요일", missed: false },
     { name: "강태현 (작곡과)", type: "휴대전화", time: "토요일", missed: false },
-    { name: "김여주❤️", type: "휴대전화", time: "토요일", missed: false },
-    { name: "김여주❤️", type: "휴대전화", time: "토요일", missed: false },
+    { name: "여주❤️", type: "휴대전화", time: "토요일", missed: false },
+    { name: "여주❤️", type: "휴대전화", time: "토요일", missed: false },
     { name: "큰형", type: "휴대전화", time: "금요일", missed: false },
-    { name: "김여주❤️", type: "FaceTime 오디오", time: "금요일", missed: false }
+    { name: "여주❤️", type: "FaceTime 오디오", time: "금요일", missed: false }
   ];
 
   const favRecords = [
-    { name: "김여주❤️", sub: "휴대전화" },
-    { name: "엄마❤️", sub: "휴대전화" },
+    { name: "여주❤️", sub: "휴대전화" },
+    { name: "엄마", sub: "휴대전화" },
     { name: "아빠", sub: "휴대전화" },
     { name: "큰형", sub: "휴대전화" },
     { name: "작은형", sub: "휴대전화" }
   ];
 
   const contactsList = [
-    "강태현 (작곡과)", "김민규 (소망남고)", "김여주❤️", "박준혁 (실음과)",
-    "실음과 학과사무실", "아빠", "엄마❤️", "이승우 선배 (학생회장)",
+    "강태현 (작곡과)", "김민규", "여주❤️", "박준혁 (실음과)",
+    "실음과 학과사무실", "아빠", "엄마", "이승우 선배 (학생회장)",
     "작은형", "정건우 (베이스)", "최윤성 (건반)", "카페 매니저님", "큰형", "한지민 (드럼)"
   ];
 
@@ -1913,8 +2002,8 @@
   /* =========================================================================
    * [에브리타임 인트로 타이핑 & 등록 시퀀스]
    * ========================================================================= */
-  const ET_INTRO_TITLE = "음대 건물 앞에서 휴대폰 주웠다";
-  const ET_INTRO_BODY = "케이스 뒤에 여자친구 분? 이랑 찍은 것 같은 폴라 사진 끼워져 있고\n디지몬 스티커 붙여져 있다 기숙사 경비실에 맡겨놓겠다";
+  const ET_INTRO_TITLE = "먐이포차 근처에서 휴대폰 잃어버리신 분??";
+  const ET_INTRO_BODY = "케이스 뒤에 여자친구 분? 이랑 찍은 것 같은 폴라 사진 끼워져 있고\n디지몬 스티커 붙여져 있어요! 기숙사 관제실에 맡겨놓을게요~";
   let etIntroTimer = null;
   let etIntroFinished = false;
 
@@ -2019,9 +2108,7 @@
   function renderLockNotifications() {
     const box = document.getElementById("lock-notif-container");
     const items = [
-      { title: applyUserName("여주❤"), body: "더 있어도 돼", time: "방금" },
       { title: applyUserName("여주❤"), body: "왜이래 ㅋㅋㅋㅋㅋㅋㅋ", time: "방금" },
-      { title: "엄마", body: applyUserName("반찬 여주 자취방에도 반 덜어다 주고"), time: "어제" }
     ];
     box.innerHTML = items.map(n => `
       <div class="ios-glass" style="border-radius:18px;padding:11px 14px;display:flex;align-items:center;gap:11px;">
